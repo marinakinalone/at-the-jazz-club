@@ -1,0 +1,5 @@
+export 
+const GAMES = {
+    MEMORY: 'MEMORY',
+    RIGHT_SEQUENCE: 'RIGHT_SEQUENCE'
+}
