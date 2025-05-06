@@ -3,23 +3,36 @@ import Image from 'next/image'
 import Caption from '@/components/Caption'
 import useStore from '@/store'
 import styles from './Scene.module.css'
-import { SceneName } from '@/types/scenes'
+import { IInteractiveArea, SceneName } from '@/types/scenes'
+import { GameName } from '@/types/games'
 
+// TODO hover state on interactive areas to display caption
 const Scene = () => {
   const currentScene = useStore((state) => state.currentScene)
   const interactiveAreas = useStore((state) => state.interactiveAreas)
   const setCurrentScene = useStore((state) => state.setCurrentScene)
 
-  const handleAreaClick = (navigateTo?: SceneName) => {
-    if (navigateTo) {
-      setCurrentScene(navigateTo) // Navigate to the new scene
+  const handleAreaClick = ({
+    destination,
+    openGame,
+  }: {
+    destination?: SceneName
+    openGame?: GameName
+  }) => {
+    if (destination) {
+      setCurrentScene(destination)
+    }
+
+    if (openGame) {
+      // TODO open game in modal
+      console.log('open game', openGame)
     }
   }
 
   return (
     <>
       <section className={styles.sceneContainer}>
-        {interactiveAreas.map((area, index) => (
+        {interactiveAreas.map((area: IInteractiveArea, index: number) => (
           <button
             key={index}
             className={styles.interactiveCircle}
@@ -30,7 +43,7 @@ const Scene = () => {
               height: `${area.height || area.radius || 0}px`,
               borderRadius: area.radius ? '50%' : '0px',
             }}
-            onClick={() => handleAreaClick(area.navigateTo)}
+            onClick={() => handleAreaClick({ destination: area.navigateTo })}
             title={area.area}
           />
         ))}
@@ -43,7 +56,9 @@ const Scene = () => {
           className={styles.sceneImage}
         />
       </section>
-      {/* <Caption message="Welcome to the club!" /> */}
+      <section className={styles.captionContainer}>
+        <Caption message="Welcome to the club! Welcome to the club!Welcome to the club!Welcome to the club!Welcome to the club!Welcome to the club!Welcome to the club!Welcome to the club!Welcome to the club!Welcome to the club!Welcome to the club!" />
+      </section>
     </>
   )
 }

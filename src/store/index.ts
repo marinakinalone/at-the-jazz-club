@@ -13,6 +13,8 @@ interface StoreState {
   setHasEnteredTheClub: (value: boolean) => void
 }
 
+// TODO add loading state too.
+
 const useStore = create<StoreState>((set) => ({
   scenesState: scenes.map((scene) => {
     return {
@@ -24,7 +26,11 @@ const useStore = create<StoreState>((set) => ({
   interactiveAreas: scenes[0].interactiveAreas,
   isInTheClub: false,
 
-  setCurrentScene: (sceneName) => set({ currentScene: sceneName }),
+  setCurrentScene: (sceneName) =>
+    set({
+      currentScene: sceneName,
+      interactiveAreas: scenes.find((scene) => scene.name === sceneName)?.interactiveAreas || [],
+    }),
   updateSceneState: (sceneName, unblocked) =>
     set((state) => ({
       scenesState: state.scenesState.map((scene) =>

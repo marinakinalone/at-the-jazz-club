@@ -1,8 +1,9 @@
 .sceneContainer {
-    position: absolute;
   width: 700px;
   height: 700px;
-  border: 2px solid red;
+  border: 2px solid var(--foreground);
+  border-radius: 4px;
+  position: relative;
 }
 
 .interactiveCircle {
@@ -13,8 +14,17 @@
 }
 
 .sceneImage {
-position: relative;
+  position: absolute;
   width: 100%;
   height: 100%;
   z-index: -1;
+}
+
+.captionContainer {
+    border: 2px solid var(--foreground);
+    border-radius: 4px;
+    width: 700px;
+    margin-top: 10px;
+    padding: 15px;
+    min-height: 90px;
 }
