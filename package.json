@@ -6,7 +6,9 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prettier": "prettier --write **/*.{ts,tsx}",
+    "prettier:staged": "prettier --write $(git diff --cached --name-only --diff-filter=ACM \"*.ts\" \"*.tsx\" | sed 's| |\\\\ |g')"
   },
   "dependencies": {
     "eslint-config-prettier": "^10.1.2",

@@ -1,3 +1,3 @@
-import { GAMES } from '../constants/games';
+import { GAMES } from '../constants/games'
 
-export type GameName = (typeof GAMES)[keyof typeof GAMES];
+export type GameName = (typeof GAMES)[keyof typeof GAMES]

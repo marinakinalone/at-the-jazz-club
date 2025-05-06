@@ -1,0 +1,20 @@
+.sceneContainer {
+    position: absolute;
+  width: 700px;
+  height: 700px;
+  border: 2px solid red;
+}
+
+.interactiveCircle {
+  position: absolute;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+}
+
+.sceneImage {
+position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
