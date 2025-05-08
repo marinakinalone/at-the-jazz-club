@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import MemoryGame from './Memory'
 import RightSequenceGame from './RightSequence'
-import WinningMessage from '.'
+import WinningMessage from './Winning'
 import useStore from '@/store'
 import { GameName, GAMES } from '@/types/games'
 import { SCENES } from '@/types/scenes'
@@ -24,9 +24,9 @@ const Game = ({ gameName }: { gameName: GameName }) => {
       if (!hasPlayedGames[GAMES[gameName]]) {
         setCurrentScene(SCENES.LOUNGE_WITH_BOX)
       }
-      setHasWon(false)
       setPlayGame(false)
       setHasPlayedGames(GAMES[gameName])
+      setHasWon(false)
     }, WINNING_MESSAGE_TIMEOUT)
   }
 
@@ -40,7 +40,7 @@ const Game = ({ gameName }: { gameName: GameName }) => {
         return <p>Game not found</p>
     }
   }
-
+console.log('hasWon: ', hasWon)
   return <div>{hasWon ? <WinningMessage gameName={gameName} /> : <Game />}</div>
 }
 

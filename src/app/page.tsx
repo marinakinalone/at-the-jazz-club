@@ -32,8 +32,7 @@ export default function Home() {
 
   return (
     <main className={styles.main}>
-      {playGame === RIGHT_SEQUENCE && <Game gameName={RIGHT_SEQUENCE} />}
-      {playGame === MEMORY && <Game gameName={MEMORY} />}
+      {playGame && <Game gameName={playGame} />}
       {hasEnteredTheClub ? <Scene /> : <Intro />}
     </main>
   )
