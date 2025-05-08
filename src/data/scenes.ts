@@ -2,12 +2,12 @@ import { IScene } from '@/types/scenes'
 import { SCENES } from '@/constants/scenes'
 import { GAMES } from '@/constants/games'
 
-const { CLUB_ENTRANCE, LOUNGE_WITH_BOX, LOUNGE_EMPTY_PLAYER, LOUNGE_FINAL, RECORD_PLAYER } = SCENES
+const { CLUB_ENTRANCE_CLOSED, CLUB_ENTRANCE_OPENED_FINAL, CLUB_ENTRANCE_OPENED_TO_EMPTY_PLAYER, CLUB_ENTRANCE_OPENED_TO_BOX, LOUNGE_WITH_BOX, LOUNGE_EMPTY_PLAYER, LOUNGE_FINAL, RECORD_PLAYER } = SCENES
 
 const { MEMORY, RIGHT_SEQUENCE } = GAMES
 
-const interactiveAreasInit = {
-  enterClub: {
+export const interactiveAreasInit = {
+  playToEnterClub: {
     area: 'door',
     openGame: RIGHT_SEQUENCE,
     x: 0.33,
@@ -16,9 +16,54 @@ const interactiveAreasInit = {
     height: 220,
     description: `La porte d'entrée du club. On dirait qu'elle est fermée à clé. Peut-être qu'il y a un moyen de l'ouvrir ?`,
   },
-  exitClub: {
+  enterClubWithBox: {
     area: 'door',
-    navigateTo: CLUB_ENTRANCE,
+    navigateTo: LOUNGE_WITH_BOX,
+    x: 0.33,
+    y: 0.43,
+    width: 110,
+    height: 220,
+    description: `Entrer dans le club`,
+  },
+  enterClubWithEmptyPlayer: {
+    area: 'door',
+    navigateTo: LOUNGE_EMPTY_PLAYER,
+    x: 0.33,
+    y: 0.43,
+    width: 110,
+    height: 220,
+    description: `Entrer dans le club`,
+  },
+  enterClubFinal: {
+    area: 'door',
+    navigateTo: LOUNGE_FINAL,
+    x: 0.33,
+    y: 0.43,
+    width: 110,
+    height: 220,
+    description: `Entrer dans le club`,
+  },
+  exitClubFromLoungeWithBox: {
+    area: 'door',
+    navigateTo: CLUB_ENTRANCE_OPENED_TO_BOX,
+    x: 0.8,
+    y: 0.21,
+    width: 80,
+    height: 270,
+    description: 'Sortir du club',
+  },
+  exitClubFromLoungeWithEmptyPlayer: {
+    area: 'door',
+    navigateTo: CLUB_ENTRANCE_OPENED_TO_EMPTY_PLAYER,
+    x: 0.8,
+    y: 0.21,
+    width: 80,
+    height: 270,
+    description: 'Sortir du club',
+  },
+  exitClubFromFinal:  {
+    area: 'door',
+    navigateTo: CLUB_ENTRANCE_OPENED_FINAL,
     x: 0.8,
     y: 0.21,
     width: 80,
@@ -53,6 +98,7 @@ const interactiveAreasInit = {
   recordPlayer: {
     area: 'recordplayer',
     description: `Un très jolie platine vinyle mais il manque un disque pour que l'on puisse en profiter. Que joue-t-on aujourd'hui ?`,
+    navigateTo: RECORD_PLAYER,
     x: 0.05,
     y: 0.62,
     height: 80,
@@ -68,40 +114,61 @@ const interactiveAreasInit = {
   },
 }
 
-const { backToLounge, enterClub, exitClub, boxToOpen, recordPlayer, recordsOnTheWall, stage } =
+const { backToLounge, enterClubWithBox, enterClubWithEmptyPlayer, enterClubFinal, exitClubFromFinal, exitClubFromLoungeWithBox, exitClubFromLoungeWithEmptyPlayer, boxToOpen, playToEnterClub, recordPlayer, recordsOnTheWall, stage } =
   interactiveAreasInit
 
 const scenes: IScene[] = [
   {
     id: 0,
-    name: CLUB_ENTRANCE,
+    name: CLUB_ENTRANCE_CLOSED,
     unblocked: true,
-    message: 'message 0',
-    interactiveAreas: [enterClub],
+    message: 'Bienvenue au club de jazz ! On entre ?',
+    interactiveAreas: [playToEnterClub],
   },
   {
     id: 1,
-    name: LOUNGE_WITH_BOX,
+    name: CLUB_ENTRANCE_OPENED_TO_BOX,
     unblocked: false,
-    message: 'message 1',
-    interactiveAreas: [exitClub, boxToOpen],
+    message: `On peut enfin entrer dans le club ! TBD`,
+    interactiveAreas: [enterClubWithBox],
   },
   {
     id: 2,
-    name: LOUNGE_EMPTY_PLAYER,
+    name: CLUB_ENTRANCE_OPENED_TO_EMPTY_PLAYER,
     unblocked: false,
-    message: 'message 2',
-    interactiveAreas: [exitClub, recordsOnTheWall, stage, recordPlayer],
+    message: `On peut enfin entrer dans le club ! TBD`,
+    interactiveAreas: [enterClubWithEmptyPlayer],
   },
   {
     id: 3,
-    name: LOUNGE_FINAL,
+    name: CLUB_ENTRANCE_OPENED_FINAL,
     unblocked: false,
-    message: 'message 3',
-    interactiveAreas: [exitClub, stage, recordsOnTheWall, recordPlayer],
+    message: `On peut enfin entrer dans le club ! TBD`,
+    interactiveAreas: [enterClubFinal],
   },
   {
     id: 4,
+    name: LOUNGE_WITH_BOX,
+    unblocked: false,
+    message: 'message 1',
+    interactiveAreas: [exitClubFromLoungeWithBox, boxToOpen, stage],
+  },
+  {
+    id: 5,
+    name: LOUNGE_EMPTY_PLAYER,
+    unblocked: false,
+    message: 'message 2',
+    interactiveAreas: [exitClubFromLoungeWithEmptyPlayer, recordsOnTheWall, stage, recordPlayer],
+  },
+  {
+    id: 6,
+    name: LOUNGE_FINAL,
+    unblocked: false,
+    message: 'message 3',
+    interactiveAreas: [exitClubFromFinal, stage, recordsOnTheWall, recordPlayer],
+  },
+  {
+    id: 7,
     name: RECORD_PLAYER,
     unblocked: false,
     message: 'message 4',

@@ -5,7 +5,7 @@ import useStore from '@/store'
 const Intro = () => {
   const hasEnteredTheClub = useStore((state) => state.setHasEnteredTheClub)
   const handleClick = () => {
-    hasEnteredTheClub()
+    hasEnteredTheClub(true)
   }
   return (
     <div>
