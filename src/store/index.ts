@@ -1,9 +1,8 @@
-import { GAMES } from '@/constants/games'
+import { create } from 'zustand'
 import { IS_IN_THE_CLUB } from '@/constants/scenes'
 import scenes from '@/data/scenes'
-import { GameName } from '@/types/games'
+import { GameName, GAMES } from '@/types/games'
 import { IInteractiveArea, SceneName } from '@/types/scenes'
-import { create } from 'zustand'
 
 const { RIGHT_SEQUENCE, MEMORY } = GAMES
 
@@ -14,11 +13,19 @@ interface StoreState {
 
   playGame: GameName | false
   hasPlayedGames: {
-    [key: GameName]: boolean
+    [key in GameName]: boolean
   }
 
   setCurrentScene: (sceneName: SceneName) => void
-  updateSceneState: ({sceneName, unblocked, interactiveAreas}:{sceneName: SceneName, unblocked?: boolean, interactiveAreas?: IInteractiveArea[]}) => void
+  updateSceneState: ({
+    sceneName,
+    unblocked,
+    interactiveAreas,
+  }: {
+    sceneName: SceneName
+    unblocked?: boolean
+    interactiveAreas?: IInteractiveArea[]
+  }) => void
   setHasEnteredTheClub: (value: boolean) => void
   setPlayGame: (gameName: GameName | false) => void
   setHasPlayedGames: (gameName: GameName) => void
@@ -49,17 +56,17 @@ const useStore = create<StoreState>((set) => ({
     set({
       currentScene: sceneName,
     }),
-  updateSceneState: ({sceneName, unblocked = true, interactiveAreas}) =>
+  updateSceneState: ({ sceneName, unblocked = true, interactiveAreas }) =>
     // TODO update localStorage
     set((state) => ({
       scenesState: state.scenesState.map((scene) =>
         scene.name === sceneName ? { ...scene, unblocked, interactiveAreas } : scene,
       ),
     })),
-  setHasEnteredTheClub: (value = true) => {
-    // if (typeof window !== 'undefined' && value === true) {
-    //   localStorage.setItem(IS_IN_THE_CLUB, 'true')
-    // }
+  setHasEnteredTheClub: (value = false) => {
+    if (typeof window !== 'undefined' && value === true) {
+      localStorage.setItem(IS_IN_THE_CLUB, 'true')
+    }
     set({ isInTheClub: value })
   },
   setPlayGame: (gameName) => {

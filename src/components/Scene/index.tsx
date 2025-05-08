@@ -1,27 +1,21 @@
-import React from 'react'
 import Image from 'next/image'
-import Caption from '@/components/Caption'
-import useStore from '@/store'
+import React from 'react'
 import styles from './Scene.module.css'
-import { IInteractiveArea, SceneName } from '@/types/scenes'
-import { GameName } from '@/types/games'
+import Caption from '@/components/Caption'
 import scenes from '@/data/scenes'
-import { GAMES } from '@/constants/games'
-import RightSequenceGame from '@/games/RightSequence'
-import MemoryGame from '@/games/Memory'
-
-const { RIGHT_SEQUENCE, MEMORY } = GAMES
+import useStore from '@/store'
+import { GameName } from '@/types/games'
+import { IInteractiveArea, SceneName } from '@/types/scenes'
 
 // TODO hover state on interactive areas to display caption
 const Scene = () => {
   const currentScene = useStore((state) => state.currentScene)
   const setCurrentScene = useStore((state) => state.setCurrentScene)
   const setPlayGame = useStore((state) => state.setPlayGame)
-  const playGame = useStore((state) => state.playGame)
   const hasPlayedGames = useStore((state) => state.hasPlayedGames)
 
-  const interactiveAreas = scenes.find((scene) => scene.name === currentScene)?.interactiveAreas || [];
-
+  const interactiveAreas =
+    scenes.find((scene) => scene.name === currentScene)?.interactiveAreas || []
 
   const handleAreaClick = ({
     destination,
@@ -38,19 +32,15 @@ const Scene = () => {
       if (hasPlayedGames[openGame]) {
         // TODO open game to ask for confirmation and use setPlayGame there
         console.log('You have already played this game, do you want to play again?')
-        setPlayGame(openGame); // TODO remove when modal is implemented
+        setPlayGame(openGame) // TODO remove when modal is implemented
       } else {
-      setPlayGame(openGame)
+        setPlayGame(openGame)
+      }
     }
   }
-  }
-
-  // TODO move playGame logic to page?
 
   return (
     <>
-        {playGame === RIGHT_SEQUENCE && <RightSequenceGame />}
-        {playGame === MEMORY && <MemoryGame />}
       <section className={styles.sceneContainer}>
         {interactiveAreas.map((area: IInteractiveArea, index: number) => (
           <button
@@ -63,7 +53,9 @@ const Scene = () => {
               height: `${area.height || area.radius || 0}px`,
               borderRadius: area.radius ? '50%' : '0px',
             }}
-            onClick={() => handleAreaClick({ destination: area.navigateTo, openGame: area.openGame })}
+            onClick={() =>
+              handleAreaClick({ destination: area.navigateTo, openGame: area.openGame })
+            }
             title={area.area}
           />
         ))}

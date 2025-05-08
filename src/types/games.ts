@@ -1,3 +1,6 @@
-import { GAMES } from '../constants/games'
+export enum GAMES {
+  MEMORY = 'MEMORY',
+  RIGHT_SEQUENCE = 'RIGHT_SEQUENCE',
+}
 
-export type GameName = (typeof GAMES)[keyof typeof GAMES]
+export type GameName = GAMES

@@ -1,6 +1,0 @@
-export const GAMES = {
-  MEMORY: 'MEMORY',
-  RIGHT_SEQUENCE: 'RIGHT_SEQUENCE',
-}
-
-export const WINNING_MESSAGE_TIMEOUT = 1000

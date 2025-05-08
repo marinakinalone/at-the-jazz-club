@@ -1,8 +1,16 @@
-import { IScene } from '@/types/scenes'
-import { SCENES } from '@/constants/scenes'
-import { GAMES } from '@/constants/games'
+import { GAMES } from '@/types/games'
+import { IScene, SCENES } from '@/types/scenes'
 
-const { CLUB_ENTRANCE_CLOSED, CLUB_ENTRANCE_OPENED_FINAL, CLUB_ENTRANCE_OPENED_TO_EMPTY_PLAYER, CLUB_ENTRANCE_OPENED_TO_BOX, LOUNGE_WITH_BOX, LOUNGE_EMPTY_PLAYER, LOUNGE_FINAL, RECORD_PLAYER } = SCENES
+const {
+  CLUB_ENTRANCE_CLOSED,
+  CLUB_ENTRANCE_OPENED_FINAL,
+  CLUB_ENTRANCE_OPENED_TO_EMPTY_PLAYER,
+  CLUB_ENTRANCE_OPENED_TO_BOX,
+  LOUNGE_WITH_BOX,
+  LOUNGE_EMPTY_PLAYER,
+  LOUNGE_FINAL,
+  RECORD_PLAYER,
+} = SCENES
 
 const { MEMORY, RIGHT_SEQUENCE } = GAMES
 
@@ -61,7 +69,7 @@ export const interactiveAreasInit = {
     height: 270,
     description: 'Sortir du club',
   },
-  exitClubFromFinal:  {
+  exitClubFromFinal: {
     area: 'door',
     navigateTo: CLUB_ENTRANCE_OPENED_FINAL,
     x: 0.8,
@@ -114,8 +122,20 @@ export const interactiveAreasInit = {
   },
 }
 
-const { backToLounge, enterClubWithBox, enterClubWithEmptyPlayer, enterClubFinal, exitClubFromFinal, exitClubFromLoungeWithBox, exitClubFromLoungeWithEmptyPlayer, boxToOpen, playToEnterClub, recordPlayer, recordsOnTheWall, stage } =
-  interactiveAreasInit
+const {
+  backToLounge,
+  enterClubWithBox,
+  enterClubWithEmptyPlayer,
+  enterClubFinal,
+  exitClubFromFinal,
+  exitClubFromLoungeWithBox,
+  exitClubFromLoungeWithEmptyPlayer,
+  boxToOpen,
+  playToEnterClub,
+  recordPlayer,
+  recordsOnTheWall,
+  stage,
+} = interactiveAreasInit
 
 const scenes: IScene[] = [
   {
