@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import React from 'react'
+import React, { useState } from 'react'
 import styles from './Scene.module.css'
 import Caption from '@/components/Caption'
 import scenes from '@/data/scenes'
@@ -7,12 +7,18 @@ import useStore from '@/store'
 import { GameName } from '@/types/games'
 import { IInteractiveArea, SceneName } from '@/types/scenes'
 
-// TODO hover state on interactive areas to display caption
+const getSceneCaption = (sceneName: SceneName) => {
+  const scene = scenes.find((scene) => scene.name === sceneName)
+  return scene ? scene.message : ''
+}
+
 const Scene = () => {
   const currentScene = useStore((state) => state.currentScene)
   const setCurrentScene = useStore((state) => state.setCurrentScene)
   const setPlayGame = useStore((state) => state.setPlayGame)
   const hasPlayedGames = useStore((state) => state.hasPlayedGames)
+
+  const [captionMessage, setCaptionMessage] = useState(getSceneCaption(currentScene))
 
   const interactiveAreas =
     scenes.find((scene) => scene.name === currentScene)?.interactiveAreas || []
@@ -45,7 +51,7 @@ const Scene = () => {
         {interactiveAreas.map((area: IInteractiveArea, index: number) => (
           <button
             key={index}
-            className={styles.interactiveCircle}
+            className={styles.interactiveZone}
             style={{
               left: `${area.x * 100}%`,
               top: `${area.y * 100}%`,
@@ -53,6 +59,8 @@ const Scene = () => {
               height: `${area.height || area.radius || 0}px`,
               borderRadius: area.radius ? '50%' : '0px',
             }}
+            onMouseEnter={() => setCaptionMessage(area.description)}
+            onMouseLeave={() => setCaptionMessage(getSceneCaption(currentScene))}
             onClick={() =>
               handleAreaClick({ destination: area.navigateTo, openGame: area.openGame })
             }
@@ -69,7 +77,7 @@ const Scene = () => {
         />
       </section>
       <section className={styles.captionContainer}>
-        <Caption message="Welcome to the club! Welcome to the club!Welcome to the club!Welcome to the club!Welcome to the club!Welcome to the club!Welcome to the club!Welcome to the club!Welcome to the club!Welcome to the club!Welcome to the club!" />
+        <Caption message={captionMessage} />
       </section>
     </>
   )

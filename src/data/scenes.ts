@@ -22,7 +22,7 @@ export const interactiveAreasInit = {
     y: 0.43,
     width: 110,
     height: 220,
-    description: `La porte d'entrée du club. On dirait qu'elle est fermée à clé. Peut-être qu'il y a un moyen de l'ouvrir ?`,
+    description: `La porte d'entrée du club. On dirait qu'elle est fermée à clé.`,
   },
   enterClubWithBox: {
     area: 'door',
@@ -149,21 +149,21 @@ const scenes: IScene[] = [
     id: 1,
     name: CLUB_ENTRANCE_OPENED_TO_BOX,
     unblocked: false,
-    message: `On peut enfin entrer dans le club ! TBD`,
+    message: `L'entrée du club`,
     interactiveAreas: [enterClubWithBox],
   },
   {
     id: 2,
     name: CLUB_ENTRANCE_OPENED_TO_EMPTY_PLAYER,
     unblocked: false,
-    message: `On peut enfin entrer dans le club ! TBD`,
+    message: `L'entrée du club`,
     interactiveAreas: [enterClubWithEmptyPlayer],
   },
   {
     id: 3,
     name: CLUB_ENTRANCE_OPENED_FINAL,
     unblocked: false,
-    message: `On peut enfin entrer dans le club ! TBD`,
+    message: `L'entrée du club`,
     interactiveAreas: [enterClubFinal],
   },
   {
@@ -191,7 +191,8 @@ const scenes: IScene[] = [
     id: 7,
     name: RECORD_PLAYER,
     unblocked: false,
-    message: 'message 4',
+    message:
+      'Tadaa ! Bravo, tu as complété aventure du club de jazz. Tu peux maintenant rejouer aux mini-jeux ou',
     interactiveAreas: [backToLounge],
   },
 ]

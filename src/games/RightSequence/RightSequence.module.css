@@ -1,0 +1,26 @@
+.resultContainer {
+    border: 1px solid teal;
+    width: 100%;
+    height: 60%;
+}
+
+.buttonContainer {
+    height: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    flex-wrap: wrap;
+    max-width: 720px;
+}
+
+
+
+.musicNoteButton {
+    width: 100px;
+    margin: 10px;
+    height: 100px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}

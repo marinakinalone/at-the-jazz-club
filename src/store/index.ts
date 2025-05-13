@@ -10,6 +10,7 @@ interface StoreState {
   scenesState: { name: SceneName; unblocked: boolean }[]
   currentScene: SceneName
   isInTheClub: string | boolean
+  isSoundOn: boolean
 
   playGame: GameName | false
   hasPlayedGames: {
@@ -29,6 +30,7 @@ interface StoreState {
   setHasEnteredTheClub: (value: boolean) => void
   setPlayGame: (gameName: GameName | false) => void
   setHasPlayedGames: (gameName: GameName) => void
+  toggleSound: () => void
 }
 
 // TODO add loading state too.
@@ -44,6 +46,7 @@ const useStore = create<StoreState>((set) => ({
   }),
   currentScene: scenes[0].name,
   isInTheClub: false,
+  isSoundOn: true,
 
   playGame: false,
   hasPlayedGames: {
@@ -79,6 +82,10 @@ const useStore = create<StoreState>((set) => ({
         ...state.hasPlayedGames,
         [gameName]: true,
       },
+    })),
+  toggleSound: () =>
+    set((state) => ({
+      isSoundOn: !state.isSoundOn,
     })),
 }))
 

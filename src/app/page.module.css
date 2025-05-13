@@ -1,10 +1,6 @@
 .page {
-  --gray-rgb: 0, 0, 0;
-  --gray-alpha-200: rgba(var(--gray-rgb), 0.08);
-  --gray-alpha-100: rgba(var(--gray-rgb), 0.05);
   --button-primary-hover: #383838;
   --button-secondary-hover: #f2f2f2;
-  font-family: var(--font-geist-sans);
 }
 
 .main {
@@ -15,6 +11,35 @@
   width: 100%;
   height: 100vh;
 
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+  a {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+}
+
+.resetButton {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  border: none;
+  background: none;
+  color: var(--foreground);
+  cursor: pointer;
+}
+
+.toggleSoundButton {
+border: none;
+background: none;
+cursor: pointer;
+position: absolute;
+padding-left: 5px;
+padding-top: 2px;
 }
 
 
@@ -29,7 +54,9 @@
     border-color: transparent;
   }
   .footer a:hover {
-    text-decoration: underline;
-    text-underline-offset: 4px;
+    text-decoration: none;
+  }
+  .resetButton:hover {
+    text-decoration: none;
   }
 }/*# sourceMappingURL=page.module.css.map */

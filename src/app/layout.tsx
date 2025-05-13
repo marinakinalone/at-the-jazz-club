@@ -1,21 +1,18 @@
-import type { Metadata } from 'next'
-// import { Geist, Geist_Mono } from 'next/font/google'
+import { IBM_Plex_Mono, Limelight } from 'next/font/google'
 import './globals.css'
 
-// const geistSans = Geist({
-//   variable: '--font-geist-sans',
-//   subsets: ['latin'],
-// })
+export const limelight = Limelight({
+  variable: '--font-header',
+  subsets: ['latin'],
+  weight: '400',
+})
 
-// const geistMono = Geist_Mono({
-//   variable: '--font-geist-mono',
-//   subsets: ['latin'],
-// })
-
-export const metadata: Metadata = {
-  title: 'Le Club de Jazz',
-  description: 'Un jeu sur le thème du jazz',
-}
+export const ibmPlexMono = IBM_Plex_Mono({
+  variable: '--font-body',
+  subsets: ['latin'],
+  style: 'italic',
+  weight: '400',
+})
 
 export default function RootLayout({
   children,
@@ -23,7 +20,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="fr">
+    <html lang="fr" className={ibmPlexMono.className} title={'Le Club de Jazz'}>
       <body>{children}</body>
     </html>
   )

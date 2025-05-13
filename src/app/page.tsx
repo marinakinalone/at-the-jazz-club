@@ -1,18 +1,19 @@
 'use client'
+import Image from 'next/image'
 import { useEffect, useState } from 'react'
+import { ibmPlexMono } from './layout'
 import styles from './page.module.css'
 import Scene from '@/components/Scene'
 import { IS_IN_THE_CLUB } from '@/constants/scenes'
 import Game from '@/games'
 import Intro from '@/modals/Intro'
 import useStore from '@/store'
-import { GAMES } from '@/types/games'
-
-const { RIGHT_SEQUENCE, MEMORY } = GAMES
 
 export default function Home() {
   const [isHydrated, setIsHydrated] = useState(false)
 
+  const isSoundOn = useStore((state) => state.isSoundOn)
+  const toggleSoundButton = useStore((state) => state.toggleSound)
   const hasEnteredTheClub = useStore((state) => state.isInTheClub)
   const setHasEnteredTheClub = useStore((state) => state.setHasEnteredTheClub)
   const playGame = useStore((state) => state.playGame)
@@ -30,10 +31,28 @@ export default function Home() {
     return null
   }
 
+  const soundIcon = isSoundOn ? 'soundOn' : 'soundOff'
+
   return (
     <main className={styles.main}>
       {playGame && <Game gameName={playGame} />}
       {hasEnteredTheClub ? <Scene /> : <Intro />}
+      <footer className={styles.footer}>
+        {' '}
+        Le Club de Jazz par{' '}
+        <a href={'https://kinalone.dev'} target="_blank" rel="noopener noreferrer">
+          MKS
+        </a>{' '}
+        © 2025 ||{' '}
+        <button className={`${styles.resetButton} ${ibmPlexMono.className}`}>
+          recommencer l&apos;aventure
+        </button>{' '}
+        ||{' '}
+        <button className={styles.toggleSoundButton} onClick={() => toggleSoundButton()}>
+          {' '}
+          <Image src={`/icons/icon_${soundIcon}.png`} alt="Son" width={18} height={18} />
+        </button>
+      </footer>
     </main>
   )
 }

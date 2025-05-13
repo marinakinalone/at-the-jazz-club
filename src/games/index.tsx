@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import MemoryGame from './Memory'
 import RightSequenceGame from './RightSequence'
 import WinningMessage from './Winning'
+import GameContainer from '@/components/GameContainer'
 import useStore from '@/store'
 import { GameName, GAMES } from '@/types/games'
 import { SCENES } from '@/types/scenes'
@@ -40,8 +41,8 @@ const Game = ({ gameName }: { gameName: GameName }) => {
         return <p>Game not found</p>
     }
   }
-console.log('hasWon: ', hasWon)
-  return <div>{hasWon ? <WinningMessage gameName={gameName} /> : <Game />}</div>
+
+  return <GameContainer>{hasWon ? <WinningMessage gameName={gameName} /> : <Game />}</GameContainer>
 }
 
 export default Game

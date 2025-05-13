@@ -1,0 +1,9 @@
+.container {
+    border: 3px solid #251428;
+    width: 900px;
+    height: 900px;
+    position: absolute;
+    background-color: #101920;
+    z-index: 1;
+    border-radius: 8px;
+}
