@@ -32,6 +32,8 @@ Winning sequence is 24 notes;
 9. la
 */
 
+// TODO win animation, reset animation, sound, effect on press, result display, close button
+
 const winningSequence = [
   7, 4, 2, 4, 5, 8, 9, 8, 4, 1, 0, 1,
   7, 4, 2, 4, 5, 8, 6, 4, 1, 0, 1, 3,

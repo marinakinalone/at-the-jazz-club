@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './Scene.module.css'
 import Caption from '@/components/Caption'
 import scenes from '@/data/scenes'
@@ -17,8 +17,11 @@ const Scene = () => {
   const setCurrentScene = useStore((state) => state.setCurrentScene)
   const setPlayGame = useStore((state) => state.setPlayGame)
   const hasPlayedGames = useStore((state) => state.hasPlayedGames)
-
   const [captionMessage, setCaptionMessage] = useState(getSceneCaption(currentScene))
+
+  useEffect(() => {
+    setCaptionMessage(getSceneCaption(currentScene));
+  }, [currentScene]);
 
   const interactiveAreas =
     scenes.find((scene) => scene.name === currentScene)?.interactiveAreas || []

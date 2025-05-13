@@ -103,9 +103,17 @@ export const interactiveAreasInit = {
     height: 140,
     description: 'TBD',
   },
+  recordPlayerEmpty: {
+    area: 'recordplayer',
+    description: `Une très jolie platine vinyle mais il manque un disque pour que l'on puisse en profiter. Que joue-t-on aujourd'hui ?`,
+    x: 0.05,
+    y: 0.62,
+    height: 80,
+    width: 150,
+  },
   recordPlayer: {
     area: 'recordplayer',
-    description: `Un très jolie platine vinyle mais il manque un disque pour que l'on puisse en profiter. Que joue-t-on aujourd'hui ?`,
+    description: `sound sound sound`,
     navigateTo: RECORD_PLAYER,
     x: 0.05,
     y: 0.62,
@@ -133,6 +141,7 @@ const {
   boxToOpen,
   playToEnterClub,
   recordPlayer,
+  recordPlayerEmpty,
   recordsOnTheWall,
   stage,
 } = interactiveAreasInit
@@ -178,7 +187,7 @@ const scenes: IScene[] = [
     name: LOUNGE_EMPTY_PLAYER,
     unblocked: false,
     message: 'message 2',
-    interactiveAreas: [exitClubFromLoungeWithEmptyPlayer, recordsOnTheWall, stage, recordPlayer],
+    interactiveAreas: [exitClubFromLoungeWithEmptyPlayer, recordsOnTheWall, stage, recordPlayerEmpty],
   },
   {
     id: 6,
@@ -192,7 +201,7 @@ const scenes: IScene[] = [
     name: RECORD_PLAYER,
     unblocked: false,
     message:
-      'Tadaa ! Bravo, tu as complété aventure du club de jazz. Tu peux maintenant rejouer aux mini-jeux ou',
+      'Tadaa ! Bravo, tu as complété aventure du club de jazz. Tu peux maintenant rejouer aux mini-jeux o...u',
     interactiveAreas: [backToLounge],
   },
 ]
