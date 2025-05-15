@@ -1,7 +1,8 @@
 import React from 'react'
+import styles from './ModalContainer.module.css'
 
-const ModalContainer = () => {
-  return <div>ModalContainer</div>
+const ModalContainer = ({ children }: { children: React.ReactNode }) => {
+  return <div className={styles.modalContainer}>{children}</div>
 }
 
 export default ModalContainer

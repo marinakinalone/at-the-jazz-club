@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import styles from './Scene.module.css'
 import Caption from '@/components/Caption'
 import scenes from '@/data/scenes'
-import useStore from '@/store'
+import useMainStore from '@/stores/mainStore'
 import { GameName } from '@/types/games'
 import { IInteractiveArea, SceneName } from '@/types/scenes'
 
@@ -13,10 +13,10 @@ const getSceneCaption = (sceneName: SceneName) => {
 }
 
 const Scene = () => {
-  const currentScene = useStore((state) => state.currentScene)
-  const setCurrentScene = useStore((state) => state.setCurrentScene)
-  const setPlayGame = useStore((state) => state.setPlayGame)
-  const hasPlayedGames = useStore((state) => state.hasPlayedGames)
+  const currentScene = useMainStore((state) => state.currentScene)
+  const setCurrentScene = useMainStore((state) => state.setCurrentScene)
+  const setPlayGame = useMainStore((state) => state.setPlayGame)
+  const hasPlayedGames = useMainStore((state) => state.hasPlayedGames)
   const [captionMessage, setCaptionMessage] = useState(getSceneCaption(currentScene))
 
   useEffect(() => {

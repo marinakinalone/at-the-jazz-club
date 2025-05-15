@@ -36,7 +36,7 @@ interface StoreState {
 // TODO add loading state too.
 // add reset game button
 
-const useStore = create<StoreState>((set) => ({
+const useMainStore = create<StoreState>((set) => ({
   // use localStorage to get the values
   scenesState: scenes.map((scene) => {
     return {
@@ -90,4 +90,4 @@ const useStore = create<StoreState>((set) => ({
     })),
 }))
 
-export default useStore
+export default useMainStore

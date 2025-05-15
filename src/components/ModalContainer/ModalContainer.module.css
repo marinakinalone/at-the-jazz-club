@@ -1,0 +1,10 @@
+
+.modalContainer {
+    border: 3px solid var(--alt-background-highlight);
+    width: 900px;
+    height: 900px;
+    position: absolute;
+    background-color: var(--alt-background);
+    z-index: 1;
+    border-radius: 8px;
+  }  

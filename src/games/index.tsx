@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import MemoryGame from './Memory'
 import RightSequenceGame from './RightSequence'
 import WinningMessage from './Winning'
-import GameContainer from '@/components/GameContainer'
-import useStore from '@/store'
+import GameContainer from '@/components/ModalContainer'
+import useMainStore from '@/stores/mainStore'
 import { GameName, GAMES } from '@/types/games'
 import { SCENES } from '@/types/scenes'
 
@@ -13,11 +13,11 @@ const { RIGHT_SEQUENCE, MEMORY } = GAMES
 
 const Game = ({ gameName }: { gameName: GameName }) => {
   const [hasWon, setHasWon] = useState(false)
-  const updateSceneState = useStore((state) => state.updateSceneState)
-  const setCurrentScene = useStore((state) => state.setCurrentScene)
-  const setPlayGame = useStore((state) => state.setPlayGame)
-  const hasPlayedGames = useStore((state) => state.hasPlayedGames)
-  const setHasPlayedGames = useStore((state) => state.setHasPlayedGames)
+  const updateSceneState = useMainStore((state) => state.updateSceneState)
+  const setCurrentScene = useMainStore((state) => state.setCurrentScene)
+  const setPlayGame = useMainStore((state) => state.setPlayGame)
+  const hasPlayedGames = useMainStore((state) => state.hasPlayedGames)
+  const setHasPlayedGames = useMainStore((state) => state.setHasPlayedGames)
 
   const hasPlayedRightSequenceForFirstTime = gameName === RIGHT_SEQUENCE && !hasPlayedGames[RIGHT_SEQUENCE]
 

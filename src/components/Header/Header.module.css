@@ -1,0 +1,48 @@
+.header {
+    font-size: 70px;
+}
+.character {
+    display: inline-block;
+    transform: translateY(var(--initial-offset, 0));
+    animation: slideDownReturn var(--duration) ease-out forwards;
+    color: var(--color);
+  }
+  
+  @keyframes slideDownReturn {
+    from {
+        transform: translateY(--initial-offset, 0);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(var(--final-offset, 0));
+        opacity: 1;
+    }
+  }
+
+  .slideUpReturn {
+    -webkit-animation-name: slideUpReturn;
+    animation-name: slideUpReturn;
+  }
+  
+  @-webkit-keyframes slideUpReturn {
+    0% {
+      transform-origin: 0 0;
+      transform: translateY(-100%);
+    }
+    100% {
+      transform-origin: 0 0;
+      transform: translateY(0%);
+    }
+  }
+  @keyframes slideUpReturn {
+    0% {
+      transform-origin: 0 0;
+      transform: translateY(-100%);
+    }
+    100% {
+      transform-origin: 0 0;
+      transform: translateY(0%);
+    }
+  }
+
+  

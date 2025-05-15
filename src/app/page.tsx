@@ -7,16 +7,17 @@ import Scene from '@/components/Scene'
 import { IS_IN_THE_CLUB } from '@/constants/scenes'
 import Game from '@/games'
 import Intro from '@/modals/Intro'
-import useStore from '@/store'
+import useMainStore from '@/stores/mainStore'
 
 export default function Home() {
   const [isHydrated, setIsHydrated] = useState(false)
 
-  const isSoundOn = useStore((state) => state.isSoundOn)
-  const toggleSoundButton = useStore((state) => state.toggleSound)
-  const hasEnteredTheClub = useStore((state) => state.isInTheClub)
-  const setHasEnteredTheClub = useStore((state) => state.setHasEnteredTheClub)
-  const playGame = useStore((state) => state.playGame)
+  const isSoundOn = useMainStore((state) => state.isSoundOn)
+  const toggleSoundButton = useMainStore((state) => state.toggleSound)
+  // const hasEnteredTheClub = useMainStore((state) => state.isInTheClub)
+  const hasEnteredTheClub = false // TODO remove when localStorage is implemented
+  const setHasEnteredTheClub = useMainStore((state) => state.setHasEnteredTheClub)
+  const playGame = useMainStore((state) => state.playGame)
 
   useEffect(() => {
     const isInTheClub = localStorage.getItem(IS_IN_THE_CLUB) === 'true'
