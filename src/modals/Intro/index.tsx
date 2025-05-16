@@ -8,7 +8,7 @@ import useModalStore from '@/stores/modalStore'
 import { AnimationTimeout, Modals } from '@/types/modals'
 import { AnimationDuration, AnimationName } from '@/types/modals'
 
-const DELAY_SECONDS = 7
+const DELAY_SECONDS = 1 // TODO default is 7
 
 const Intro = () => {
   const [showButton, setShowButton] = useState(false)
@@ -36,7 +36,6 @@ const Intro = () => {
     <ModalContainer
       animationName={modalState.isClosing ? AnimationName.swashOut : AnimationName.puffIn}
       animationDuration={AnimationDuration.medium}
-      shouldDisplayCloseButton={false}
     >
       <div className={styles.container}>
         <Header title="Le Club de Jazz" maxDuration={DELAY_SECONDS} />

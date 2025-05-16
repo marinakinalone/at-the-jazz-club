@@ -1,0 +1,16 @@
+.secondaryButton {
+    background-color: transparent;
+    color: var(--foreground);
+    padding: 8px 24px;
+    text-align: center;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    font-size: 18px;
+    cursor: pointer;
+    border: none;
+  }
+  
+  .secondaryButton:hover {
+    text-decoration: none;
+  }
+  

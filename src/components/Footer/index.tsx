@@ -3,10 +3,13 @@ import React from 'react'
 import styles from './Footer.module.css'
 import { ibmPlexMono } from '@/app/layout'
 import useMainStore from '@/stores/mainStore'
+import useModalStore from '@/stores/modalStore'
+import { Modals } from '@/types/modals'
 
 const Footer = () => {
   const toggleSoundButton = useMainStore((state) => state.toggleSound)
   const isSoundOn = useMainStore((state) => state.isSoundOn)
+  const openModal = useModalStore((state) => state.openModal)
 
   const soundIcon = isSoundOn ? 'soundOn' : 'soundOff'
 
@@ -18,7 +21,7 @@ const Footer = () => {
         MKS
       </a>{' '}
       © 2025 ||{' '}
-      <button className={`${styles.resetButton} ${ibmPlexMono.className}`}>
+      <button className={`${styles.resetButton} ${ibmPlexMono.className}`} onClick={() => openModal(Modals.restartAdventure)}>
         recommencer l&apos;aventure
       </button>{' '}
       ||{' '}

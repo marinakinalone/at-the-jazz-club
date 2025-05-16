@@ -3,15 +3,14 @@ import { useEffect, useState } from 'react'
 import styles from './page.module.css'
 import Footer from '@/components/Footer'
 import Scene from '@/components/Scene'
-import { IS_IN_THE_CLUB } from '@/constants/scenes'
+import { CURRENT_SCENE, IS_IN_THE_CLUB } from '@/constants/scenes'
+import scenes from '@/data/scenes'
 import Game from '@/games'
-import CreditsModal from '@/modals/Credits'
 import IntroModal from '@/modals/Intro'
-import ReplayGameModal from '@/modals/ReplayGame'
 import RestartAdventureModal from '@/modals/RestartAdventure'
-import WinningModal from '@/modals/Winning'
 import useMainStore from '@/stores/mainStore'
 import useModalStore from '@/stores/modalStore'
+import { SceneName } from '@/types/scenes'
 
 export default function Home() {
   const [isHydrated, setIsHydrated] = useState(false)
@@ -19,6 +18,7 @@ export default function Home() {
   const hasEnteredTheClub = useMainStore((state) => state.isInTheClub)
   const setHasEnteredTheClub = useMainStore((state) => state.setHasEnteredTheClub)
   const playGame = useMainStore((state) => state.playGame)
+  const setCurrentScene = useMainStore((state) => state.setCurrentScene)
 
   const restartAdventureModalVisible = useModalStore(
     (state) => state.restartAdventureModal.isVisible,
@@ -26,7 +26,10 @@ export default function Home() {
 
   useEffect(() => {
     const isInTheClub = localStorage.getItem(IS_IN_THE_CLUB) === 'true'
+    const currentScene = localStorage.getItem(CURRENT_SCENE) as SceneName
+    setCurrentScene(currentScene || scenes[0].name)
     setHasEnteredTheClub(isInTheClub)
+
 
     /* Ensure the hydrated state is set to true after checking localStorage.
     This prevents rendering the component before client-side data is available,

@@ -4,6 +4,7 @@
 import React from 'react'
 import styles from './Winning.module.css'
 import Header from '@/components/Header'
+import Message from '@/components/Message'
 import ModalContainer from '@/components/ModalContainer'
 import PrimaryButton from '@/components/PrimaryButton'
 import useMainStore from '@/stores/mainStore'
@@ -20,8 +21,9 @@ const Winning = ({ handleClose }: { handleClose: () => void }) => {
     handleClose()
   }
 
-  const message = hasAlreadyPlayedGame ? "Encore une partie de gagnée !" : "Vous avez débloqué une nouvelle scène, bravo !"
-
+  const message = hasAlreadyPlayedGame
+    ? 'Encore une partie de gagnée !'
+    : 'Vous avez débloqué une nouvelle scène, bravo !'
 
   return (
     <ModalContainer
@@ -30,9 +32,7 @@ const Winning = ({ handleClose }: { handleClose: () => void }) => {
     >
       <div className={styles.contentContainer}>
         <Header title="Bien joué !" maxDuration={1.5} />
-        <p className={styles.message}>
-          {message}
-        </p>
+        <Message content={message} />
         <PrimaryButton label="poursuivre l'aventure" handleClick={handleClick} />
       </div>
     </ModalContainer>

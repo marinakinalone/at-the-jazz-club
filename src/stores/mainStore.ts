@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { IS_IN_THE_CLUB } from '@/constants/scenes'
+import { CURRENT_SCENE, IS_IN_THE_CLUB } from '@/constants/scenes'
 import scenes from '@/data/scenes'
 import { GameName, GAMES } from '@/types/games'
 import { IInteractiveArea, SceneName } from '@/types/scenes'
@@ -54,39 +54,52 @@ const useMainStore = create<IStoreState>((set) => ({
     [MEMORY]: false,
   },
 
-  setCurrentScene: (sceneName) =>
-    // TODO update localStorage
+  setCurrentScene: (sceneName: SceneName) => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem(CURRENT_SCENE, sceneName);
+    }
     set({
       currentScene: sceneName,
-    }),
-  updateSceneState: ({ sceneName, unblocked = true, interactiveAreas }) =>
+    });
+  },
+  updateSceneState: ({
+    sceneName,
+    unblocked = true,
+    interactiveAreas,
+  }: {
+    sceneName: SceneName;
+    unblocked?: boolean;
+    interactiveAreas?: IInteractiveArea[];
+  }) => {
     // TODO update localStorage
     set((state) => ({
       scenesState: state.scenesState.map((scene) =>
-        scene.name === sceneName ? { ...scene, unblocked, interactiveAreas } : scene,
+        scene.name === sceneName ? { ...scene, unblocked, interactiveAreas } : scene
       ),
-    })),
-  setHasEnteredTheClub: (value = false) => {
-    if (typeof window !== 'undefined' && value === true) {
-      localStorage.setItem(IS_IN_THE_CLUB, 'true')
+    }));
+  },
+  setHasEnteredTheClub: (value: boolean = false) => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem(IS_IN_THE_CLUB, value.toString());
     }
-    set({ isInTheClub: value })
+    set({ isInTheClub: value });
   },
-  setPlayGame: (gameName) => {
-    set({ playGame: gameName })
+  setPlayGame: (gameName: GameName | false) => {
+    set({ playGame: gameName });
   },
-
-  setHasPlayedGames: (gameName) =>
+  setHasPlayedGames: (gameName: GameName) => {
     set((state) => ({
       hasPlayedGames: {
         ...state.hasPlayedGames,
         [gameName]: true,
       },
-    })),
-  toggleSound: () =>
+    }));
+  },
+  toggleSound: () => {
     set((state) => ({
       isSoundOn: !state.isSoundOn,
-    })),
+    }));
+  },
 }))
 
 export default useMainStore
