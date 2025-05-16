@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import MemoryGame from './Memory'
 import RightSequenceGame from './RightSequence'
-import WinningMessage from './Winning'
 import GameContainer from '@/components/ModalContainer'
 import useMainStore from '@/stores/mainStore'
 import { GameName, GAMES } from '@/types/games'
+import { AnimationDuration, AnimationName } from '@/types/modals'
 import { SCENES } from '@/types/scenes'
 
 export const WINNING_MESSAGE_TIMEOUT = 1000
@@ -55,7 +55,14 @@ const Game = ({ gameName }: { gameName: GameName }) => {
     }
   }
 
-  return <GameContainer>{hasWon ? <WinningMessage gameName={gameName} /> : <Game />}</GameContainer>
+  return (
+    <GameContainer
+      animationDuration={AnimationDuration.short}
+      animationName={AnimationName.swashIn}
+    >
+      <Game />
+    </GameContainer>
+  )
 }
 
 export default Game

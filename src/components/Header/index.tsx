@@ -22,8 +22,8 @@ const Header = ({ title, maxDuration = 7 }: { title: string; maxDuration: number
           initialOffset,
           finalOffset,
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
       }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [title, maxDuration],
   )
 

@@ -1,0 +1,28 @@
+.footer {
+  position: absolute;
+  bottom: 0;
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+  a {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+}
+
+.toggleSoundButton {
+  border: none;
+  background: none;
+  cursor: pointer;
+  position: absolute;
+  padding-left: 5px;
+  padding-top: 2px;
+}
+
+.resetButton {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  border: none;
+  background: none;
+  color: var(--foreground);
+  cursor: pointer;
+}

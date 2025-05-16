@@ -73,8 +73,8 @@ const Scene = () => {
         <Image
           src={`/scenes/${currentScene}.png`}
           alt="Scene"
-          width={700}
-          height={700}
+          width={500}
+          height={500}
           priority
           className={styles.sceneImage}
         />

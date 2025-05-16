@@ -6,7 +6,7 @@ import { IInteractiveArea, SceneName } from '@/types/scenes'
 
 const { RIGHT_SEQUENCE, MEMORY } = GAMES
 
-interface StoreState {
+interface IStoreState {
   scenesState: { name: SceneName; unblocked: boolean }[]
   currentScene: SceneName
   isInTheClub: string | boolean
@@ -36,7 +36,7 @@ interface StoreState {
 // TODO add loading state too.
 // add reset game button
 
-const useMainStore = create<StoreState>((set) => ({
+const useMainStore = create<IStoreState>((set) => ({
   // use localStorage to get the values
   scenesState: scenes.map((scene) => {
     return {

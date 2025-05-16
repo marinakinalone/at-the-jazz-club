@@ -1,0 +1,54 @@
+import { create } from 'zustand'
+import { IModalState, ModalKeys } from '@/types/modals'
+
+type ModalStoreState = {
+  [key in ModalKeys]: IModalState
+} & {
+  openModal: (modalKey: ModalKeys, animationDuration: number) => void
+  closeModal: (modalKey: ModalKeys, animationDuration: number, callback?: () => void) => void
+}
+
+const defaultModalState: IModalState = {
+  isVisible: false,
+  isClosing: false,
+}
+
+const useModalStore = create<ModalStoreState>((set) => ({
+  introModal: { ...defaultModalState },
+  winningModal: { ...defaultModalState },
+  restartAdventureModal: { ...defaultModalState },
+  creditsModal: { ...defaultModalState },
+  replayGameModal: { ...defaultModalState },
+
+  openModal: (modalKey) => {
+    set({
+      [modalKey]: {
+        isVisible: true,
+        isClosing: false,
+      },
+    })
+  },
+
+  closeModal: (modalKey, animationDuration, callback) => {
+    set((state) => ({
+      [modalKey]: {
+        ...state[modalKey],
+        isClosing: true,
+      },
+    }))
+
+    setTimeout(() => {
+      if (callback) {
+        callback()
+      }
+      set({
+        [modalKey]: {
+          isVisible: false,
+          isClosing: false,
+        },
+      })
+    }, animationDuration)
+  },
+}))
+
+export default useModalStore

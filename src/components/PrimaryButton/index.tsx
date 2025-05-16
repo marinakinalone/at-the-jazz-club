@@ -1,16 +1,22 @@
 import React from 'react'
+import styles from './PrimaryButton.module.css'
+import { ibmPlexMono } from '@/app/layout'
 
 const PrimaryButton = ({
   label,
   handleClick = () => {},
-  styles = {},
+  customStyles = {},
 }: {
   label: string
   handleClick: () => void
-  styles?: React.CSSProperties
+  customStyles?: React.CSSProperties
 }) => {
   return (
-    <button onClick={handleClick} style={styles}>
+    <button
+      className={`${styles.primaryButton} ${ibmPlexMono.className}`}
+      onClick={handleClick}
+      style={customStyles}
+    >
       {label}
     </button>
   )

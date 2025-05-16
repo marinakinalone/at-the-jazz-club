@@ -1,0 +1,16 @@
+.primaryButton {
+  background-color: transparent;
+  color: var(--foreground);
+  border: 2px solid var(--foreground);
+  border-radius: 8px;
+  padding: 8px 24px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.primaryButton:hover {
+  background-color: var(--foreground);
+  color: var(--background);
+}
