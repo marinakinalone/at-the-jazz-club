@@ -17,19 +17,26 @@ const Intro = () => {
   }
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowButton(true)
-    }, DELAY_SECONDS * 1000)
+    const timer = setTimeout(
+      () => {
+        setShowButton(true)
+      },
+      (DELAY_SECONDS + 1) * 1000,
+    )
 
     return () => clearTimeout(timer)
   }, [])
 
-  // TODO instead of show button, use display none and display block to avoid spacing
   return (
     <ModalContainer>
       <div className={styles.container}>
         <Header title="Le Club de Jazz" maxDuration={DELAY_SECONDS} />
-        {showButton && <PrimaryButton label="Entrer" handleClick={handleClick} />}
+
+        <PrimaryButton
+          label="Entrer"
+          handleClick={handleClick}
+          styles={{ opacity: showButton ? 1 : 0, transition: 'opacity 0.5s ease-in-out' }}
+        />
       </div>
     </ModalContainer>
   )
