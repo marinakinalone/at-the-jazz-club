@@ -1,10 +1,10 @@
-# At the jazz Club
+# At the jazz club | Le Club de Jazz
 
 [in French] A birthday app to invite my family to see a jazz concert. The adventure is a couple of mini-games happening in a jazz club to unlock the final scene with the concert details. 
 
 ## Table of Contents
 
-- [At the jazz Club](#at-the-jazz-club)
+- [At the jazz club | Le Club de Jazz](#at-the-jazz-club-le-club-de-jazz)
   - [Table of Contents](#table-of-contents)
   - [Built with](#built-with)
   - [Deployment](#deployment)
@@ -47,6 +47,6 @@ Magic CSS Library
 | ---------------------------------------------------------------------------------------------------------------------------- |
 | [Marina Kinalone Simonnet](https://github.com/marinakinalone)                                                                |
 
-## [License](https://github.com/marinakinalone/le-journal/blob/main/LICENSE.txt)
+## [License](https://github.com/marinakinalone/at-the-jazz-club/blob/main/LICENSE.txt)
 
 CC BY-NC-SA 4.0. © [Marina Kinalone Simonnet](https://github.com/marinakinalone)
