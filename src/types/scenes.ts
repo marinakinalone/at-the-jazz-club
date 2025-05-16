@@ -13,13 +13,16 @@ export enum SCENES {
 
 export type SceneName = SCENES
 
-export interface IInteractiveArea {
-  area: string
+export interface IArea {
   x: number
   y: number
   radius?: number
   width?: number
   height?: number
+}
+
+export interface IInteractiveArea {
+  area: IArea
   description: string
   navigateTo?: SceneName
   openGame?: GameName

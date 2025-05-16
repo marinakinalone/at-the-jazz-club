@@ -56,18 +56,17 @@ const Scene = () => {
             key={index}
             className={styles.interactiveZone}
             style={{
-              left: `${area.x * 100}%`,
-              top: `${area.y * 100}%`,
-              width: `${area.width || area.radius || 0}px`,
-              height: `${area.height || area.radius || 0}px`,
-              borderRadius: area.radius ? '50%' : '0px',
+              left: `${area.surface.x * 100}%`,
+              top: `${area.surface.y * 100}%`,
+              width: `${area.surface.width || area.surface.radius || 0}px`,
+              height: `${area.surface.height || area.surface.radius || 0}px`,
+              borderRadius: area.surface.radius ? '50%' : '0px',
             }}
             onMouseEnter={() => setCaptionMessage(area.description)}
             onMouseLeave={() => setCaptionMessage(getSceneCaption(currentScene))}
             onClick={() =>
               handleAreaClick({ destination: area.navigateTo, openGame: area.openGame })
             }
-            title={area.area}
           />
         ))}
         <Image
