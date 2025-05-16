@@ -1,5 +1,6 @@
 import React from 'react'
 import styles from './ModalContainer.module.css'
+import useModalStore from '@/stores/modalStore'
 import { AnimationDuration, AnimationName } from '@/types/modals'
 interface IModalContainer {
   children: React.ReactNode
@@ -8,13 +9,7 @@ interface IModalContainer {
   shouldDisplayCloseButton?: boolean
 }
 
-// TODO add optional close button
-const ModalContainer = ({
-  children,
-  animationName,
-  animationDuration,
-  shouldDisplayCloseButton = true,
-}: IModalContainer) => {
+const ModalContainer = ({ children, animationName, animationDuration }: IModalContainer) => {
   return (
     <div
       className={`${styles.modalContainer} ${styles[animationName]}`}
@@ -22,7 +17,6 @@ const ModalContainer = ({
         animationDuration: animationDuration,
       }}
     >
-      {shouldDisplayCloseButton && <button>close modal</button>}
       {children}
     </div>
   )

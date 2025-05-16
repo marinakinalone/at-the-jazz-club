@@ -4,7 +4,7 @@ import { IModalState, ModalKeys } from '@/types/modals'
 type ModalStoreState = {
   [key in ModalKeys]: IModalState
 } & {
-  openModal: (modalKey: ModalKeys, animationDuration: number) => void
+  openModal: (modalKey: ModalKeys) => void
   closeModal: (modalKey: ModalKeys, animationDuration: number, callback?: () => void) => void
 }
 

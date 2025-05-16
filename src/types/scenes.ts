@@ -13,7 +13,7 @@ export enum SCENES {
 
 export type SceneName = SCENES
 
-export interface IArea {
+export interface ISurface {
   x: number
   y: number
   radius?: number
@@ -22,7 +22,7 @@ export interface IArea {
 }
 
 export interface IInteractiveArea {
-  area: IArea
+  surface: ISurface
   description: string
   navigateTo?: SceneName
   openGame?: GameName
