@@ -20,8 +20,8 @@ const Scene = () => {
   const [captionMessage, setCaptionMessage] = useState(getSceneCaption(currentScene))
 
   useEffect(() => {
-    setCaptionMessage(getSceneCaption(currentScene));
-  }, [currentScene]);
+    setCaptionMessage(getSceneCaption(currentScene))
+  }, [currentScene])
 
   const interactiveAreas =
     scenes.find((scene) => scene.name === currentScene)?.interactiveAreas || []

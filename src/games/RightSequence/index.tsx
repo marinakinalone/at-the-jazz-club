@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import styles from './RightSequence.module.css'
 /*
 background: #101920;
@@ -34,10 +34,7 @@ Winning sequence is 24 notes;
 
 // TODO win animation, reset animation, sound, effect on press, result display, close button
 
-const winningSequence = [
-  7, 4, 2, 4, 5, 8, 9, 8, 4, 1, 0, 1,
-  7, 4, 2, 4, 5, 8, 6, 4, 1, 0, 1, 3,
-]
+const winningSequence = [7, 4, 2, 4, 5, 8, 9, 8, 4, 1, 0, 1, 7, 4, 2, 4, 5, 8, 6, 4, 1, 0, 1, 3]
 
 export const RightSequenceGame = ({ handleWin }: { handleWin: () => void }) => {
   const [currentInput, setCurrentInput] = useState<number[]>([])
@@ -59,14 +56,16 @@ export const RightSequenceGame = ({ handleWin }: { handleWin: () => void }) => {
     <>
       <div className={styles.resultContainer}>
         {currentInput.map((note, index) => {
-          return (
-            <p key={index}>{note}</p>
-          )
+          return <p key={index}>{note}</p>
         })}
       </div>
       <div className={styles.buttonContainer}>
         {Array.from({ length: 10 }).map((_, index) => (
-          <button key={index} className={styles.musicNoteButton} onClick={() => handleButtonClick(index)}>
+          <button
+            key={index}
+            className={styles.musicNoteButton}
+            onClick={() => handleButtonClick(index)}
+          >
             <Image
               src={`/games/rightSequence/musicNote_${index}.png`}
               alt={`Button ${index}`}

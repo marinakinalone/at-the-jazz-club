@@ -78,7 +78,6 @@ const useMainStore = create<StoreState>((set) => ({
 
   setHasPlayedGames: (gameName) =>
     set((state) => ({
-      
       hasPlayedGames: {
         ...state.hasPlayedGames,
         [gameName]: true,

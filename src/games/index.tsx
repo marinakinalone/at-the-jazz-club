@@ -19,12 +19,11 @@ const Game = ({ gameName }: { gameName: GameName }) => {
   const hasPlayedGames = useMainStore((state) => state.hasPlayedGames)
   const setHasPlayedGames = useMainStore((state) => state.setHasPlayedGames)
 
-  const hasPlayedRightSequenceForFirstTime = gameName === RIGHT_SEQUENCE && !hasPlayedGames[RIGHT_SEQUENCE]
+  const hasPlayedRightSequenceForFirstTime =
+    gameName === RIGHT_SEQUENCE && !hasPlayedGames[RIGHT_SEQUENCE]
 
-  const hasPlayedMemoryForFirstTime = gameName === MEMORY&&
-    !hasPlayedGames[MEMORY]
+  const hasPlayedMemoryForFirstTime = gameName === MEMORY && !hasPlayedGames[MEMORY]
 
-    
   const handleWin = () => {
     setHasWon(true)
 
@@ -38,7 +37,7 @@ const Game = ({ gameName }: { gameName: GameName }) => {
         updateSceneState({ sceneName: SCENES.LOUNGE_FINAL, unblocked: true })
         setCurrentScene(SCENES.LOUNGE_FINAL)
       }
-      
+
       setPlayGame(false)
       setHasPlayedGames(GAMES[gameName])
       setHasWon(false)

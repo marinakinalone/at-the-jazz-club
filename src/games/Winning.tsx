@@ -4,7 +4,6 @@
 import React from 'react'
 import { GameName } from '@/types/games'
 
-
 // TODO make it a modal
 const WinningMessage = ({ gameName }: { gameName: GameName }) => {
   return (

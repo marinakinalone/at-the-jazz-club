@@ -187,7 +187,12 @@ const scenes: IScene[] = [
     name: LOUNGE_EMPTY_PLAYER,
     unblocked: false,
     message: 'message 2',
-    interactiveAreas: [exitClubFromLoungeWithEmptyPlayer, recordsOnTheWall, stage, recordPlayerEmpty],
+    interactiveAreas: [
+      exitClubFromLoungeWithEmptyPlayer,
+      recordsOnTheWall,
+      stage,
+      recordPlayerEmpty,
+    ],
   },
   {
     id: 6,
