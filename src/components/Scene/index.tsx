@@ -15,8 +15,8 @@ const getSceneCaption = (sceneName: SceneName) => {
 const Scene = () => {
   const currentScene = useMainStore((state) => state.currentScene)
   const setCurrentScene = useMainStore((state) => state.setCurrentScene)
-  const setPlayGame = useMainStore((state) => state.setPlayGame)
-  const hasPlayedGames = useMainStore((state) => state.hasPlayedGames)
+  const playGame = useMainStore((state) => state.playGame)
+  const playedGames = useMainStore((state) => state.playedGames)
   const [captionMessage, setCaptionMessage] = useState(getSceneCaption(currentScene))
 
   useEffect(() => {
@@ -38,12 +38,12 @@ const Scene = () => {
     }
 
     if (openGame) {
-      if (hasPlayedGames[openGame]) {
-        // TODO open game to ask for confirmation and use setPlayGame there
+      if (playedGames[openGame]) {
+        // TODO open game to ask for confirmation and use playGame there
         console.log('You have already played this game, do you want to play again?')
-        setPlayGame(openGame) // TODO remove when modal is implemented
+        playGame(openGame) // TODO remove when modal is implemented
       } else {
-        setPlayGame(openGame)
+        playGame(openGame)
       }
     }
   }

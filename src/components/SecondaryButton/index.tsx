@@ -10,10 +10,7 @@ const SecondaryButton = ({
   handleClick: () => void
 }) => {
   return (
-    <button
-      className={`${styles.secondaryButton} ${ibmPlexMono.className}`}
-      onClick={handleClick}
-    >
+    <button className={`${styles.secondaryButton} ${ibmPlexMono.className}`} onClick={handleClick}>
       {label}
     </button>
   )

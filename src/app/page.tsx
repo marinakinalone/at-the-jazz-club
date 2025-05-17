@@ -17,7 +17,7 @@ export default function Home() {
 
   const hasEnteredTheClub = useMainStore((state) => state.isInTheClub)
   const setHasEnteredTheClub = useMainStore((state) => state.setHasEnteredTheClub)
-  const playGame = useMainStore((state) => state.playGame)
+  const currentGame = useMainStore((state) => state.currentGame)
   const setCurrentScene = useMainStore((state) => state.setCurrentScene)
 
   const restartAdventureModalVisible = useModalStore(
@@ -29,7 +29,6 @@ export default function Home() {
     const currentScene = localStorage.getItem(CURRENT_SCENE) as SceneName
     setCurrentScene(currentScene || scenes[0].name)
     setHasEnteredTheClub(isInTheClub)
-
 
     /* Ensure the hydrated state is set to true after checking localStorage.
     This prevents rendering the component before client-side data is available,
@@ -43,7 +42,7 @@ export default function Home() {
 
   return (
     <main className={styles.main}>
-      {playGame && <Game gameName={playGame} />}
+      {currentGame && <Game gameName={currentGame} />}
       {hasEnteredTheClub ? <Scene /> : <IntroModal />}
       {restartAdventureModalVisible && <RestartAdventureModal />}
       <Footer />

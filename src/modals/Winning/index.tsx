@@ -11,10 +11,10 @@ import useMainStore from '@/stores/mainStore'
 import { AnimationDuration, AnimationName } from '@/types/modals'
 
 const Winning = ({ handleClose }: { handleClose: () => void }) => {
-  const currentGame = useMainStore((state) => state.playGame)
-  const hasPlayedGames = useMainStore((state) => state.hasPlayedGames)
+  const currentGame = useMainStore((state) => state.currentGame)
+  const playedGames = useMainStore((state) => state.playedGames)
 
-  const hasAlreadyPlayedGame = currentGame && hasPlayedGames[currentGame]
+  const hasAlreadyPlayedGame = currentGame && playedGames[currentGame]
 
   const handleClick = () => {
     // TODO add animation on close

@@ -21,7 +21,10 @@ const Footer = () => {
         MKS
       </a>{' '}
       © 2025 ||{' '}
-      <button className={`${styles.resetButton} ${ibmPlexMono.className}`} onClick={() => openModal(Modals.restartAdventure)}>
+      <button
+        className={`${styles.resetButton} ${ibmPlexMono.className}`}
+        onClick={() => openModal(Modals.restartAdventure)}
+      >
         recommencer l&apos;aventure
       </button>{' '}
       ||{' '}

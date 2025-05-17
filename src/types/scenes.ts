@@ -31,7 +31,6 @@ export interface IInteractiveArea {
 export interface IScene {
   id: number
   name: SceneName
-  unblocked: boolean
   message: string
   interactiveAreas: IInteractiveArea[]
 }

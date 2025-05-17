@@ -2,103 +2,66 @@ import { create } from 'zustand'
 import { CURRENT_SCENE, IS_IN_THE_CLUB } from '@/constants/scenes'
 import scenes from '@/data/scenes'
 import { GameName, GAMES } from '@/types/games'
-import { IInteractiveArea, SceneName } from '@/types/scenes'
+import { SceneName } from '@/types/scenes'
 
 const { RIGHT_SEQUENCE, MEMORY } = GAMES
 
 interface IStoreState {
-  scenesState: { name: SceneName; unblocked: boolean }[]
   currentScene: SceneName
   isInTheClub: string | boolean
   isSoundOn: boolean
-
-  playGame: GameName | false
-  hasPlayedGames: {
+  currentGame: GameName | false
+  playedGames: {
     [key in GameName]: boolean
   }
 
   setCurrentScene: (sceneName: SceneName) => void
-  updateSceneState: ({
-    sceneName,
-    unblocked,
-    interactiveAreas,
-  }: {
-    sceneName: SceneName
-    unblocked?: boolean
-    interactiveAreas?: IInteractiveArea[]
-  }) => void
   setHasEnteredTheClub: (value: boolean) => void
-  setPlayGame: (gameName: GameName | false) => void
-  setHasPlayedGames: (gameName: GameName) => void
+  playGame: (gameName: GameName | false) => void
+  setPlayedGames: (gameName: GameName, value?: boolean) => void
   toggleSound: () => void
 }
 
 // TODO add loading state too.
-// add reset game button
-
 const useMainStore = create<IStoreState>((set) => ({
-  // use localStorage to get the values
-  scenesState: scenes.map((scene) => {
-    return {
-      name: scene.name,
-      unblocked: scene.unblocked,
-    }
-  }),
   currentScene: scenes[0].name,
   isInTheClub: false,
   isSoundOn: true,
-
-  playGame: false,
-  hasPlayedGames: {
+  currentGame: false,
+  playedGames: {
     [RIGHT_SEQUENCE]: false,
     [MEMORY]: false,
   },
 
-  setCurrentScene: (sceneName: SceneName) => {
+  setCurrentScene: (sceneName) => {
     if (typeof window !== 'undefined') {
-      localStorage.setItem(CURRENT_SCENE, sceneName);
+      localStorage.setItem(CURRENT_SCENE, sceneName)
     }
     set({
       currentScene: sceneName,
-    });
+    })
   },
-  updateSceneState: ({
-    sceneName,
-    unblocked = true,
-    interactiveAreas,
-  }: {
-    sceneName: SceneName;
-    unblocked?: boolean;
-    interactiveAreas?: IInteractiveArea[];
-  }) => {
-    // TODO update localStorage
-    set((state) => ({
-      scenesState: state.scenesState.map((scene) =>
-        scene.name === sceneName ? { ...scene, unblocked, interactiveAreas } : scene
-      ),
-    }));
-  },
-  setHasEnteredTheClub: (value: boolean = false) => {
+  setHasEnteredTheClub: (value = false) => {
     if (typeof window !== 'undefined') {
-      localStorage.setItem(IS_IN_THE_CLUB, value.toString());
+      localStorage.setItem(IS_IN_THE_CLUB, value.toString())
     }
-    set({ isInTheClub: value });
+    set({ isInTheClub: value })
   },
-  setPlayGame: (gameName: GameName | false) => {
-    set({ playGame: gameName });
+  playGame: (gameName) => {
+    set({ currentGame: gameName })
   },
-  setHasPlayedGames: (gameName: GameName) => {
+  setPlayedGames: (gameName, value = true) => {
     set((state) => ({
-      hasPlayedGames: {
-        ...state.hasPlayedGames,
-        [gameName]: true,
+      playedGames: {
+        ...state.playedGames,
+        [gameName]: value,
       },
-    }));
+    }))
   },
   toggleSound: () => {
     set((state) => ({
       isSoundOn: !state.isSoundOn,
-    }));
+    }))
   },
 }))
 

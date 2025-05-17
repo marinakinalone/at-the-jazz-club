@@ -32,42 +32,41 @@ const scenes: IScene[] = [
   {
     id: 0,
     name: CLUB_ENTRANCE_CLOSED,
-    unblocked: true,
     message: 'Bienvenue au club de jazz ! On entre ?',
     interactiveAreas: [playToEnterClub],
   },
   {
     id: 1,
     name: CLUB_ENTRANCE_OPENED_TO_BOX,
-    unblocked: false,
+
     message: `L'entrée du club`,
     interactiveAreas: [enterClubWithBox],
   },
   {
     id: 2,
     name: CLUB_ENTRANCE_OPENED_TO_EMPTY_PLAYER,
-    unblocked: false,
+
     message: `L'entrée du club`,
     interactiveAreas: [enterClubWithEmptyPlayer],
   },
   {
     id: 3,
     name: CLUB_ENTRANCE_OPENED_FINAL,
-    unblocked: false,
+
     message: `L'entrée du club`,
     interactiveAreas: [enterClubFinal],
   },
   {
     id: 4,
     name: LOUNGE_WITH_BOX,
-    unblocked: false,
+
     message: 'message 1',
     interactiveAreas: [exitClubFromLoungeWithBox, boxToOpen, stage],
   },
   {
     id: 5,
     name: LOUNGE_EMPTY_PLAYER,
-    unblocked: false,
+
     message: 'message 2',
     interactiveAreas: [
       exitClubFromLoungeWithEmptyPlayer,
@@ -79,14 +78,14 @@ const scenes: IScene[] = [
   {
     id: 6,
     name: LOUNGE_FINAL,
-    unblocked: false,
+
     message: 'message 3',
     interactiveAreas: [exitClubFromFinal, stage, recordsOnTheWall, recordPlayer],
   },
   {
     id: 7,
     name: RECORD_PLAYER,
-    unblocked: false,
+
     message:
       'Tadaa ! Bravo, tu as complété aventure du club de jazz. Tu peux maintenant rejouer aux mini-jeux o...u',
     interactiveAreas: [backToLounge],
