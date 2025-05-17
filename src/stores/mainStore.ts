@@ -51,6 +51,9 @@ const useMainStore = create<IStoreState>((set) => ({
     set({ currentGame: gameName })
   },
   setPlayedGames: (gameName, value = true) => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem(gameName, value.toString())
+    }
     set((state) => ({
       playedGames: {
         ...state.playedGames,
