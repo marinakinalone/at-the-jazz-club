@@ -4,7 +4,9 @@ import styles from './Scene.module.css'
 import Caption from '@/components/Caption'
 import scenes from '@/data/scenes'
 import useMainStore from '@/stores/mainStore'
+import useModalStore from '@/stores/modalStore'
 import { GameName } from '@/types/games'
+import { Modals } from '@/types/modals'
 import { IInteractiveArea, SceneName } from '@/types/scenes'
 
 const getSceneCaption = (sceneName: SceneName) => {
@@ -18,6 +20,7 @@ const Scene = () => {
   const playGame = useMainStore((state) => state.playGame)
   const playedGames = useMainStore((state) => state.playedGames)
   const [captionMessage, setCaptionMessage] = useState(getSceneCaption(currentScene))
+  const openModal = useModalStore((state) => state.openModal)
 
   useEffect(() => {
     setCaptionMessage(getSceneCaption(currentScene))
@@ -39,9 +42,7 @@ const Scene = () => {
 
     if (openGame) {
       if (playedGames[openGame]) {
-        // TODO open game to ask for confirmation and use playGame there
-        console.log('You have already played this game, do you want to play again?')
-        playGame(openGame) // TODO remove when modal is implemented
+        openModal(Modals.replayGame, openGame)
       } else {
         playGame(openGame)
       }

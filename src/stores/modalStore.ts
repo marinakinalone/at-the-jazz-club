@@ -1,10 +1,11 @@
 import { create } from 'zustand'
+import { GameName } from '@/types/games'
 import { IModalState, ModalKeys } from '@/types/modals'
 
 type ModalStoreState = {
   [key in ModalKeys]: IModalState
 } & {
-  openModal: (modalKey: ModalKeys) => void
+  openModal: (modalKey: ModalKeys, game?: GameName) => void
   closeModal: (modalKey: ModalKeys, animationDuration: number, callback?: () => void) => void
 }
 
@@ -20,11 +21,12 @@ const useModalStore = create<ModalStoreState>((set) => ({
   creditsModal: { ...defaultModalState },
   replayGameModal: { ...defaultModalState },
 
-  openModal: (modalKey) => {
+  openModal: (modalKey, game) => {
     set({
       [modalKey]: {
         isVisible: true,
         isClosing: false,
+        gameName: game,
       },
     })
   },

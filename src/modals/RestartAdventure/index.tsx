@@ -1,15 +1,10 @@
 import React from 'react'
-import styles from './RestartAdventure.module.css'
-import Message from '@/components/Message'
-import ModalContainer from '@/components/ModalContainer'
-import PrimaryButton from '@/components/PrimaryButton'
-import SecondaryButton from '@/components/SecondaryButton'
-import SubHeader from '@/components/SubHeader'
+import ConfirmationModal from '../shared/ConfirmationModal'
 import scenes from '@/data/scenes'
 import useMainStore from '@/stores/mainStore'
 import useModalStore from '@/stores/modalStore'
 import { GAMES } from '@/types/games'
-import { AnimationDuration, AnimationName, AnimationTimeout, Modals } from '@/types/modals'
+import { AnimationTimeout, Modals } from '@/types/modals'
 
 const { MEMORY, RIGHT_SEQUENCE } = GAMES
 
@@ -26,6 +21,7 @@ const RestartAdventure = () => {
 
   const handleRestart = () => {
     closeModal(Modals.restartAdventure, AnimationTimeout.medium)
+    // TODO close all modals if needed
     setHasEnteredTheClub(false)
     setCurrentScene(scenes[0].name)
     playGame(false)
@@ -35,19 +31,14 @@ const RestartAdventure = () => {
   }
 
   return (
-    <ModalContainer
-      animationName={AnimationName.swashIn}
-      animationDuration={AnimationDuration.medium}
-    >
-      <div className={styles.contentContainer}>
-        <SubHeader title="Voulez-vous vraiment redémarrer l'aventure ? " />
-        <Message content="Attention: cette action est irréversible et tous les progrès accomplis jusqu'ici seront supprimés." />
-        <div className={styles.buttonContainer}>
-          <SecondaryButton label="Redémarrer" handleClick={handleRestart} />
-          <PrimaryButton label="Annuler" handleClick={handleClose} />
-        </div>
-      </div>
-    </ModalContainer>
+    <ConfirmationModal
+      title="Voulez-vous vraiment redémarrer l'aventure ?"
+      message="Attention: cette action est irréversible et tous les progrès accomplis jusqu'ici seront supprimés."
+      secondaryButtonLabel="Redémarrer"
+      primaryButtonLabel="Annuler"
+      handleSecondaryButtonClick={handleRestart}
+      handlePrimaryButtonClick={handleClose}
+    />
   )
 }
 

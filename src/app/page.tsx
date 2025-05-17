@@ -7,6 +7,7 @@ import { CURRENT_SCENE, IS_IN_THE_CLUB } from '@/constants/scenes'
 import scenes from '@/data/scenes'
 import Game from '@/games'
 import IntroModal from '@/modals/Intro'
+import ReplayGameModal from '@/modals/ReplayGame'
 import RestartAdventureModal from '@/modals/RestartAdventure'
 import useMainStore from '@/stores/mainStore'
 import useModalStore from '@/stores/modalStore'
@@ -25,6 +26,7 @@ export default function Home() {
   const restartAdventureModalVisible = useModalStore(
     (state) => state.restartAdventureModal.isVisible,
   )
+  const replayGameModalVisible = useModalStore((state) => state.replayGameModal.isVisible)
 
   useEffect(() => {
     const isInTheClub = localStorage.getItem(IS_IN_THE_CLUB) === 'true'
@@ -52,6 +54,7 @@ export default function Home() {
       {currentGame && <Game gameName={currentGame} />}
       {hasEnteredTheClub ? <Scene /> : <IntroModal />}
       {restartAdventureModalVisible && <RestartAdventureModal />}
+      {replayGameModalVisible && <ReplayGameModal />}
       <Footer />
     </main>
   )

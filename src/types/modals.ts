@@ -1,6 +1,8 @@
+import { GameName } from './games'
 export interface IModalState {
   isVisible: boolean
   isClosing: boolean
+  gameName?: GameName
 }
 
 export enum Modals {
