@@ -38,6 +38,8 @@ const RestartAdventure = () => {
       primaryButtonLabel="Annuler"
       handleSecondaryButtonClick={handleRestart}
       handlePrimaryButtonClick={handleClose}
+      displayCloseButton={true}
+      onClose={handleClose}
     />
   )
 }

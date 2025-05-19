@@ -14,6 +14,8 @@ interface IConfirmationModal {
   secondaryButtonLabel: string
   handlePrimaryButtonClick: () => void
   handleSecondaryButtonClick: () => void
+  displayCloseButton?: boolean
+  onClose?: () => void
 }
 
 const ConfirmationModal = ({
@@ -23,11 +25,15 @@ const ConfirmationModal = ({
   secondaryButtonLabel,
   handlePrimaryButtonClick,
   handleSecondaryButtonClick,
+  displayCloseButton = false,
+  onClose
 }: IConfirmationModal) => {
   return (
     <ModalContainer
       animationName={AnimationName.swashIn}
       animationDuration={AnimationDuration.medium}
+      displayCloseButton={displayCloseButton}
+      onClose={onClose}
     >
       <div className={styles.contentContainer}>
         <SubHeader title={title} />

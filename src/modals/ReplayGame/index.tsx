@@ -30,6 +30,8 @@ const ReplayGame = () => {
       handlePrimaryButtonClick={handleReplay}
       secondaryButtonLabel={'Revenir au club'}
       handleSecondaryButtonClick={handleClose}
+      displayCloseButton={true}
+      onClose={handleClose}
     />
   )
 }

@@ -30,7 +30,7 @@ const Game = ({ gameName }: { gameName: GameName }) => {
 
   const playedMemoryForFirstTime = gameName === MEMORY && !playedGames[MEMORY]
 
-  const handleClose = () => {
+  const handleCloseAfterWin = () => {
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current)
     }
@@ -48,11 +48,15 @@ const Game = ({ gameName }: { gameName: GameName }) => {
     playGame(false)
   }
 
+  const handleAbort = () => {
+    playGame(false)
+  }
+
   const handleWin = () => {
     openModal(Modals.winning)
 
     timeoutRef.current = setTimeout(() => {
-      handleClose()
+      handleCloseAfterWin()
     }, WINNING_MESSAGE_TIMEOUT)
   }
 
@@ -78,12 +82,14 @@ const Game = ({ gameName }: { gameName: GameName }) => {
   return (
     <>
       {winningModalState.isVisible ? (
-        <Winning handleClose={handleClose} />
+        <Winning handleClose={handleCloseAfterWin} />
       ) : (
         <GameContainer
           key={winningModalState.isVisible ? 'winning' : 'game'}
           animationDuration={AnimationDuration.short}
           animationName={AnimationName.swashIn}
+          displayCloseButton={true}
+          onClose={handleAbort}
         >
           <Game />
         </GameContainer>
