@@ -22,6 +22,7 @@ export enum AnimationName {
 }
 
 export enum AnimationTimeout {
+  immediate = 0,
   short = 300,
   medium = 700,
   long = 1000,

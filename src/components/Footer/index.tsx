@@ -5,11 +5,24 @@ import { ibmPlexMono } from '@/app/layout'
 import useMainStore from '@/stores/mainStore'
 import useModalStore from '@/stores/modalStore'
 import { Modals } from '@/types/modals'
+import { AnimationTimeout } from '@/types/modals'
 
 const Footer = () => {
   const toggleSoundButton = useMainStore((state) => state.toggleSound)
   const isSoundOn = useMainStore((state) => state.isSoundOn)
   const openModal = useModalStore((state) => state.openModal)
+  const closeModal = useModalStore((state) => state.closeModal)
+
+  const handleRestartAdventure = () => {
+
+
+  for (const modal of Object.values(Modals)) {
+    if (modal !== Modals.restartAdventure) {
+      closeModal(modal, AnimationTimeout.immediate)
+    }
+  }
+  openModal(Modals.restartAdventure)
+}
 
   const soundIcon = isSoundOn ? 'soundOn' : 'soundOff'
 
@@ -23,7 +36,7 @@ const Footer = () => {
       © 2025 ||{' '}
       <button
         className={`${styles.resetButton} ${ibmPlexMono.className}`}
-        onClick={() => openModal(Modals.restartAdventure)}
+        onClick={handleRestartAdventure}
       >
         recommencer l&apos;aventure
       </button>{' '}
