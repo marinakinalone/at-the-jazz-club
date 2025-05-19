@@ -1,6 +1,3 @@
-// TODO animation then modal + button to:
-// unlock scene
-// update interactive areas
 import React from 'react'
 import styles from './Winning.module.css'
 import Header from '@/components/Header'
@@ -17,7 +14,6 @@ const Winning = ({ handleClose }: { handleClose: () => void }) => {
   const hasAlreadyPlayedGame = currentGame && playedGames[currentGame]
 
   const handleClick = () => {
-    // TODO add animation on close
     handleClose()
   }
 

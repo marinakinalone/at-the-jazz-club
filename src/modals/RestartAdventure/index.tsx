@@ -15,10 +15,8 @@ const RestartAdventure = () => {
   const setPlayedGames = useMainStore((state) => state.setPlayedGames)
   const playGame = useMainStore((state) => state.playGame)
 
-
   const handleClose = () => {
     closeModal(Modals.restartAdventure, AnimationTimeout.medium)
-
   }
 
   const handleRestart = () => {

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
 const Caption = ({ message }: { message: string }) => {
   const [currentPosition, setCurrentPosition] = useState(0)

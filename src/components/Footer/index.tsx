@@ -14,15 +14,13 @@ const Footer = () => {
   const closeModal = useModalStore((state) => state.closeModal)
 
   const handleRestartAdventure = () => {
-
-
-  for (const modal of Object.values(Modals)) {
-    if (modal !== Modals.restartAdventure) {
-      closeModal(modal, AnimationTimeout.immediate)
+    for (const modal of Object.values(Modals)) {
+      if (modal !== Modals.restartAdventure) {
+        closeModal(modal, AnimationTimeout.immediate)
+      }
     }
+    openModal(Modals.restartAdventure)
   }
-  openModal(Modals.restartAdventure)
-}
 
   const soundIcon = isSoundOn ? 'soundOn' : 'soundOff'
 

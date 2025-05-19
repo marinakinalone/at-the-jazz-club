@@ -44,7 +44,7 @@ const Game = ({ gameName }: { gameName: GameName }) => {
     }
 
     setPlayedGames(GAMES[gameName])
-    closeModal(Modals.winning, AnimationTimeout.short)
+    closeModal(Modals.winning, AnimationTimeout.long)
     playGame(false)
   }
 
