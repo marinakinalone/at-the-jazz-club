@@ -26,7 +26,7 @@ const ConfirmationModal = ({
   handlePrimaryButtonClick,
   handleSecondaryButtonClick,
   displayCloseButton = false,
-  onClose
+  onClose,
 }: IConfirmationModal) => {
   return (
     <ModalContainer
