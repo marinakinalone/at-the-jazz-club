@@ -1,7 +1,9 @@
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
+import RecordText from '../RecordText'
 import styles from './Scene.module.css'
 import Caption from '@/components/Caption'
+import { FINAL_SCENE } from '@/constants/scenes'
 import scenes from '@/data/scenes'
 import useMainStore from '@/stores/mainStore'
 import useModalStore from '@/stores/modalStore'
@@ -49,6 +51,8 @@ const Scene = () => {
     }
   }
 
+  console.log('Current scene:', currentScene)
+
   return (
     <>
       <section className={styles.sceneContainer}>
@@ -70,6 +74,7 @@ const Scene = () => {
             }
           />
         ))}
+        {currentScene === FINAL_SCENE && <RecordText />}
         <Image
           src={`/scenes/${currentScene}.png`}
           alt="Scene"

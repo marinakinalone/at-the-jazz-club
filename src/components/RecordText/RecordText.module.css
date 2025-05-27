@@ -1,0 +1,28 @@
+.svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 600px;
+  height: 600px;
+  pointer-events: none;
+}
+
+.text {
+  fill: var(--highlight);
+  font-size: 18px;
+  letter-spacing: 1px;
+}
+
+.spinning {
+  animation: spin 30s linear infinite;
+  transform-origin: 255px 273px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
