@@ -28,9 +28,9 @@ export const flippedCardIdsAtom = atom<number[]>([])
 export const winAtom = atom(false)
 
 export const resetMemoryGameAtom = atom(null, (get, set) => {
-  set(cardsAtom, getCardDeck()) 
-  set(flippedCardIdsAtom, [])        
-  set(winAtom, false)                  
+  set(cardsAtom, getCardDeck())
+  set(flippedCardIdsAtom, [])
+  set(winAtom, false)
 })
 
 export const gameLogicAtom = atom(null, (get, set, flippedCardId: number) => {
@@ -39,12 +39,12 @@ export const gameLogicAtom = atom(null, (get, set, flippedCardId: number) => {
 
   // prevent flipping the same card twice
   if (flippedCards.includes(flippedCardId)) return
-  
+
   const updatedFlipped = [...flippedCards, flippedCardId]
   set(flippedCardIdsAtom, updatedFlipped)
-  
+
   // if all matched except the winning card, update winning state
-    const allMatchedExceptWinningCard = cards.every(
+  const allMatchedExceptWinningCard = cards.every(
     (card) => card.matched || card.value === 13, // 13 is the WINNING_CARD
   )
   if (allMatchedExceptWinningCard) {
@@ -56,15 +56,16 @@ export const gameLogicAtom = atom(null, (get, set, flippedCardId: number) => {
 
     const firstCardValue = cards.find((card) => card.id === firstCard)?.value
     const secondCardValue = cards.find((card) => card.id === secondCard)?.value
- 
+
     if (firstCardValue === secondCardValue) {
-      
       setTimeout(() => {
         set(
           cardsAtom,
-          cards.map((card) => (card.id === firstCard || card.id === secondCard ? { ...card, matched: true } : card)),
+          cards.map((card) =>
+            card.id === firstCard || card.id === secondCard ? { ...card, matched: true } : card,
+          ),
         )
-        
+
         set(flippedCardIdsAtom, [])
       }, 1000)
     } else {

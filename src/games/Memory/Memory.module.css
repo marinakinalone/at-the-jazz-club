@@ -1,0 +1,19 @@
+.cardGrid {
+  display: grid;
+  grid-template-columns: repeat(5, 95px);
+  grid-template-rows: repeat(5, 125px);
+  gap: 10px;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+.card {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.emptyCardContainer {
+  width: 95px;
+  height: 125px;
+}

@@ -1,7 +1,14 @@
 import { useAtom, useSetAtom } from 'jotai'
 import Image from 'next/image'
-import React, {useEffect} from 'react'
-import { cardsAtom, flippedCardIdsAtom, gameLogicAtom, resetMemoryGameAtom, winAtom } from '@/atoms/MemoryGameState'
+import React, { useEffect } from 'react'
+import styles from './Memory.module.css'
+import {
+  cardsAtom,
+  flippedCardIdsAtom,
+  gameLogicAtom,
+  resetMemoryGameAtom,
+  winAtom,
+} from '@/atoms/MemoryGameState'
 
 export const WINNING_CARD = 13
 
@@ -27,40 +34,39 @@ export const MemoryGame = ({ handleWin }: { handleWin: () => void }) => {
     }
   }, [resetMemoryGame])
 
-
   const handleSelectCard = (card: ICard) => {
     flipCard(card.id)
   }
 
   useEffect(() => {
-  if (hasWon) {
-    handleWin()
-  }
-// eslint-disable-next-line react-hooks/exhaustive-deps
-}, [hasWon])
+    if (hasWon) {
+      handleWin()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hasWon])
 
   return (
     <>
-      <div>
-        {cards.map((card, index) => (
-          card.matched ? (<p key={card.id}></p>) : (
-          <button
-            key={index}
-            onClick={() => handleSelectCard(card)}
-          >
-            <Image
-              src={
-                flippedCards.includes(card.id)
-                  ? `/games/memory/card_verso_${card.value}.png`
-                  : `/games/memory/card_recto.png`
-              }
-              alt="Memory"
-              width={95}
-              height={125}
-            />
-            {card.value} {card.matched.toString()}
-          </button>)
-        ))}
+      <div className={styles.cardGrid}>
+        {cards.map((card, index) =>
+          card.matched ? (
+            <div key={card.id} className={styles.emptyCardContainer}></div>
+          ) : (
+            <button key={index} onClick={() => handleSelectCard(card)} className={styles.card}>
+              <Image
+                src={
+                  flippedCards.includes(card.id)
+                    ? `/games/memory/card_verso_${card.value}.png`
+                    : `/games/memory/card_recto.png`
+                }
+                alt="Memory"
+                width={95}
+                height={125}
+              />
+              {/* {card.value} {card.matched.toString()} */}
+            </button>
+          ),
+        )}
       </div>
       <button onClick={handleWin}>click to unlock scene for MemoryGame</button>
     </>
