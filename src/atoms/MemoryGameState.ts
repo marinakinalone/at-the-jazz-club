@@ -10,7 +10,7 @@ const shuffle = (arr: number[]) =>
 const cards = [...Array(12).keys()]
 
 const getCardDeck = () => {
-  const deck = shuffle([...cards, ...cards, 13]).map((card, index) => {
+  const deck = shuffle([...cards, ...cards, 12]).map((card, index) => {
     return {
       id: index,
       value: card,
@@ -45,7 +45,7 @@ export const gameLogicAtom = atom(null, (get, set, flippedCardId: number) => {
 
   // if all matched except the winning card, update winning state
   const allMatchedExceptWinningCard = cards.every(
-    (card) => card.matched || card.value === 13, // 13 is the WINNING_CARD
+    (card) => card.matched || card.value === 12, // 12 is the WINNING_CARD
   )
   if (allMatchedExceptWinningCard) {
     set(winAtom, true)
