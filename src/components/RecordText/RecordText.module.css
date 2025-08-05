@@ -13,7 +13,12 @@
   letter-spacing: 1px;
 }
 
-.spinning {
+.spinningOuter {
+  animation: spin 35s linear infinite;
+  transform-origin: 255px 273px;
+}
+
+.spinningInner {
   animation: spin 30s linear infinite;
   transform-origin: 255px 273px;
 }

@@ -51,8 +51,6 @@ const Scene = () => {
     }
   }
 
-  console.log('Current scene:', currentScene)
-
   return (
     <>
       <section className={styles.sceneContainer}>

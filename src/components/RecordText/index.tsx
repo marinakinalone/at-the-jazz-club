@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import styles from './RecordText.module.css'
 
-const outerText = 'Le 9 avril 2026 à la Cité des Congrès'
-const innerText = 'Stacey Kent en concert'
+const outerText = 'On va voir Stacey Kent en concert...'
+const innerText = '...le 9 avril 2026 à la Cité des Congrès !!!'
 
 const RecordText = () => {
   const [outerIndex, setOuterIndex] = useState(0)
@@ -32,12 +32,12 @@ const RecordText = () => {
 
         {/* <circle cx="255" cy="273" r="3" fill="red" /> // This is the center of the turntable */}
       </defs>
-      <text className={`${styles.text} ${finished ? styles.spinning : ''}`}>
+      <text className={`${styles.text} ${finished ? styles.spinningOuter : ''}`}>
         <textPath xlinkHref="#outerCircle" startOffset="0">
           {outerText.slice(0, outerIndex)}
         </textPath>
       </text>
-      <text className={`${styles.text} ${finished ? styles.spinning : ''}`}>
+      <text className={`${styles.text} ${finished ? styles.spinningInner : ''}`}>
         <textPath xlinkHref="#innerCircle" startOffset="0">
           {innerText.slice(0, innerIndex)}
         </textPath>

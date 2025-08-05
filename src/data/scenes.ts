@@ -39,21 +39,21 @@ const scenes: IScene[] = [
     id: 1,
     name: CLUB_ENTRANCE_OPENED_TO_BOX,
 
-    message: `L'entrée du club`,
+    message: `Devant le club de jazz`,
     interactiveAreas: [enterClubWithBox],
   },
   {
     id: 2,
     name: CLUB_ENTRANCE_OPENED_TO_EMPTY_PLAYER,
 
-    message: `L'entrée du club`,
+    message: `Devant le club de jazz`,
     interactiveAreas: [enterClubWithEmptyPlayer],
   },
   {
     id: 3,
     name: CLUB_ENTRANCE_OPENED_FINAL,
 
-    message: `L'entrée du club`,
+    message: `Devant le club de jazz`,
     interactiveAreas: [enterClubFinal],
   },
   {
@@ -67,7 +67,7 @@ const scenes: IScene[] = [
     id: 5,
     name: LOUNGE_EMPTY_PLAYER,
 
-    message: 'message 2',
+    message: `A l'intérieur du club, cela manque un peu de musique...`,
     interactiveAreas: [
       exitClubFromLoungeWithEmptyPlayer,
       recordsOnTheWall,
@@ -79,7 +79,7 @@ const scenes: IScene[] = [
     id: 6,
     name: LOUNGE_FINAL,
 
-    message: 'message 3',
+    message: `Quel swing ! C'est un chouette disque que tu as trouvé là !`,
     interactiveAreas: [exitClubFromFinal, stage, recordsOnTheWall, recordPlayer],
   },
   {
@@ -87,7 +87,7 @@ const scenes: IScene[] = [
     name: RECORD_PLAYER,
 
     message:
-      'Tadaa ! Bravo, tu as complété aventure du club de jazz. Tu peux maintenant rejouer aux mini-jeux o...u',
+      `Bravo, tu as complété l'aventure du club de jazz et découvert le message "secret" sur le disque !`,
     interactiveAreas: [backToLounge],
   },
 ]

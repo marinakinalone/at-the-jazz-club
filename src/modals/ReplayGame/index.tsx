@@ -16,7 +16,6 @@ const ReplayGame = () => {
 
   const handleReplay = () => {
     closeModal(Modals.replayGame, AnimationTimeout.medium)
-    console.log('replayGameModalState.gameName: ', replayGameModalState.gameName)
     playGame(replayGameModalState.gameName as GameName)
   }
 
