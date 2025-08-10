@@ -24,13 +24,13 @@ export const useSoundStore = create<SoundState>((set, get) => ({
 
   loadSounds: async (soundUrls) => {
     set({ isLoading: true, error: null })
-    
+
     try {
       const soundPromises = Object.entries(soundUrls).map(async ([key, url]) => {
         const audio = new Audio()
         audio.src = url
         audio.preload = 'auto'
-        
+
         return new Promise<[string, HTMLAudioElement]>((resolve, reject) => {
           audio.addEventListener('canplaythrough', () => resolve([key, audio]))
           audio.addEventListener('error', reject)
@@ -40,15 +40,15 @@ export const useSoundStore = create<SoundState>((set, get) => ({
       const loadedSounds = await Promise.all(soundPromises)
       const soundMap = Object.fromEntries(loadedSounds)
 
-      set({ 
-        sounds: soundMap, 
-        isLoading: false, 
-        isLoaded: true 
+      set({
+        sounds: soundMap,
+        isLoading: false,
+        isLoaded: true,
       })
     } catch (error) {
-      set({ 
+      set({
         error: error instanceof Error ? error.message : 'Failed to load sounds',
-        isLoading: false 
+        isLoading: false,
       })
     }
   },
@@ -78,20 +78,20 @@ export const useSoundStore = create<SoundState>((set, get) => ({
 
     if (!shouldHaveSound) {
       const { sounds } = get()
-      Object.values(sounds).forEach(sound => {
+      Object.values(sounds).forEach((sound) => {
         sound.pause()
-      sound.currentTime = 0
-    })
-  }
+        sound.currentTime = 0
+      })
+    }
     set({ isSilent: shouldHaveSound })
   },
 
   cleanup: () => {
     const { sounds } = get()
-    Object.values(sounds).forEach(sound => {
+    Object.values(sounds).forEach((sound) => {
       sound.pause()
       sound.src = ''
     })
     set({ sounds: {}, isLoaded: false })
-  }
+  },
 }))

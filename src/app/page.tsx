@@ -18,11 +18,10 @@ import { Modals } from '@/types/modals'
 import { SceneName, SCENES } from '@/types/scenes'
 import { fetchFirebaseSoundUrls } from '@/utils/firebase'
 
-
 export default function Home() {
   const [isHydrated, setIsHydrated] = useState(false)
   const [finalMusicUnlocked, setFinalMusicUnlocked] = useState(false)
-    const lastMusicRef = useRef<string | null>(null)
+  const lastMusicRef = useRef<string | null>(null)
 
   const hasEnteredTheClub = useMainStore((state) => state.isInTheClub)
   const setHasEnteredTheClub = useMainStore((state) => state.setHasEnteredTheClub)
@@ -35,7 +34,6 @@ export default function Home() {
   const playSound = useSoundStore((state) => state.playSound)
   const stopSound = useSoundStore((state) => state.stopSound)
   const sounds = useSoundStore((state) => state.sounds)
-
 
   const restartAdventureModalVisible = useModalStore(
     (state) => state.restartAdventureModal.isVisible,
@@ -53,7 +51,7 @@ export default function Home() {
         console.error('Failed to load sounds:', error)
       }
     }
-    
+
     loadAllSounds()
   }, [loadSounds])
 
@@ -68,7 +66,6 @@ export default function Home() {
     setPlayedGames(GAMES.MEMORY, memoryGameState === 'true')
     setPlayedGames(GAMES.RIGHT_SEQUENCE, rightSequenceGameState === 'true')
 
-
     /* Ensure the hydrated state is set to true after checking localStorage.
     This prevents rendering the component before client-side data is available,
     avoiding potential mismatches between server-rendered and client-rendered HTML. */
@@ -78,7 +75,6 @@ export default function Home() {
 
   useEffect(() => {
     if (!isHydrated || soundPermissionModalVisible) return
-
 
     let backgroundMusic: string
 
@@ -99,7 +95,15 @@ export default function Home() {
       playSound(backgroundMusic)
       lastMusicRef.current = backgroundMusic
     }
-  }, [isHydrated, playSound, soundPermissionModalVisible, sounds, currentScene, finalMusicUnlocked, stopSound])
+  }, [
+    isHydrated,
+    playSound,
+    soundPermissionModalVisible,
+    sounds,
+    currentScene,
+    finalMusicUnlocked,
+    stopSound,
+  ])
 
   if (!isHydrated) {
     return null
@@ -107,8 +111,12 @@ export default function Home() {
 
   return (
     <main className={styles.main}>
-      {soundPermissionModalVisible ? <SoundPermissionModal /> : (
-        hasEnteredTheClub ? <Scene /> : <IntroModal />
+      {soundPermissionModalVisible ? (
+        <SoundPermissionModal />
+      ) : hasEnteredTheClub ? (
+        <Scene />
+      ) : (
+        <IntroModal />
       )}
       {currentGame && <Game gameName={currentGame} />}
       {restartAdventureModalVisible && <RestartAdventureModal />}

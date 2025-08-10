@@ -25,7 +25,6 @@ const useModalStore = create<ModalStoreState>((set) => ({
   warningMemoryGameModal: { ...defaultModalState }, // TODO implement
   openBoxModal: { ...defaultModalState }, // TODO implement
 
-
   openModal: (modalKey, game) => {
     set({
       [modalKey]: {

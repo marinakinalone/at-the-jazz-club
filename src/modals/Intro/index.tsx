@@ -13,7 +13,7 @@ const DELAY_SECONDS = 7 // TODO default is 7
 
 const Intro = () => {
   const [showButton, setShowButton] = useState(false)
-  
+
   const setHasEnteredTheClub = useMainStore((state) => state.setHasEnteredTheClub)
 
   const closeModal = useModalStore((state) => state.closeModal)
@@ -23,7 +23,6 @@ const Intro = () => {
     setHasEnteredTheClub(true)
     closeModal(Modals.INTRO, AnimationTimeout.MEDIUM)
   }
-
 
   useEffect(() => {
     const timer = setTimeout(

@@ -3,19 +3,19 @@ import useModalStore from '@/stores/modalStore'
 import { AnimationTimeout, Modals } from '@/types/modals'
 
 const SoundPermission = () => {
-      const closeModal = useModalStore((state) => state.closeModal)
+  const closeModal = useModalStore((state) => state.closeModal)
 
   const handleAllowSound = () => {
     // TODO logic to allow sound
     closeModal(Modals.SOUND_PERMISSION, AnimationTimeout.MEDIUM)
   }
 
-    const handleNoSound = () => {
-        // TODO logic to disable sound
-           closeModal(Modals.SOUND_PERMISSION, AnimationTimeout.MEDIUM)
-  } 
+  const handleNoSound = () => {
+    // TODO logic to disable sound
+    closeModal(Modals.SOUND_PERMISSION, AnimationTimeout.MEDIUM)
+  }
 
-    return (
+  return (
     <ConfirmationModal
       title={'Voulez-vous activer le son ?'}
       message={
