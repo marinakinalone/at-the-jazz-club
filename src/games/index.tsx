@@ -44,7 +44,7 @@ const Game = ({ gameName }: { gameName: GameName }) => {
     }
 
     setPlayedGames(GAMES[gameName])
-    closeModal(Modals.winning, AnimationTimeout.long)
+    closeModal(Modals.WINNING, AnimationTimeout.LONG)
     playGame(false)
   }
 
@@ -53,7 +53,7 @@ const Game = ({ gameName }: { gameName: GameName }) => {
   }
 
   const handleWin = () => {
-    openModal(Modals.winning)
+    openModal(Modals.WINNING)
 
     timeoutRef.current = setTimeout(() => {
       handleCloseAfterWin()
@@ -86,8 +86,8 @@ const Game = ({ gameName }: { gameName: GameName }) => {
       ) : (
         <GameContainer
           key={winningModalState.isVisible ? 'winning' : 'game'}
-          animationDuration={AnimationDuration.short}
-          animationName={AnimationName.swashIn}
+          animationDuration={AnimationDuration.SHORT}
+          animationName={AnimationName.SWASH_IN}
           displayCloseButton={true}
           onClose={handleAbort}
         >

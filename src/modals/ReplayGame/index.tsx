@@ -11,11 +11,11 @@ const ReplayGame = () => {
   const replayGameModalState = useModalStore((state) => state.replayGameModal)
 
   const handleClose = () => {
-    closeModal(Modals.replayGame, AnimationTimeout.medium)
+    closeModal(Modals.REPLAY_GAME, AnimationTimeout.MEDIUM)
   }
 
   const handleReplay = () => {
-    closeModal(Modals.replayGame, AnimationTimeout.medium)
+    closeModal(Modals.REPLAY_GAME, AnimationTimeout.MEDIUM)
     playGame(replayGameModalState.gameName as GameName)
   }
 

@@ -5,32 +5,33 @@ export interface IModalState {
   gameName?: GameName
 }
 
-export enum Modals {
-  intro = 'introModal',
-  winning = 'winningModal',
-  restartAdventure = 'restartAdventureModal',
-  credits = 'creditsModal',
-  replayGame = 'replayGameModal',
-}
+export const Modals = {
+  INTRO: 'introModal',
+  WINNING: 'winningModal',
+  RESTART_ADVENTURE: 'restartAdventureModal',
+  CREDITS: 'creditsModal',
+  REPLAY_GAME: 'replayGameModal',
+  SOUND_PERMISSION: 'soundPermissionModal',
+} as const;
 
 export type ModalKeys = (typeof Modals)[keyof typeof Modals]
 
-export enum AnimationName {
-  swashIn = 'swashIn',
-  puffIn = 'puffIn',
-  swashOut = 'swashOut',
-}
+export const AnimationName = {
+  SWASH_IN: 'swashIn',
+  PUFF_IN: 'puffIn',
+  SWASH_OUT: 'swashOut',
+} as const;
 
-export enum AnimationTimeout {
-  immediate = 0,
-  short = 300,
-  medium = 700,
-  long = 1000,
-}
+export const AnimationTimeout = {
+  IMMEDIATE : 0,
+  SHORT : 300,
+  MEDIUM : 700,
+  LONG : 1000,
+} as const;
 
-export enum AnimationDuration {
-  immediate = '0s',
-  short = '0.4s',
-  medium = '0.8s',
-  long = '1.2s',
-}
+export const AnimationDuration = {
+  IMMEDIATE: '0s',
+  SHORT: '0.4s',
+  MEDIUM: '0.8s',
+  LONG: '1.2s',
+} as const;

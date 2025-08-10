@@ -99,12 +99,12 @@ export const interactiveAreasInit = {
   stage: {
     surface: areas.stage,
     openGame: RIGHT_SEQUENCE,
-    description: 'TBD',
+    description: 'Ecouter le groupe (active le jeu "la Séquence Musicale")',
   },
   recordsOnTheWall: {
     surface: areas.records,
     openGame: MEMORY,
-    description: 'TBD',
+    description: 'Choisir un disque (active le jeu "Memory")',
   },
   recordPlayerEmpty: {
     surface: areas.recordplayer,
@@ -112,7 +112,7 @@ export const interactiveAreasInit = {
   },
   recordPlayer: {
     surface: areas.recordplayer,
-    description: `🎶`,
+    description: `Découvrir le disque 🎶`,
     navigateTo: RECORD_PLAYER,
   },
   backToLounge: {

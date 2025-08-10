@@ -22,7 +22,6 @@ interface IStoreState {
   toggleSound: () => void
 }
 
-// TODO add loading state too.
 const useMainStore = create<IStoreState>((set) => ({
   currentScene: scenes[0].name,
   isInTheClub: false,

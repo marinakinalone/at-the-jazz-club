@@ -23,8 +23,8 @@ const Winning = ({ handleClose }: { handleClose: () => void }) => {
 
   return (
     <ModalContainer
-      animationName={AnimationName.puffIn}
-      animationDuration={AnimationDuration.immediate}
+      animationName={AnimationName.PUFF_IN}
+      animationDuration={AnimationDuration.IMMEDIATE}
     >
       <div className={styles.contentContainer}>
         <Header title="Bien joué !" maxDuration={1.5} />

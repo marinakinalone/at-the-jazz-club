@@ -30,8 +30,8 @@ const ConfirmationModal = ({
 }: IConfirmationModal) => {
   return (
     <ModalContainer
-      animationName={AnimationName.swashIn}
-      animationDuration={AnimationDuration.medium}
+      animationName={AnimationName.SWASH_IN}
+      animationDuration={AnimationDuration.MEDIUM}
       displayCloseButton={displayCloseButton}
       onClose={onClose}
     >

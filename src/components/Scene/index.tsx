@@ -44,7 +44,7 @@ const Scene = () => {
 
     if (openGame) {
       if (playedGames[openGame]) {
-        openModal(Modals.replayGame, openGame)
+        openModal(Modals.REPLAY_GAME, openGame)
       } else {
         playGame(openGame)
       }

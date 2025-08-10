@@ -16,11 +16,11 @@ const RestartAdventure = () => {
   const playGame = useMainStore((state) => state.playGame)
 
   const handleClose = () => {
-    closeModal(Modals.restartAdventure, AnimationTimeout.medium)
+    closeModal(Modals.RESTART_ADVENTURE, AnimationTimeout.MEDIUM)
   }
 
   const handleRestart = () => {
-    closeModal(Modals.restartAdventure, AnimationTimeout.medium)
+    closeModal(Modals.RESTART_ADVENTURE, AnimationTimeout.MEDIUM)
 
     setHasEnteredTheClub(false)
     setCurrentScene(scenes[0].name)

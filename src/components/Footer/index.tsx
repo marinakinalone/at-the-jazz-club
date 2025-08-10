@@ -15,11 +15,11 @@ const Footer = () => {
 
   const handleRestartAdventure = () => {
     for (const modal of Object.values(Modals)) {
-      if (modal !== Modals.restartAdventure) {
-        closeModal(modal, AnimationTimeout.immediate)
+      if (modal !== Modals.RESTART_ADVENTURE) {
+        closeModal(modal, AnimationTimeout.IMMEDIATE)
       }
     }
-    openModal(Modals.restartAdventure)
+    openModal(Modals.RESTART_ADVENTURE)
   }
 
   const soundIcon = isSoundOn ? 'soundOn' : 'soundOff'
