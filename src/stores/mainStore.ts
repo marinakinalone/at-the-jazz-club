@@ -9,7 +9,6 @@ const { RIGHT_SEQUENCE, MEMORY } = GAMES
 interface IStoreState {
   currentScene: SceneName
   isInTheClub: string | boolean
-  isSoundOn: boolean
   currentGame: GameName | false
   playedGames: {
     [key in GameName]: boolean
@@ -19,13 +18,11 @@ interface IStoreState {
   setHasEnteredTheClub: (value: boolean) => void
   playGame: (gameName: GameName | false) => void
   setPlayedGames: (gameName: GameName, value?: boolean) => void
-  toggleSound: () => void
 }
 
 const useMainStore = create<IStoreState>((set) => ({
   currentScene: scenes[0].name,
   isInTheClub: false,
-  isSoundOn: true,
   currentGame: false,
   playedGames: {
     [RIGHT_SEQUENCE]: false,
@@ -58,11 +55,6 @@ const useMainStore = create<IStoreState>((set) => ({
         ...state.playedGames,
         [gameName]: value,
       },
-    }))
-  },
-  toggleSound: () => {
-    set((state) => ({
-      isSoundOn: !state.isSoundOn,
     }))
   },
 }))

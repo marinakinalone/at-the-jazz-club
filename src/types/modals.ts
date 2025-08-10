@@ -16,22 +16,22 @@ export const Modals = {
 
 export type ModalKeys = (typeof Modals)[keyof typeof Modals]
 
-export const AnimationName = {
-  SWASH_IN: 'swashIn',
-  PUFF_IN: 'puffIn',
-  SWASH_OUT: 'swashOut',
-} as const
+export enum AnimationName {
+  SWASH_IN = 'swashIn',
+  PUFF_IN = 'puffIn',
+  SWASH_OUT = 'swashOut',
+}
 
-export const AnimationTimeout = {
-  IMMEDIATE: 0,
-  SHORT: 300,
-  MEDIUM: 700,
-  LONG: 1000,
-} as const
+export enum AnimationTimeout {
+  IMMEDIATE = 0,
+  SHORT = 300,
+  MEDIUM = 700,
+  LONG = 1000,
+}
 
-export const AnimationDuration = {
-  IMMEDIATE: '0s',
-  SHORT: '0.4s',
-  MEDIUM: '0.8s',
-  LONG: '1.2s',
-} as const
+export enum AnimationDuration {
+  IMMEDIATE = '0s',
+  SHORT = '0.4s',
+  MEDIUM = '0.8s',
+  LONG = '1.2s',
+}

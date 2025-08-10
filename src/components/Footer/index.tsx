@@ -2,14 +2,15 @@ import Image from 'next/image'
 import React from 'react'
 import styles from './Footer.module.css'
 import { ibmPlexMono } from '@/app/layout'
-import useMainStore from '@/stores/mainStore'
 import useModalStore from '@/stores/modalStore'
+import useSoundStore from '@/stores/soundStore'
 import { Modals } from '@/types/modals'
 import { AnimationTimeout } from '@/types/modals'
 
 const Footer = () => {
-  const toggleSoundButton = useMainStore((state) => state.toggleSound)
-  const isSoundOn = useMainStore((state) => state.isSoundOn)
+  const toggleSoundButton = useSoundStore((state) => state.setIsSilent)
+  const isSoundOff = useSoundStore((state) => state.isSilent)
+
   const openModal = useModalStore((state) => state.openModal)
   const closeModal = useModalStore((state) => state.closeModal)
 
@@ -22,7 +23,7 @@ const Footer = () => {
     openModal(Modals.RESTART_ADVENTURE)
   }
 
-  const soundIcon = isSoundOn ? 'soundOn' : 'soundOff'
+  const soundIcon = isSoundOff ? 'soundOff' : 'soundOn'
 
   return (
     <footer className={styles.footer}>

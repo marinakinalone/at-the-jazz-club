@@ -1,12 +1,18 @@
 import { create } from 'zustand'
 import { SoundsUrlSchema } from '@/data/sounds'
+import { BACKGROUND_MUSIC_KEYS } from '@/constants/scenes'
 
+interface CurrentlyPlaying {
+  soundKey: string
+  timeWhenStopped: number
+}
 interface SoundState {
   sounds: { [key: string]: HTMLAudioElement }
   isLoading: boolean
   isLoaded: boolean
   error: string | null
   isSilent: boolean
+  currentlyPlaying: CurrentlyPlaying | null
 
   loadSounds: (soundUrls: Partial<SoundsUrlSchema> | { [key: string]: string }) => Promise<void>
   playSound: (soundKey: string) => void
@@ -15,12 +21,13 @@ interface SoundState {
   cleanup: () => void
 }
 
-export const useSoundStore = create<SoundState>((set, get) => ({
+const useSoundStore = create<SoundState>((set, get) => ({
   sounds: {},
   isLoading: false,
   isLoaded: false,
   error: null,
   isSilent: false,
+  currentlyPlaying: null,
 
   loadSounds: async (soundUrls) => {
     set({ isLoading: true, error: null })
@@ -30,6 +37,9 @@ export const useSoundStore = create<SoundState>((set, get) => ({
         const audio = new Audio()
         audio.src = url
         audio.preload = 'auto'
+        if (key === 'global_background' || key === 'global_final') {
+          audio.loop = true
+        }
 
         return new Promise<[string, HTMLAudioElement]>((resolve, reject) => {
           audio.addEventListener('canplaythrough', () => resolve([key, audio]))
@@ -55,35 +65,70 @@ export const useSoundStore = create<SoundState>((set, get) => ({
 
   playSound: (soundKey) => {
     if (get().isSilent) return
-    const { sounds } = get()
-
+    const { sounds, currentlyPlaying } = get()
     const sound = sounds[soundKey]
     if (sound) {
-      sound.currentTime = 0
+      if (
+        currentlyPlaying &&
+        currentlyPlaying.soundKey === soundKey &&
+        BACKGROUND_MUSIC_KEYS.includes(soundKey)
+      ) {
+        sound.currentTime = currentlyPlaying.timeWhenStopped
+      } else {
+        sound.currentTime = 0
+      }
       sound.play().catch(() => console.error('Error playing sound:', soundKey))
+      set({ currentlyPlaying: { soundKey, timeWhenStopped: 0 } })
     }
   },
+
+  // TODO, playBackgroundMusic, playMemoryGameSound, playTheRightSequenceSound,
 
   stopSound: (soundKey) => {
     const { sounds } = get()
     const sound = sounds[soundKey]
     if (sound) {
       sound.pause()
-      sound.currentTime = 0
+      if (BACKGROUND_MUSIC_KEYS.includes(soundKey)) {
+        // Save the time when stopped
+        set({ currentlyPlaying: { soundKey, timeWhenStopped: sound.currentTime } })
+      }
     }
   },
 
   setIsSilent: () => {
-    const shouldHaveSound = !get().isSilent
+    const isSilent = !get().isSilent
+    const { sounds, currentlyPlaying } = get()
 
-    if (!shouldHaveSound) {
-      const { sounds } = get()
-      Object.values(sounds).forEach((sound) => {
-        sound.pause()
-        sound.currentTime = 0
-      })
+    if (isSilent) {
+      // Pause current sound and save its position
+      if (currentlyPlaying) {
+        const sound = sounds[currentlyPlaying.soundKey]
+        if (sound) {
+          sound.pause()
+
+          if (BACKGROUND_MUSIC_KEYS.includes(currentlyPlaying.soundKey)) {
+            set({
+              currentlyPlaying: {
+                soundKey: currentlyPlaying.soundKey,
+                timeWhenStopped: sound.currentTime,
+              },
+            })
+          }
+        }
+      }
+      set({ isSilent })
+    } else {
+      // Resume from saved position
+      if (currentlyPlaying) {
+        const sound = sounds[currentlyPlaying.soundKey]
+        if (sound) {
+          sound.currentTime = currentlyPlaying.timeWhenStopped
+          sound.play().catch(() => console.error('Error playing sound:', currentlyPlaying.soundKey))
+        }
+      }
+      set({ isSilent })
     }
-    set({ isSilent: shouldHaveSound })
   },
 
   cleanup: () => {
@@ -92,6 +137,8 @@ export const useSoundStore = create<SoundState>((set, get) => ({
       sound.pause()
       sound.src = ''
     })
-    set({ sounds: {}, isLoaded: false })
+    set({ sounds: {}, isLoaded: false, currentlyPlaying: null })
   },
 }))
+
+export default useSoundStore

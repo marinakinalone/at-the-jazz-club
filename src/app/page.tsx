@@ -12,7 +12,7 @@ import RestartAdventureModal from '@/modals/RestartAdventure'
 import SoundPermissionModal from '@/modals/SoundPermission'
 import useMainStore from '@/stores/mainStore'
 import useModalStore from '@/stores/modalStore'
-import { useSoundStore } from '@/stores/soundStore'
+import useSoundStore from '@/stores/soundStore'
 import { GAMES } from '@/types/games'
 import { Modals } from '@/types/modals'
 import { SceneName, SCENES } from '@/types/scenes'
@@ -76,6 +76,13 @@ export default function Home() {
   useEffect(() => {
     if (!isHydrated || soundPermissionModalVisible) return
 
+    if (currentGame) {
+      if (lastMusicRef.current) {
+        stopSound(lastMusicRef.current)
+        lastMusicRef.current = null
+      }
+      return
+    }
     let backgroundMusic: string
 
     if (currentScene === SCENES.RECORD_PLAYER && !finalMusicUnlocked) {
@@ -103,6 +110,7 @@ export default function Home() {
     currentScene,
     finalMusicUnlocked,
     stopSound,
+    currentGame,
   ])
 
   if (!isHydrated) {
