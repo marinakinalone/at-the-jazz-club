@@ -81,7 +81,7 @@ const useSoundStore = create<SoundState>((set, get) => ({
 
       if (soundKey === 'global_background' || soundKey === 'global_final') {
         set({ currentlyPlaying: { soundKey, timeWhenStopped: 0 } })
-        }
+      }
     }
   },
 

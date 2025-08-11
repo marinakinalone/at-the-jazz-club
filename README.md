@@ -40,6 +40,7 @@ The Noun Project
 Photopea
 OpenAI
 Magic CSS Library
+[Piano-mp3](https://github.com/fuhton/piano-mp3)
 
 ## Team
 

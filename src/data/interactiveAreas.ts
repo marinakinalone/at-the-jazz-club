@@ -108,7 +108,7 @@ export const interactiveAreasInit = {
   },
   recordPlayerEmpty: {
     surface: areas.recordplayer,
-    description: `Une très jolie platine vinyle mais il manque un disque pour que l'on puisse en profiter. Que joue-t-on aujourd'hui ?`,
+    description: `Une très jolie platine vinyle mais il manque un disque pour que l'on puisse en profiter.`,
   },
   recordPlayer: {
     surface: areas.recordplayer,

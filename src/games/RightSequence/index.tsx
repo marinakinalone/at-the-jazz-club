@@ -1,7 +1,10 @@
+import { AnimatePresence, motion } from 'framer-motion'
 import Image from 'next/image'
 import React, { useState } from 'react'
 import styles from './RightSequence.module.css'
 import useSoundStore from '@/stores/soundStore'
+import { sleep } from '@/utils/sleep'
+
 /*
 background: #101920;
 #f4b301
@@ -22,16 +25,17 @@ Winning sequence is 24 notes;
 7, 4, 2, 4, 5, 8, 6, 4, 1, 0, 1, 3 
 */
 
-// TODO win animation, reset animation, sound, effect on press, result display, close button
+// TODO win animation, reset animation, effect on press, result display, close button
 
 const winningSequence = [7, 4, 2, 4, 5, 8, 9, 8, 4, 1, 0, 1, 7, 4, 2, 4, 5, 8, 6, 4, 1, 0, 1, 3]
 
 export const RightSequenceGame = ({ handleWin }: { handleWin: () => void }) => {
   const [currentInput, setCurrentInput] = useState<number[]>([])
 
-  const playSound = useSoundStore(state => state.playSound)
+  const playSound = useSoundStore((state) => state.playSound)
 
-  const handleButtonClick = (index: number) => {
+  const handleButtonClick = async (index: number) => {
+    // wrong input case
     if (index !== winningSequence[currentInput.length]) {
       setCurrentInput([])
       return
@@ -39,15 +43,13 @@ export const RightSequenceGame = ({ handleWin }: { handleWin: () => void }) => {
 
     playSound(`rightSequence_note_${index}`)
 
+    // win case
     if (currentInput.length === winningSequence.length - 1) {
-      setTimeout(
-        () => playSound('rightSequence_dreamer'), 1000
-      )
-
-      setTimeout(
-        () => handleWin(), 22_000
-      )
-      
+      setCurrentInput((prev) => [...prev, index])
+      await sleep(500)
+      playSound('rightSequence_dreamer')
+      await sleep(22000)
+      handleWin()
       return
     }
 
@@ -56,29 +58,41 @@ export const RightSequenceGame = ({ handleWin }: { handleWin: () => void }) => {
   return (
     <>
       <div className={styles.resultContainer}>
-        {currentInput.map((note, index) => {
-          return (
-            <div className={styles.result} key={index}>
-              <Image
-                src={`/games/rightSequence/musicNote_${note}.png`}
-                alt={`Button ${index}`}
-                width={55}
-                height={55}
-                style={{
-                  marginTop: `-${note * 3}px`,
-                  marginLeft: `${note}px`
-                }}
-              />
-            </div>
-          )
-        })}
+        <AnimatePresence>
+          {currentInput.map((note, index) => {
+            return (
+              <div className={styles.result} key={index}>
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ y: -5, opacity: 0.75 }}
+                  transition={{ ease: 'easeOut', duration: 0.8 }}
+                  exit={{ opacity: 0, scale: 0.5, transition: { duration: 0.2, ease: 'easeIn' } }}
+                >
+                  <Image
+                    src={`/games/rightSequence/musicNote_${note}.png`}
+                    alt={`Button ${index}`}
+                    width={55}
+                    height={55}
+                    style={{
+                      marginTop: `-${note * 3}px`,
+                      marginLeft: `${note}px`,
+                    }}
+                  />
+                </motion.div>
+              </div>
+            )
+          })}
+        </AnimatePresence>
       </div>
       <div className={styles.buttonContainer}>
         {Array.from({ length: 10 }).map((_, index) => (
-          <button
+          <motion.button
             key={index}
             className={styles.musicNoteButton}
             onClick={() => handleButtonClick(index)}
+            whileHover={{ scale: 1.1, rotate: 5 }}
+            whileTap={{ scale: 0.9, rotate: -5 }}
+            transition={{ type: 'spring', stiffness: 300, damping: 15 }}
           >
             <Image
               src={`/games/rightSequence/musicNote_${index}.png`}
@@ -86,8 +100,7 @@ export const RightSequenceGame = ({ handleWin }: { handleWin: () => void }) => {
               width={100}
               height={100}
             />
-            {/* <p>{index}</p> */}
-          </button>
+          </motion.button>
         ))}
         {/* <button onClick={handleWin}>click to unlock scene RightSequenceGame</button> */}
       </div>

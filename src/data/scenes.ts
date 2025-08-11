@@ -57,14 +57,14 @@ const scenes: IScene[] = [
   {
     id: 4,
     name: LOUNGE_WITH_BOX,
-    message: "Oh, un présent ! Tu devrais l'ouvrir !",
+    message: "Oh, un cadeau d'anniversaire ? Tu devrais l'ouvrir !",
     interactiveAreas: [exitClubFromLoungeWithBox, boxToOpen, stage],
   },
   {
     id: 5,
     name: LOUNGE_EMPTY_PLAYER,
 
-    message: `A l'intérieur du club, cela manque un peu de musique...`,
+    message: `La boite contenait une platine vinyle ! On choisit un disque ?`,
     interactiveAreas: [
       exitClubFromLoungeWithEmptyPlayer,
       recordsOnTheWall,
