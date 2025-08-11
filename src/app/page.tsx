@@ -33,7 +33,7 @@ export default function Home() {
   const loadSounds = useSoundStore((state) => state.loadSounds)
   const playSound = useSoundStore((state) => state.playSound)
   const stopSound = useSoundStore((state) => state.stopSound)
-  const sounds = useSoundStore((state) => state.sounds)
+  const isLoaded = useSoundStore((state) => state.isLoaded)
 
   const restartAdventureModalVisible = useModalStore(
     (state) => state.restartAdventureModal.isVisible,
@@ -74,7 +74,7 @@ export default function Home() {
   }, [setHasEnteredTheClub, setCurrentScene, setPlayedGames, openModal])
 
   useEffect(() => {
-    if (!isHydrated || soundPermissionModalVisible) return
+    if (!isHydrated || soundPermissionModalVisible || !isLoaded) return
 
     if (currentGame) {
       if (lastMusicRef.current) {
@@ -106,11 +106,11 @@ export default function Home() {
     isHydrated,
     playSound,
     soundPermissionModalVisible,
-    sounds,
     currentScene,
     finalMusicUnlocked,
     stopSound,
     currentGame,
+    isLoaded,
   ])
 
   if (!isHydrated) {

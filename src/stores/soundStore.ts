@@ -1,6 +1,6 @@
 import { create } from 'zustand'
-import { SoundsUrlSchema } from '@/data/sounds'
 import { BACKGROUND_MUSIC_KEYS } from '@/constants/scenes'
+import { SoundsUrlSchema } from '@/data/sounds'
 
 interface CurrentlyPlaying {
   soundKey: string
@@ -81,8 +81,6 @@ const useSoundStore = create<SoundState>((set, get) => ({
       set({ currentlyPlaying: { soundKey, timeWhenStopped: 0 } })
     }
   },
-
-  // TODO, playBackgroundMusic, playMemoryGameSound, playTheRightSequenceSound,
 
   stopSound: (soundKey) => {
     const { sounds } = get()
