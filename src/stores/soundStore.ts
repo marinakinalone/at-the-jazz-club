@@ -78,7 +78,10 @@ const useSoundStore = create<SoundState>((set, get) => ({
         sound.currentTime = 0
       }
       sound.play().catch(() => console.error('Error playing sound:', soundKey))
-      set({ currentlyPlaying: { soundKey, timeWhenStopped: 0 } })
+
+      if (soundKey === 'global_background' || soundKey === 'global_final') {
+        set({ currentlyPlaying: { soundKey, timeWhenStopped: 0 } })
+        }
     }
   },
 

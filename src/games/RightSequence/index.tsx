@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import React, { useState } from 'react'
 import styles from './RightSequence.module.css'
+import useSoundStore from '@/stores/soundStore'
 /*
 background: #101920;
 #f4b301
@@ -19,17 +20,6 @@ background: #101920;
 Winning sequence is 24 notes;
 7, 4, 2, 4, 5, 8, 9, 8, 4, 1, 0, 1, 
 7, 4, 2, 4, 5, 8, 6, 4, 1, 0, 1, 3 
-
-0. la
-1. si bemol
-2. si
-3. do
-4. ré
-5. mi
-6. fa
-7. fa dièse
-8. sol
-9. la
 */
 
 // TODO win animation, reset animation, sound, effect on press, result display, close button
@@ -39,14 +29,25 @@ const winningSequence = [7, 4, 2, 4, 5, 8, 9, 8, 4, 1, 0, 1, 7, 4, 2, 4, 5, 8, 6
 export const RightSequenceGame = ({ handleWin }: { handleWin: () => void }) => {
   const [currentInput, setCurrentInput] = useState<number[]>([])
 
+  const playSound = useSoundStore(state => state.playSound)
+
   const handleButtonClick = (index: number) => {
     if (index !== winningSequence[currentInput.length]) {
       setCurrentInput([])
       return
     }
 
+    playSound(`rightSequence_note_${index}`)
+
     if (currentInput.length === winningSequence.length - 1) {
-      handleWin()
+      setTimeout(
+        () => playSound('rightSequence_dreamer'), 1000
+      )
+
+      setTimeout(
+        () => handleWin(), 22_000
+      )
+      
       return
     }
 
@@ -56,7 +57,20 @@ export const RightSequenceGame = ({ handleWin }: { handleWin: () => void }) => {
     <>
       <div className={styles.resultContainer}>
         {currentInput.map((note, index) => {
-          return <p key={index}>{note}</p>
+          return (
+            <div className={styles.result} key={index}>
+              <Image
+                src={`/games/rightSequence/musicNote_${note}.png`}
+                alt={`Button ${index}`}
+                width={55}
+                height={55}
+                style={{
+                  marginTop: `-${note * 3}px`,
+                  marginLeft: `${note}px`
+                }}
+              />
+            </div>
+          )
         })}
       </div>
       <div className={styles.buttonContainer}>
@@ -72,10 +86,10 @@ export const RightSequenceGame = ({ handleWin }: { handleWin: () => void }) => {
               width={100}
               height={100}
             />
-            <p>{index}</p>
+            {/* <p>{index}</p> */}
           </button>
         ))}
-        <button onClick={handleWin}>click to unlock scene RightSequenceGame</button>
+        {/* <button onClick={handleWin}>click to unlock scene RightSequenceGame</button> */}
       </div>
     </>
   )

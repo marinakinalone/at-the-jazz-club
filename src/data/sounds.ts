@@ -26,5 +26,15 @@ export const soundsUrl = {
   },
   rightSequence: {
     dreamer: 'dreamer.mp3',
+    note_0: 'note_0.mp3',
+    note_1: 'note_1.mp3',
+    note_2: 'note_2.mp3',
+    note_3: 'note_3.mp3',
+    note_4: 'note_4.mp3',
+    note_5: 'note_5.mp3',
+    note_6: 'note_6.mp3',
+    note_7: 'note_7.mp3',
+    note_8: 'note_8.mp3',
+    note_9: 'note_9.mp3',
   },
 } as SoundsUrlSchema
