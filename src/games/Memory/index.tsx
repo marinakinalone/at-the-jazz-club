@@ -55,7 +55,7 @@ export const MemoryGame = ({ handleWin }: { handleWin: () => void }) => {
     playSound(`memory_${soundIndex}`)
   }
 
-    const { reward } = useReward('rewardId', 'confetti', {
+  const { reward } = useReward('rewardId', 'confetti', {
     decay: 0.98,
     elementCount: 500,
     startVelocity: 30,
@@ -76,7 +76,7 @@ export const MemoryGame = ({ handleWin }: { handleWin: () => void }) => {
   useEffect(() => {
     if (hasWon) {
       reward()
-      setTimeout(() =>{
+      setTimeout(() => {
         handleWin()
       }, 4000)
     }

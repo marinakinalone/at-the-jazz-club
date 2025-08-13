@@ -51,9 +51,9 @@ export const gameLogicAtom = atom(null, (get, set, flippedCardId: number) => {
   )
 
   if (allMatchedExceptWinningCard) {
-  // if (cards.find((card) => card.id === flippedCardId)?.value === 12) { // use for debuggin
-      set(winAtom, true)
-      return
+    // if (cards.find((card) => card.id === flippedCardId)?.value === 12) { // use for debuggin
+    set(winAtom, true)
+    return
   }
 
   if (updatedFlipped.length === 2) {

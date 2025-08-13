@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 import { BACKGROUND_MUSIC_KEYS } from '@/constants/scenes'
 import { SoundsUrlSchema } from '@/data/sounds'
+import { fadeVolume } from '@/utils/fadeVolume'
 
 interface CurrentlyPlaying {
   soundKey: string
@@ -65,20 +66,24 @@ const useSoundStore = create<SoundState>((set, get) => ({
 
   playSound: (soundKey) => {
     if (get().isSilent) return
+
     const { sounds, currentlyPlaying } = get()
     const sound = sounds[soundKey]
     if (sound) {
-      if (
+      const isBackgroundMusic =
         currentlyPlaying &&
         currentlyPlaying.soundKey === soundKey &&
         BACKGROUND_MUSIC_KEYS.includes(soundKey)
-      ) {
+      if (isBackgroundMusic) {
         sound.currentTime = currentlyPlaying.timeWhenStopped
       } else {
         sound.currentTime = 0
       }
       sound.play().catch(() => console.error('Error playing sound:', soundKey))
 
+      if (isBackgroundMusic) {
+        fadeVolume(sound, 0, 1, 2000)
+      }
       if (soundKey === 'global_background' || soundKey === 'global_final') {
         set({ currentlyPlaying: { soundKey, timeWhenStopped: 0 } })
       }
@@ -89,11 +94,13 @@ const useSoundStore = create<SoundState>((set, get) => ({
     const { sounds } = get()
     const sound = sounds[soundKey]
     if (sound) {
-      sound.pause()
-      if (BACKGROUND_MUSIC_KEYS.includes(soundKey)) {
-        // Save the time when stopped
-        set({ currentlyPlaying: { soundKey, timeWhenStopped: sound.currentTime } })
-      }
+      fadeVolume(sound, sound.volume, 0, 500, () => {
+        sound.pause()
+        if (BACKGROUND_MUSIC_KEYS.includes(soundKey)) {
+          // Save the time when stopped
+          set({ currentlyPlaying: { soundKey, timeWhenStopped: sound.currentTime } })
+        }
+      })
     }
   },
 
@@ -126,6 +133,7 @@ const useSoundStore = create<SoundState>((set, get) => ({
         if (sound) {
           sound.currentTime = currentlyPlaying.timeWhenStopped
           sound.play().catch(() => console.error('Error playing sound:', currentlyPlaying.soundKey))
+          fadeVolume(sound, 0, 1, 2000)
         }
       }
       set({ isSilent })
