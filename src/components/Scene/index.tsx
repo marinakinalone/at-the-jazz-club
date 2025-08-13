@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
+import { useReward } from 'react-rewards'
 import RecordText from '../RecordText'
 import styles from './Scene.module.css'
 import Caption from '@/components/Caption'
@@ -10,6 +11,7 @@ import useModalStore from '@/stores/modalStore'
 import { GameName } from '@/types/games'
 import { Modals } from '@/types/modals'
 import { IInteractiveArea, SceneName } from '@/types/scenes'
+import { sleep } from '@/utils/sleep'
 
 const getSceneCaption = (sceneName: SceneName) => {
   const scene = scenes.find((scene) => scene.name === sceneName)
@@ -51,6 +53,37 @@ const Scene = () => {
     }
   }
 
+  const { reward } = useReward('rewardId', 'balloons', {
+    lifetime: 22000,
+    decay: 1,
+    elementCount: 62, // 62 ans 🎉
+    startVelocity: 3,
+    spread: 160,
+    colors: [
+      '#f4b301',
+      '#ff5100',
+      '#9e27b5',
+      '#fce5bd',
+      '#5a7aff',
+      '#bb009e',
+      '#00ce38',
+      '#d20125',
+      '#4dadab',
+      '#e49ae6',
+    ],
+  })
+
+  useEffect(() => {
+    const triggerBalloons = async () => {
+      await sleep(2500)
+      reward()
+    }
+    if (currentScene === FINAL_SCENE) {
+      triggerBalloons()
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentScene])
+
   return (
     <>
       <section className={styles.sceneContainer}>
@@ -82,9 +115,11 @@ const Scene = () => {
           className={styles.sceneImage}
         />
       </section>
+
       <section className={styles.captionContainer}>
         <Caption message={captionMessage} />
       </section>
+      <div id="rewardId" />
     </>
   )
 }

@@ -13,6 +13,7 @@ const Footer = () => {
 
   const openModal = useModalStore((state) => state.openModal)
   const closeModal = useModalStore((state) => state.closeModal)
+  const soundPermissionModal = useModalStore((state) => state.soundPermissionModal)
 
   const handleRestartAdventure = () => {
     for (const modal of Object.values(Modals)) {
@@ -42,7 +43,9 @@ const Footer = () => {
       ||{' '}
       <button className={styles.toggleSoundButton} onClick={() => toggleSoundButton()}>
         {' '}
-        <Image src={`/icons/icon_${soundIcon}.png`} alt="Son" width={18} height={18} />
+        {soundPermissionModal.isVisible ? null : (
+          <Image src={`/icons/icon_${soundIcon}.png`} alt="Son" width={18} height={18} />
+        )}
       </button>
     </footer>
   )

@@ -1,10 +1,10 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import Image from 'next/image'
+import { useReward } from 'react-rewards'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import styles from './RightSequence.module.css'
 import useSoundStore from '@/stores/soundStore'
 import { sleep } from '@/utils/sleep'
-import { useReward } from 'react-rewards'
 
 /*
 background: #101920;
@@ -96,7 +96,6 @@ export const RightSequenceGame = ({ handleWin }: { handleWin: () => void }) => {
         }
       } catch {
         stopSound('rightSequence_dreamer')
-        console.log('Win sequence interrupted')
       }
       return
     }
