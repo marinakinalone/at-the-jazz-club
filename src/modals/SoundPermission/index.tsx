@@ -1,18 +1,20 @@
 import ConfirmationModal from '../shared/ConfirmationModal'
 import useModalStore from '@/stores/modalStore'
+import useSoundStore from '@/stores/soundStore'
 import { AnimationTimeout, Modals } from '@/types/modals'
 
 const SoundPermission = () => {
   const closeModal = useModalStore((state) => state.closeModal)
 
+  const setIsSilent = useSoundStore(state => state.setIsSilent)
+
   const handleAllowSound = () => {
-    // TODO logic to allow sound
     closeModal(Modals.SOUND_PERMISSION, AnimationTimeout.MEDIUM)
   }
 
   const handleNoSound = () => {
-    // TODO logic to disable sound
     closeModal(Modals.SOUND_PERMISSION, AnimationTimeout.MEDIUM)
+    setIsSilent()
   }
 
   return (
