@@ -1,9 +1,10 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import Image from 'next/image'
-import React, { useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState,  } from 'react'
 import styles from './RightSequence.module.css'
 import useSoundStore from '@/stores/soundStore'
 import { sleep } from '@/utils/sleep'
+import { useReward } from 'react-rewards'
 
 /*
 background: #101920;
@@ -25,14 +26,39 @@ Winning sequence is 24 notes;
 7, 4, 2, 4, 5, 8, 6, 4, 1, 0, 1, 3 
 */
 
-// TODO win animation, reset animation, effect on press, result display, close button
-
 const winningSequence = [7, 4, 2, 4, 5, 8, 9, 8, 4, 1, 0, 1, 7, 4, 2, 4, 5, 8, 6, 4, 1, 0, 1, 3]
 
 export const RightSequenceGame = ({ handleWin }: { handleWin: () => void }) => {
   const [currentInput, setCurrentInput] = useState<number[]>([])
+  const [allCorrect, setAllCorrect] = useState<boolean>(false)
+  const abortControllerRef = useRef<AbortController | null>(null)
 
   const playSound = useSoundStore((state) => state.playSound)
+  const stopSound = useSoundStore((state) => state.stopSound)
+
+  const { reward } = useReward('rewardId', 'confetti', { lifetime: 22000, decay: 1, elementCount: 700, startVelocity: 5, colors: ['#f4b301',
+    '#ff5100',
+    '#9e27b5',
+    '#fce5bd',
+    '#5a7aff',
+    '#bb009e',
+    '#00ce38',
+    '#d20125',
+    '#4dadab',
+    '#e49ae6']});
+
+
+  // Cleanup function to abort any pending operations
+  const cleanup = useCallback(() => {
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort()
+      abortControllerRef.current = null
+    }
+  }, [])
+
+  useEffect(() => {
+    return cleanup // Cleanup on unmount
+  }, [cleanup])
 
   const handleButtonClick = async (index: number) => {
     // wrong input case
@@ -47,32 +73,46 @@ export const RightSequenceGame = ({ handleWin }: { handleWin: () => void }) => {
     if (currentInput.length === winningSequence.length - 1) {
       setCurrentInput((prev) => [...prev, index])
       await sleep(500)
-      playSound('rightSequence_dreamer')
-      await sleep(22000)
-      handleWin()
+
+      abortControllerRef.current = new AbortController()
+      const signal = abortControllerRef.current.signal
+
+      try {
+        reward()
+        playSound('rightSequence_dreamer')
+        setAllCorrect(true)
+
+        await sleep(22000, signal)
+
+        if (!signal.aborted) {
+          handleWin()
+        }
+      } catch {
+        stopSound('rightSequence_dreamer')
+        console.log('Win sequence interrupted')
+      }
       return
     }
-
     setCurrentInput((prev) => [...prev, index])
   }
+
   return (
     <>
       <div className={styles.resultContainer}>
-        <AnimatePresence>
+        <AnimatePresence mode="popLayout">
           {currentInput.map((note, index) => {
             return (
-              <div className={styles.result} key={index}>
+              <div className={styles.result} key={`note-${index}-${note}`}>
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ y: -5, opacity: 0.75 }}
                   transition={{ ease: 'easeOut', duration: 0.8 }}
-                  exit={{ opacity: 0, scale: 0.5, transition: { duration: 0.2, ease: 'easeIn' } }}
                 >
                   <Image
                     src={`/games/rightSequence/musicNote_${note}.png`}
                     alt={`Button ${index}`}
-                    width={55}
-                    height={55}
+                    width={50}
+                    height={50}
                     style={{
                       marginTop: `-${note * 3}px`,
                       marginLeft: `${note}px`,
@@ -83,8 +123,14 @@ export const RightSequenceGame = ({ handleWin }: { handleWin: () => void }) => {
             )
           })}
         </AnimatePresence>
+
       </div>
-      <div className={styles.buttonContainer}>
+      <div className={styles.rewardContainer}  id="rewardId" />
+      <motion.div
+        className={styles.buttonContainer}
+        initial={{ opacity: 1 }}
+        animate={{ opacity: allCorrect ? 0 : 1, transition: { duration: 2, ease: 'easeIn' } }}
+      >
         {Array.from({ length: 10 }).map((_, index) => (
           <motion.button
             key={index}
@@ -94,6 +140,7 @@ export const RightSequenceGame = ({ handleWin }: { handleWin: () => void }) => {
             whileTap={{ scale: 0.9, rotate: -5 }}
             transition={{ type: 'spring', stiffness: 300, damping: 15 }}
           >
+
             <Image
               src={`/games/rightSequence/musicNote_${index}.png`}
               alt={`Button ${index}`}
@@ -103,7 +150,9 @@ export const RightSequenceGame = ({ handleWin }: { handleWin: () => void }) => {
           </motion.button>
         ))}
         {/* <button onClick={handleWin}>click to unlock scene RightSequenceGame</button> */}
-      </div>
+
+      </motion.div>
+
     </>
   )
 }
