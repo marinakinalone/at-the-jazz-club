@@ -1,4 +1,5 @@
 import { create } from 'zustand'
+import { ALL_SOUNDS } from '@/constants/music'
 import { BACKGROUND_MUSIC_KEYS } from '@/constants/scenes'
 import { SoundsUrlSchema } from '@/data/sounds'
 import { fadeVolume } from '@/utils/fadeVolume'
@@ -92,6 +93,12 @@ const useSoundStore = create<SoundState>((set, get) => ({
 
   stopSound: (soundKey) => {
     const { sounds } = get()
+    if (soundKey === ALL_SOUNDS) {
+      Object.values(sounds).forEach(sound => {
+        sound.pause()
+      })
+      return
+    }
     const sound = sounds[soundKey]
     if (sound) {
       if (BACKGROUND_MUSIC_KEYS.includes(soundKey)) {

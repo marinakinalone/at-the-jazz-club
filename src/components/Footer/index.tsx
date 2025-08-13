@@ -1,11 +1,11 @@
 import Image from 'next/image'
 import React from 'react'
 import styles from './Footer.module.css'
-import { ibmPlexMono } from '@/app/layout'
 import useModalStore from '@/stores/modalStore'
 import useSoundStore from '@/stores/soundStore'
 import { Modals } from '@/types/modals'
 import { AnimationTimeout } from '@/types/modals'
+import { ibmPlexMono } from '@/utils/fonts'
 
 const Footer = () => {
   const toggleSoundButton = useSoundStore((state) => state.setIsSilent)

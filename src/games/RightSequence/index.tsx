@@ -36,7 +36,7 @@ export const RightSequenceGame = ({ handleWin }: { handleWin: () => void }) => {
   const playSound = useSoundStore((state) => state.playSound)
   const stopSound = useSoundStore((state) => state.stopSound)
 
-  const { reward } = useReward('rewardId', 'confetti', {
+  const { reward } = useReward('rewardRightSequence', 'confetti', {
     lifetime: 22000,
     decay: 1,
     elementCount: 700,
@@ -130,7 +130,7 @@ export const RightSequenceGame = ({ handleWin }: { handleWin: () => void }) => {
           })}
         </AnimatePresence>
       </div>
-      <div className={styles.rewardContainer} id="rewardId" />
+      <div className={styles.rewardContainer} id="rewardRightSequence" />
       <motion.div
         className={styles.buttonContainer}
         initial={{ opacity: 1 }}

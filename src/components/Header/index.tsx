@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
 import styles from './Header.module.css'
-import { limelight } from '@/app/layout'
 import jazzColors from '@/data/jazzColors'
+import { limelight } from '@/utils/fonts'
 
 const Header = ({ title, maxDuration = 7 }: { title: string; maxDuration: number }) => {
   const characters = title.split('')

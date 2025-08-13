@@ -53,7 +53,7 @@ const Scene = () => {
     }
   }
 
-  const { reward } = useReward('rewardId', 'balloons', {
+  const { reward } = useReward('rewardMemory', 'balloons', {
     lifetime: 22000,
     decay: 1,
     elementCount: 62, // 62 ans 🎉
@@ -119,7 +119,7 @@ const Scene = () => {
       <section className={styles.captionContainer}>
         <Caption message={captionMessage} />
       </section>
-      <div id="rewardId" />
+      <div id="rewardMemory" />
     </>
   )
 }

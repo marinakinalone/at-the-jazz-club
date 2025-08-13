@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './PrimaryButton.module.css'
-import { ibmPlexMono } from '@/app/layout'
+import { ibmPlexMono } from '@/utils/fonts'
 
 const PrimaryButton = ({
   label,

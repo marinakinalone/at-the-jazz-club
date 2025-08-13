@@ -151,7 +151,7 @@ export const MemoryGame = ({ handleWin }: { handleWin: () => void }) => {
                   />
                 </div>
               </motion.div>
-              {card.value}
+              {/* {card.value} */} 
             </motion.button>
           )
         })}
