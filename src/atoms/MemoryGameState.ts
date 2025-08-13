@@ -49,8 +49,11 @@ export const gameLogicAtom = atom(null, (get, set, flippedCardId: number) => {
   const allMatchedExceptWinningCard = cards.every(
     (card) => card.matched || card.value === 12, // 12 is the WINNING_CARD
   )
+
   if (allMatchedExceptWinningCard) {
-    set(winAtom, true)
+  // if (cards.find((card) => card.id === flippedCardId)?.value === 12) { // use for debuggin
+      set(winAtom, true)
+      return
   }
 
   if (updatedFlipped.length === 2) {

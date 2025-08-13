@@ -1,6 +1,8 @@
+import { motion } from 'framer-motion'
 import { useAtom, useSetAtom } from 'jotai'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
+import { useReward } from 'react-rewards'
 import styles from './Memory.module.css'
 import {
   cardsAtom,
@@ -53,9 +55,30 @@ export const MemoryGame = ({ handleWin }: { handleWin: () => void }) => {
     playSound(`memory_${soundIndex}`)
   }
 
+    const { reward } = useReward('rewardId', 'confetti', {
+    decay: 0.98,
+    elementCount: 500,
+    startVelocity: 30,
+    colors: [
+      '#f4b301',
+      '#ff5100',
+      '#9e27b5',
+      '#fce5bd',
+      '#5a7aff',
+      '#bb009e',
+      '#00ce38',
+      '#d20125',
+      '#4dadab',
+      '#e49ae6',
+    ],
+  })
+
   useEffect(() => {
     if (hasWon) {
-      handleWin()
+      reward()
+      setTimeout(() =>{
+        handleWin()
+      }, 4000)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hasWon])
@@ -63,37 +86,77 @@ export const MemoryGame = ({ handleWin }: { handleWin: () => void }) => {
   return (
     <>
       <div className={styles.cardGrid}>
-        {cards.map((card, index) =>
-          card.matched ? (
+        {cards.map((card, index) => {
+          const isFlipped = flippedCards.includes(card.id)
+
+          return card.matched ? (
             <div key={card.id} className={styles.emptyCardContainer}></div>
           ) : (
-            <button
+            <motion.button
               key={index}
               onClick={() => handleSelectCard(card)}
               className={styles.card}
               disabled={disabled}
               style={{
                 cursor: disabled ? 'wait' : 'pointer',
+                perspective: '1000px',
               }}
             >
-              <Image
-                src={
-                  flippedCards.includes(card.id)
-                    ? isSilent
-                      ? `/games/memory/card_verso_${card.value}.png`
-                      : `/games/memory/card_verso_12.png`
-                    : `/games/memory/card_recto.png`
-                }
-                alt="Memory"
-                width={88}
-                height={115}
-              />
-              {card.value}
-            </button>
-          ),
-        )}
+              <motion.div
+                animate={{ rotateY: isFlipped ? 180 : 0 }}
+                transition={{ duration: 0.5 }}
+                style={{
+                  position: 'relative',
+                  width: '88px',
+                  height: '115px',
+                  transformStyle: 'preserve-3d',
+                }}
+              >
+                {/* Front side */}
+                <div
+                  style={{
+                    position: 'absolute',
+                    backfaceVisibility: 'hidden',
+                    width: '100%',
+                    height: '100%',
+                  }}
+                >
+                  <Image
+                    src={`/games/memory/card_recto.png`}
+                    alt="Card back"
+                    width={88}
+                    height={115}
+                  />
+                </div>
+
+                {/* Back side */}
+                <div
+                  style={{
+                    position: 'absolute',
+                    backfaceVisibility: 'hidden',
+                    transform: 'rotateY(180deg)',
+                    width: '100%',
+                    height: '100%',
+                  }}
+                >
+                  <Image
+                    src={
+                      isSilent
+                        ? `/games/memory/card_verso_${card.value}.png`
+                        : `/games/memory/card_verso_12.png`
+                    }
+                    alt="Card front"
+                    width={88}
+                    height={115}
+                  />
+                </div>
+              </motion.div>
+              {/* {card.value} */}
+            </motion.button>
+          )
+        })}
       </div>
-      <button onClick={handleWin}>click to unlock scene for MemoryGame</button>
+      <div className={styles.rewardContainer} id="rewardId" />
     </>
   )
 }

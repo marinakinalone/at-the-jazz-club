@@ -112,7 +112,7 @@ export const interactiveAreasInit = {
   },
   recordPlayer: {
     surface: areas.recordplayer,
-    description: `Découvrir le disque 🎶`,
+    description: `Découvrir le disque..."Ooh-shoo-bee-doo-bee-doo"`,
     navigateTo: RECORD_PLAYER,
   },
   backToLounge: {
