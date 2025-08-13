@@ -33,6 +33,8 @@ export const resetMemoryGameAtom = atom(null, (get, set) => {
   set(winAtom, false)
 })
 
+export const disableClick = atom<boolean>(false)
+
 export const gameLogicAtom = atom(null, (get, set, flippedCardId: number) => {
   const cards = get(cardsAtom)
   const flippedCards = get(flippedCardIdsAtom)
@@ -52,6 +54,7 @@ export const gameLogicAtom = atom(null, (get, set, flippedCardId: number) => {
   }
 
   if (updatedFlipped.length === 2) {
+    set(disableClick, true)
     const [firstCard, secondCard] = updatedFlipped
 
     const firstCardValue = cards.find((card) => card.id === firstCard)?.value
@@ -67,10 +70,12 @@ export const gameLogicAtom = atom(null, (get, set, flippedCardId: number) => {
         )
 
         set(flippedCardIdsAtom, [])
+        set(disableClick, false)
       }, 1000)
     } else {
       setTimeout(() => {
         set(flippedCardIdsAtom, [])
+        set(disableClick, false)
       }, 1000)
     }
   }

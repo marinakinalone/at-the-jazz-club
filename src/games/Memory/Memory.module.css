@@ -10,7 +10,6 @@
 .card {
   background: transparent;
   border: none;
-  cursor: pointer;
 }
 
 .emptyCardContainer {

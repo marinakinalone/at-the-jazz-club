@@ -5,7 +5,6 @@ import { AnimationTimeout, Modals } from '@/types/modals'
 
 const SoundPermission = () => {
   const closeModal = useModalStore((state) => state.closeModal)
-
   const setIsSilent = useSoundStore((state) => state.setIsSilent)
 
   const handleAllowSound = () => {
