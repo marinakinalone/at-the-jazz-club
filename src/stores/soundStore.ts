@@ -94,13 +94,15 @@ const useSoundStore = create<SoundState>((set, get) => ({
     const { sounds } = get()
     const sound = sounds[soundKey]
     if (sound) {
-      fadeVolume(sound, sound.volume, 0, 500, () => {
+      if (BACKGROUND_MUSIC_KEYS.includes(soundKey)) {
+        // Save the time when stopped
+        fadeVolume(sound, sound.volume, 0, 500, () => {
+          sound.pause()
+        })
+        set({ currentlyPlaying: { soundKey, timeWhenStopped: sound.currentTime } })
+      } else {
         sound.pause()
-        if (BACKGROUND_MUSIC_KEYS.includes(soundKey)) {
-          // Save the time when stopped
-          set({ currentlyPlaying: { soundKey, timeWhenStopped: sound.currentTime } })
-        }
-      })
+      }
     }
   },
 

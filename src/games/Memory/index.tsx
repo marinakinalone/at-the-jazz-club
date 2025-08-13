@@ -52,6 +52,7 @@ export const MemoryGame = ({ handleWin }: { handleWin: () => void }) => {
     flipCard(card.id)
     const soundIndex = card.value + 1
     setPlayedSound(`memory_${soundIndex}`)
+    console.log('`memory_${soundIndex}`: ', `memory_${soundIndex}`)
     playSound(`memory_${soundIndex}`)
   }
 
