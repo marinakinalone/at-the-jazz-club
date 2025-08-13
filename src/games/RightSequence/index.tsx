@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import Image from 'next/image'
-import React, { useCallback, useEffect, useRef, useState,  } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import styles from './RightSequence.module.css'
 import useSoundStore from '@/stores/soundStore'
 import { sleep } from '@/utils/sleep'
@@ -36,17 +36,24 @@ export const RightSequenceGame = ({ handleWin }: { handleWin: () => void }) => {
   const playSound = useSoundStore((state) => state.playSound)
   const stopSound = useSoundStore((state) => state.stopSound)
 
-  const { reward } = useReward('rewardId', 'confetti', { lifetime: 22000, decay: 1, elementCount: 700, startVelocity: 5, colors: ['#f4b301',
-    '#ff5100',
-    '#9e27b5',
-    '#fce5bd',
-    '#5a7aff',
-    '#bb009e',
-    '#00ce38',
-    '#d20125',
-    '#4dadab',
-    '#e49ae6']});
-
+  const { reward } = useReward('rewardId', 'confetti', {
+    lifetime: 22000,
+    decay: 1,
+    elementCount: 700,
+    startVelocity: 5,
+    colors: [
+      '#f4b301',
+      '#ff5100',
+      '#9e27b5',
+      '#fce5bd',
+      '#5a7aff',
+      '#bb009e',
+      '#00ce38',
+      '#d20125',
+      '#4dadab',
+      '#e49ae6',
+    ],
+  })
 
   // Cleanup function to abort any pending operations
   const cleanup = useCallback(() => {
@@ -123,9 +130,8 @@ export const RightSequenceGame = ({ handleWin }: { handleWin: () => void }) => {
             )
           })}
         </AnimatePresence>
-
       </div>
-      <div className={styles.rewardContainer}  id="rewardId" />
+      <div className={styles.rewardContainer} id="rewardId" />
       <motion.div
         className={styles.buttonContainer}
         initial={{ opacity: 1 }}
@@ -140,7 +146,6 @@ export const RightSequenceGame = ({ handleWin }: { handleWin: () => void }) => {
             whileTap={{ scale: 0.9, rotate: -5 }}
             transition={{ type: 'spring', stiffness: 300, damping: 15 }}
           >
-
             <Image
               src={`/games/rightSequence/musicNote_${index}.png`}
               alt={`Button ${index}`}
@@ -150,9 +155,7 @@ export const RightSequenceGame = ({ handleWin }: { handleWin: () => void }) => {
           </motion.button>
         ))}
         {/* <button onClick={handleWin}>click to unlock scene RightSequenceGame</button> */}
-
       </motion.div>
-
     </>
   )
 }
