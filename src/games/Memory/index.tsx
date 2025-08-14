@@ -12,9 +12,9 @@ import {
   resetMemoryGameAtom,
   winAtom,
 } from '@/atoms/MemoryGameState'
+import jazzColors from '@/data/jazzColors'
 import useSoundStore from '@/stores/soundStore'
-
-export const WINNING_CARD = 12
+import { sleep } from '@/utils/sleep'
 
 interface ICard {
   id: number
@@ -24,7 +24,7 @@ interface ICard {
 }
 
 // 25 cards, 5 x 5 grid. 12 + 1 winning card
-export const MemoryGame = ({ handleWin }: { handleWin: () => void }) => {
+const MemoryGame = ({ handleWin }: { handleWin: () => void }) => {
   const [playedSound, setPlayedSound] = useState<false | string>(false)
 
   const [cards] = useAtom(cardsAtom)
@@ -59,26 +59,17 @@ export const MemoryGame = ({ handleWin }: { handleWin: () => void }) => {
     decay: 0.98,
     elementCount: 500,
     startVelocity: 30,
-    colors: [
-      '#f4b301',
-      '#ff5100',
-      '#9e27b5',
-      '#fce5bd',
-      '#5a7aff',
-      '#bb009e',
-      '#00ce38',
-      '#d20125',
-      '#4dadab',
-      '#e49ae6',
-    ],
+    colors: jazzColors,
   })
 
   useEffect(() => {
-    if (hasWon) {
+    const startWinSequence = async () => {
       reward()
-      setTimeout(() => {
-        handleWin()
-      }, 4000)
+      await sleep(4000)
+      handleWin()
+    }
+    if (hasWon) {
+      startWinSequence()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hasWon])
@@ -151,7 +142,7 @@ export const MemoryGame = ({ handleWin }: { handleWin: () => void }) => {
                   />
                 </div>
               </motion.div>
-              {/* {card.value} */} 
+              {/* {card.value} */}
             </motion.button>
           )
         })}

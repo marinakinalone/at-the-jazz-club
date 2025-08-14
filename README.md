@@ -18,12 +18,14 @@
 - NextJS
 - TypeScript
 - Zustand
+- Jotai
+- Motion Framer
 - Firebase
 - CSS modules
 
 ## Deployment
 
-[Coming]()
+[https://at-the-jazz-club.vercel.app/](https://at-the-jazz-club.vercel.app/)
 
 ## Installation
 

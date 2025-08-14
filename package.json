@@ -12,14 +12,10 @@
     "knip": "knip"
   },
   "dependencies": {
-    "eslint-config-prettier": "^10.1.2",
-    "eslint-plugin-prettier": "^5.2.6",
     "firebase": "^12.0.0",
-    "firebase-admin": "^13.4.0",
+    "framer-motion": "^12.0.0",
     "jotai": "^2.12.3",
-    "motion": "^12.23.12",
     "next": "15.3.1",
-    "prettier": "^3.5.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-rewards": "^2.1.0",
@@ -30,9 +26,17 @@
     "@types/node": "^24.2.0",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@typescript-eslint/eslint-plugin": "^8.0.0",
     "eslint": "^9",
-    "eslint-config-next": "15.3.1",
+    "eslint-config-next": "^15.4.6",
+    "eslint-config-prettier": "^10.1.2",
+    "eslint-plugin-import": "^2.30.0",
+    "eslint-plugin-prettier": "^5.2.6",
+    "eslint-plugin-react": "^7.35.0",
+    "eslint-plugin-react-hooks": "^5.0.0",
+    "globals": "^15.0.0",
     "knip": "^5.62.0",
+    "prettier": "^3.5.3",
     "typescript": "^5.9.2"
   }
 }

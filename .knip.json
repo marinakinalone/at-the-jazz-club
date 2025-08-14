@@ -1,0 +1,24 @@
+{
+  "entry": [
+    "src/app/**/*.{js,ts,tsx}"
+  ],
+  "project": [
+    "src/**/*.{js,ts,tsx}"
+  ],
+  "ignore": [
+    "dist/**",
+    ".next/**",
+    "node_modules/**"
+  ],
+  "ignoreDependencies": [
+    "eslint-config-prettier",
+    "eslint-plugin-prettier",
+    "eslint-config-next"
+  ],
+  "eslint": {
+    "config": ["eslint.config.mjs"]
+  },
+  "next": {
+    "entry": ["src/app/**/*.{js,ts,tsx}"]
+  }
+}

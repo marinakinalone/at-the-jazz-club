@@ -23,7 +23,7 @@ const useModalStore = create<ModalStoreState>((set) => ({
   soundPermissionModal: { ...defaultModalState },
   endCreditsModal: { ...defaultModalState }, // TODO implement
   minimumScreenSizeModal: { ...defaultModalState }, // TODO implement
-  openBoxModal: { ...defaultModalState }, // TODO implement
+  sceneTransitionModal: { ...defaultModalState }, // TODO implement
 
   openModal: (modalKey, game) => {
     set({

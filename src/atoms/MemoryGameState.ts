@@ -1,5 +1,7 @@
 import { atom } from 'jotai'
 
+const WINNING_CARD = 12
+
 // Schwartzian Transform
 const shuffle = (arr: number[]) =>
   arr
@@ -47,7 +49,7 @@ export const gameLogicAtom = atom(null, (get, set, flippedCardId: number) => {
 
   // if all matched except the winning card, update winning state
   const allMatchedExceptWinningCard = cards.every(
-    (card) => card.matched || card.value === 12, // 12 is the WINNING_CARD
+    (card) => card.matched || card.value === WINNING_CARD,
   )
 
   if (allMatchedExceptWinningCard) {

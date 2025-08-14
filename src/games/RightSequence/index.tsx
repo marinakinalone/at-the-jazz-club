@@ -1,34 +1,15 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import Image from 'next/image'
-import { useReward } from 'react-rewards'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
+import { useReward } from 'react-rewards'
 import styles from './RightSequence.module.css'
+import jazzColors from '@/data/jazzColors'
 import useSoundStore from '@/stores/soundStore'
 import { sleep } from '@/utils/sleep'
 
-/*
-background: #101920;
-#f4b301
-#ff5100
-#9e27b5
-#fce5bd
-#5a7aff
-#bb009e
-#00ce38
-#d20125
-#4dadab
-#e49ae6
-*/
-
-/*
-Winning sequence is 24 notes;
-7, 4, 2, 4, 5, 8, 9, 8, 4, 1, 0, 1, 
-7, 4, 2, 4, 5, 8, 6, 4, 1, 0, 1, 3 
-*/
-
 const winningSequence = [7, 4, 2, 4, 5, 8, 9, 8, 4, 1, 0, 1, 7, 4, 2, 4, 5, 8, 6, 4, 1, 0, 1, 3]
 
-export const RightSequenceGame = ({ handleWin }: { handleWin: () => void }) => {
+const RightSequenceGame = ({ handleWin }: { handleWin: () => void }) => {
   const [currentInput, setCurrentInput] = useState<number[]>([])
   const [allCorrect, setAllCorrect] = useState<boolean>(false)
   const abortControllerRef = useRef<AbortController | null>(null)
@@ -41,18 +22,7 @@ export const RightSequenceGame = ({ handleWin }: { handleWin: () => void }) => {
     decay: 1,
     elementCount: 700,
     startVelocity: 5,
-    colors: [
-      '#f4b301',
-      '#ff5100',
-      '#9e27b5',
-      '#fce5bd',
-      '#5a7aff',
-      '#bb009e',
-      '#00ce38',
-      '#d20125',
-      '#4dadab',
-      '#e49ae6',
-    ],
+    colors: jazzColors,
   })
 
   // Cleanup function to abort any pending operations

@@ -13,7 +13,7 @@ export enum SCENES {
 
 export type SceneName = SCENES
 
-export interface ISurface {
+interface ISurface {
   x: number
   y: number
   radius?: number

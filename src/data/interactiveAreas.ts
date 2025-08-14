@@ -55,7 +55,7 @@ const areas = {
   },
 }
 
-export const interactiveAreasInit = {
+const interactiveAreasInit = {
   playToEnterClub: {
     surface: areas.clubEntranceDoor,
     openGame: RIGHT_SEQUENCE,

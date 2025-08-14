@@ -12,6 +12,7 @@ import { GameName } from '@/types/games'
 import { Modals } from '@/types/modals'
 import { IInteractiveArea, SceneName } from '@/types/scenes'
 import { sleep } from '@/utils/sleep'
+import jazzColors from '@/data/jazzColors'
 
 const getSceneCaption = (sceneName: SceneName) => {
   const scene = scenes.find((scene) => scene.name === sceneName)
@@ -59,18 +60,7 @@ const Scene = () => {
     elementCount: 62, // 62 ans 🎉
     startVelocity: 3,
     spread: 160,
-    colors: [
-      '#f4b301',
-      '#ff5100',
-      '#9e27b5',
-      '#fce5bd',
-      '#5a7aff',
-      '#bb009e',
-      '#00ce38',
-      '#d20125',
-      '#4dadab',
-      '#e49ae6',
-    ],
+    colors: jazzColors,
   })
 
   useEffect(() => {
@@ -81,7 +71,7 @@ const Scene = () => {
     if (currentScene === FINAL_SCENE) {
       triggerBalloons()
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentScene])
 
   return (

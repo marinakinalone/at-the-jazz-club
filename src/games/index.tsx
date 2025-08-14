@@ -9,7 +9,7 @@ import { GameName, GAMES } from '@/types/games'
 import { AnimationDuration, AnimationName, AnimationTimeout, Modals } from '@/types/modals'
 import { SCENES } from '@/types/scenes'
 
-export const WINNING_MESSAGE_TIMEOUT = 10000
+const WINNING_MESSAGE_TIMEOUT = 10000
 
 const { RIGHT_SEQUENCE, MEMORY } = GAMES
 

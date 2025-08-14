@@ -16,9 +16,8 @@ const RestartAdventure = () => {
   const setCurrentScene = useMainStore((state) => state.setCurrentScene)
   const setPlayedGames = useMainStore((state) => state.setPlayedGames)
   const playGame = useMainStore((state) => state.playGame)
-  const playSound = useSoundStore(state => state.playSound)
-  const stopSound = useSoundStore(state => state.stopSound)
-
+  const playSound = useSoundStore((state) => state.playSound)
+  const stopSound = useSoundStore((state) => state.stopSound)
 
   const handleClose = () => {
     closeModal(Modals.RESTART_ADVENTURE, AnimationTimeout.MEDIUM)

@@ -94,7 +94,7 @@ const useSoundStore = create<SoundState>((set, get) => ({
   stopSound: (soundKey) => {
     const { sounds } = get()
     if (soundKey === ALL_SOUNDS) {
-      Object.values(sounds).forEach(sound => {
+      Object.values(sounds).forEach((sound) => {
         sound.pause()
       })
       return
