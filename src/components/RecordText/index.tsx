@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import styles from './RecordText.module.css'
+import jazzColors from '@/data/jazzColors'
 
 const outerText = 'On va voir Stacey Kent en concert...'
 const innerText = '...le 9 avril 2026 à la Cité des Congrès !!!'
@@ -21,6 +22,38 @@ const RecordText = () => {
     return () => clearInterval(interval)
   }, [outerIndex, innerIndex])
 
+  const renderText = ({
+    text,
+    textIndex,
+    coloredTextRegex,
+  }: {
+    text: string
+    textIndex: number
+    coloredTextRegex?: RegExp
+  }) => {
+    const visibleText = text.slice(0, textIndex)
+
+    const textMatch = coloredTextRegex ? visibleText.match(coloredTextRegex) : false
+    if (textMatch) {
+      const [, before, textToColor, after] = textMatch
+
+      const colored = textToColor.split('').map((letter, index) => (
+        <tspan key={index} fill={jazzColors[index % jazzColors.length]}>
+          {letter}
+        </tspan>
+      ))
+      return (
+        <>
+          {before}
+          {colored}
+          {after}
+        </>
+      )
+    }
+
+    return visibleText
+  }
+
   return (
     <svg viewBox="0 0 600 600" className={styles.svg}>
       <defs>
@@ -34,12 +67,20 @@ const RecordText = () => {
       </defs>
       <text className={`${styles.text} ${finished ? styles.spinningOuter : ''}`}>
         <textPath xlinkHref="#outerCircle" startOffset="0">
-          {outerText.slice(0, outerIndex)}
+          {renderText({
+            text: outerText,
+            textIndex: outerIndex,
+            coloredTextRegex: /(.*?)(Stacey Kent)(.*)/i,
+          })}
         </textPath>
       </text>
       <text className={`${styles.text} ${finished ? styles.spinningInner : ''}`}>
         <textPath xlinkHref="#innerCircle" startOffset="0">
-          {innerText.slice(0, innerIndex)}
+          {renderText({
+            text: innerText,
+            textIndex: innerIndex,
+            coloredTextRegex: /(.*?)(9 avril 2026)(.*)/i,
+          })}
         </textPath>
       </text>
     </svg>
