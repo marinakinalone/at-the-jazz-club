@@ -2,6 +2,7 @@ import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import { useReward } from 'react-rewards'
 import RecordText from '../RecordText'
+import SceneTransition from '../SceneTransition'
 import styles from './Scene.module.css'
 import Caption from '@/components/Caption'
 import { FINAL_SCENE } from '@/constants/scenes'
@@ -24,8 +25,10 @@ const Scene = () => {
   const setCurrentScene = useMainStore((state) => state.setCurrentScene)
   const playGame = useMainStore((state) => state.playGame)
   const playedGames = useMainStore((state) => state.playedGames)
-  const [captionMessage, setCaptionMessage] = useState(getSceneCaption(currentScene))
   const openModal = useModalStore((state) => state.openModal)
+
+  const [showTransition, setShowTransition] = useState(false)
+  const [captionMessage, setCaptionMessage] = useState(getSceneCaption(currentScene))
 
   const { reward } = useReward('rewardFinal', 'balloons', {
     lifetime: 22000,
@@ -54,7 +57,7 @@ const Scene = () => {
   const interactiveAreas =
     scenes.find((scene) => scene.name === currentScene)?.interactiveAreas || []
 
-  const handleAreaClick = ({
+  const handleAreaClick = async ({
     destination,
     openGame,
     effect,
@@ -64,7 +67,10 @@ const Scene = () => {
     effect?: Effect
   }) => {
     if (destination) {
+      setShowTransition(true)
+      await sleep(1000)
       setCurrentScene(destination)
+      setShowTransition(false)
     }
 
     if (openGame) {
@@ -98,6 +104,7 @@ const Scene = () => {
   return (
     <>
       <section className={styles.sceneContainer}>
+        <SceneTransition isVisible={showTransition} />
         {interactiveAreas.map((area: IInteractiveArea, index: number) => (
           <button
             key={index}

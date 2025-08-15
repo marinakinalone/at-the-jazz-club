@@ -14,7 +14,6 @@ export const Modals = {
   SOUND_PERMISSION: 'soundPermissionModal',
   MINIMUM_SCREEN_SIZE: 'minimumScreenSizeModal',
   END_CREDITS: 'endCreditsModal',
-  SCENE_TRANSITION: 'sceneTransitionModal',
 } as const
 
 export type ModalKeys = (typeof Modals)[keyof typeof Modals]
