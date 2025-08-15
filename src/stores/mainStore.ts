@@ -67,7 +67,7 @@ const useMainStore = create<IStoreState>((set) => ({
       return
     }
 
-    const isSupported = !isTooSmall() || isMobileDevice()
+    const isSupported = !isTooSmall() || !isMobileDevice()
     set({ supportedScreenFormat: isSupported })
   },
 }))
