@@ -1,0 +1,11 @@
+.creditsContainer {
+  overflow: hidden;
+  height: 100%;
+  position: relative;
+}
+
+.creditLine {
+  text-align: center;
+  font-size: 1.2rem;
+  margin: 1rem 0;
+}

@@ -1,5 +1,5 @@
 import { GAMES } from '@/types/games'
-import { SCENES } from '@/types/scenes'
+import { EFFECTS, SCENES } from '@/types/scenes'
 
 const {
   CLUB_ENTRANCE_OPENED_FINAL,
@@ -52,6 +52,16 @@ const areas = {
     x: 0.32,
     y: 0.22,
     radius: 220,
+  },
+  recordPlayerBigButton: {
+    x: 0.76,
+    y: 0.71,
+    radius: 55,
+  },
+  recordPlayerSmallButton: {
+    x: 0.68,
+    y: 0.74,
+    radius: 40,
   },
 }
 
@@ -119,6 +129,16 @@ const interactiveAreasInit = {
     surface: areas.exitRecordPlayer,
     navigateTo: LOUNGE_FINAL,
     description: 'Retourner dans le club',
+  },
+  recordPlayerButtonPrimary: {
+    surface: areas.recordPlayerBigButton,
+    description: 'Crédits',
+    effect: EFFECTS.OPEN_MODAL,
+  },
+  recordPlayerButtonSecondary: {
+    surface: areas.recordPlayerSmallButton,
+    description: '62 ballons !',
+    effect: EFFECTS.MORE_BALLOONS,
   },
 }
 

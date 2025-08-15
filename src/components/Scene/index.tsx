@@ -11,7 +11,7 @@ import useMainStore from '@/stores/mainStore'
 import useModalStore from '@/stores/modalStore'
 import { GameName } from '@/types/games'
 import { Modals } from '@/types/modals'
-import { IInteractiveArea, SceneName } from '@/types/scenes'
+import { Effect, EFFECTS, IInteractiveArea, SceneName } from '@/types/scenes'
 import { sleep } from '@/utils/sleep'
 
 const getSceneCaption = (sceneName: SceneName) => {
@@ -27,9 +27,29 @@ const Scene = () => {
   const [captionMessage, setCaptionMessage] = useState(getSceneCaption(currentScene))
   const openModal = useModalStore((state) => state.openModal)
 
-  useEffect(() => {
-    setCaptionMessage(getSceneCaption(currentScene))
-  }, [currentScene])
+  const { reward } = useReward('rewardFinal', 'balloons', {
+    lifetime: 22000,
+    decay: 1,
+    elementCount: 62, // 62 ans 🎉
+    startVelocity: 3,
+    spread: 160,
+    colors: jazzColors,
+  })
+
+  const getEffect = (effect: Effect) => {
+    switch (effect) {
+      case EFFECTS.MORE_BALLOONS: {
+        reward()
+        break
+      }
+      case EFFECTS.OPEN_MODAL: {
+        openModal(Modals.END_CREDITS)
+        break
+      }
+      default:
+        return
+    }
+  }
 
   const interactiveAreas =
     scenes.find((scene) => scene.name === currentScene)?.interactiveAreas || []
@@ -37,9 +57,11 @@ const Scene = () => {
   const handleAreaClick = ({
     destination,
     openGame,
+    effect,
   }: {
     destination?: SceneName
     openGame?: GameName
+    effect?: Effect
   }) => {
     if (destination) {
       setCurrentScene(destination)
@@ -52,16 +74,15 @@ const Scene = () => {
         playGame(openGame)
       }
     }
+
+    if (effect) {
+      getEffect(effect)
+    }
   }
 
-  const { reward } = useReward('rewardFinal', 'balloons', {
-    lifetime: 22000,
-    decay: 1,
-    elementCount: 62, // 62 ans 🎉
-    startVelocity: 3,
-    spread: 160,
-    colors: jazzColors,
-  })
+  useEffect(() => {
+    setCaptionMessage(getSceneCaption(currentScene))
+  }, [currentScene])
 
   useEffect(() => {
     const triggerBalloons = async () => {
@@ -91,7 +112,11 @@ const Scene = () => {
             onMouseEnter={() => setCaptionMessage(area.description)}
             onMouseLeave={() => setCaptionMessage(getSceneCaption(currentScene))}
             onClick={() =>
-              handleAreaClick({ destination: area.navigateTo, openGame: area.openGame })
+              handleAreaClick({
+                destination: area.navigateTo,
+                openGame: area.openGame,
+                effect: area.effect,
+              })
             }
           />
         ))}

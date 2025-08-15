@@ -23,6 +23,8 @@ const {
   boxToOpen,
   playToEnterClub,
   recordPlayer,
+  recordPlayerButtonPrimary,
+  recordPlayerButtonSecondary,
   recordPlayerEmpty,
   recordsOnTheWall,
   stage,
@@ -82,7 +84,7 @@ const scenes: IScene[] = [
     id: 7,
     name: RECORD_PLAYER,
     message: `Bravo, tu as complété l'aventure du club de jazz et découvert le message "secret" !`,
-    interactiveAreas: [backToLounge],
+    interactiveAreas: [backToLounge, recordPlayerButtonSecondary, recordPlayerButtonPrimary],
   },
 ]
 

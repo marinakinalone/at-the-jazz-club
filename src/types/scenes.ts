@@ -13,6 +13,13 @@ export enum SCENES {
 
 export type SceneName = SCENES
 
+export enum EFFECTS {
+  OPEN_MODAL = 'openModal',
+  MORE_BALLOONS = 'moreBalloons',
+}
+
+export type Effect = EFFECTS
+
 interface ISurface {
   x: number
   y: number
@@ -26,6 +33,7 @@ export interface IInteractiveArea {
   description: string
   navigateTo?: SceneName
   openGame?: GameName
+  effect: Effect
 }
 
 export interface IScene {

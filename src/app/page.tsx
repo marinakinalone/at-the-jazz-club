@@ -6,6 +6,7 @@ import Scene from '@/components/Scene'
 import { CURRENT_SCENE, IS_IN_THE_CLUB } from '@/constants/scenes'
 import scenes from '@/data/scenes'
 import Game from '@/games'
+import CreditsModal from '@/modals/Credits'
 import IntroModal from '@/modals/Intro'
 import MinimumScreenSize from '@/modals/MinimumScreenSize'
 import ReplayGameModal from '@/modals/ReplayGame'
@@ -47,6 +48,8 @@ export default function Home() {
   const minimumScreenSizeModalVisible = useModalStore(
     (state) => state.minimumScreenSizeModal.isVisible,
   )
+  const endCreditsModalVisible = useModalStore((state) => state.endCreditsModal.isVisible)
+
   const openModal = useModalStore((state) => state.openModal)
   const closeModal = useModalStore((state) => state.closeModal)
 
@@ -180,6 +183,7 @@ export default function Home() {
       {currentGame && <Game gameName={currentGame} />}
       {restartAdventureModalVisible && <RestartAdventureModal />}
       {replayGameModalVisible && <ReplayGameModal />}
+      {endCreditsModalVisible && <CreditsModal />}
       {minimumScreenSizeModalVisible && <MinimumScreenSize />}
       <Footer />
     </main>
