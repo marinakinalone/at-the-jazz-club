@@ -7,6 +7,7 @@ import { CURRENT_SCENE, IS_IN_THE_CLUB } from '@/constants/scenes'
 import scenes from '@/data/scenes'
 import Game from '@/games'
 import IntroModal from '@/modals/Intro'
+import MinimumScreenSize from '@/modals/MinimumScreenSize'
 import ReplayGameModal from '@/modals/ReplayGame'
 import RestartAdventureModal from '@/modals/RestartAdventure'
 import SoundPermissionModal from '@/modals/SoundPermission'
@@ -21,6 +22,7 @@ import { fetchFirebaseSoundUrls } from '@/utils/firebase'
 export default function Home() {
   const [isHydrated, setIsHydrated] = useState(false)
   const [finalMusicUnlocked, setFinalMusicUnlocked] = useState(false)
+  const [soundPermissionRequested, setSoundPermissionRequested] = useState(false)
   const lastMusicRef = useRef<string | null>(null)
 
   const hasEnteredTheClub = useMainStore((state) => state.isInTheClub)
@@ -29,6 +31,8 @@ export default function Home() {
   const setCurrentScene = useMainStore((state) => state.setCurrentScene)
   const setPlayedGames = useMainStore((state) => state.setPlayedGames)
   const currentScene = useMainStore((state) => state.currentScene)
+  const setSupportedScreenFormat = useMainStore((state) => state.setSupportedScreenFormat)
+  const supportedScreenFormat = useMainStore((state) => state.supportedScreenFormat)
 
   const loadSounds = useSoundStore((state) => state.loadSounds)
   const playSound = useSoundStore((state) => state.playSound)
@@ -40,7 +44,41 @@ export default function Home() {
   )
   const replayGameModalVisible = useModalStore((state) => state.replayGameModal.isVisible)
   const soundPermissionModalVisible = useModalStore((state) => state.soundPermissionModal.isVisible)
+    const minimumScreenSizeModalVisible = useModalStore((state) => state.minimumScreenSizeModal.isVisible)
   const openModal = useModalStore((state) => state.openModal)
+    const closeModal = useModalStore((state) => state.closeModal)
+
+  useEffect(() => {
+    const handleResize = () => {
+      setSupportedScreenFormat()
+    }
+    
+    // Check initial screen size
+    setSupportedScreenFormat()
+    
+    window.addEventListener('resize', handleResize)
+
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  useEffect(() => {
+    if (supportedScreenFormat === false) {
+      openModal(Modals.MINIMUM_SCREEN_SIZE)
+    } else if (supportedScreenFormat === true && minimumScreenSizeModalVisible) {
+      closeModal(Modals.MINIMUM_SCREEN_SIZE, 0)
+    }
+  }, [supportedScreenFormat, openModal, closeModal, minimumScreenSizeModalVisible])
+
+  useEffect(() => {
+    // Only open sound permission modal when screen is supported, app is hydrated, and it hasn't been requested yet
+    if (supportedScreenFormat === true && isHydrated && !soundPermissionRequested && !minimumScreenSizeModalVisible) {
+      openModal(Modals.SOUND_PERMISSION)
+      setSoundPermissionRequested(true)
+    }
+  }, [supportedScreenFormat, isHydrated, soundPermissionRequested, minimumScreenSizeModalVisible, openModal, setSoundPermissionRequested])
 
   useEffect(() => {
     const loadAllSounds = async () => {
@@ -70,8 +108,7 @@ export default function Home() {
     This prevents rendering the component before client-side data is available,
     avoiding potential mismatches between server-rendered and client-rendered HTML. */
     setIsHydrated(true)
-    openModal(Modals.SOUND_PERMISSION)
-  }, [setHasEnteredTheClub, setCurrentScene, setPlayedGames, openModal])
+  }, [setHasEnteredTheClub, setCurrentScene, setPlayedGames, openModal, supportedScreenFormat])
 
   useEffect(() => {
     if (!isHydrated || soundPermissionModalVisible || !isLoaded) return
@@ -110,7 +147,7 @@ export default function Home() {
     finalMusicUnlocked,
     stopSound,
     currentGame,
-    isLoaded,
+    isLoaded
   ])
 
   if (!isHydrated) {
@@ -119,7 +156,7 @@ export default function Home() {
 
   return (
     <main className={styles.main}>
-      {soundPermissionModalVisible ? (
+      {soundPermissionModalVisible && !minimumScreenSizeModalVisible ? (
         <SoundPermissionModal />
       ) : hasEnteredTheClub ? (
         <Scene />
@@ -129,6 +166,7 @@ export default function Home() {
       {currentGame && <Game gameName={currentGame} />}
       {restartAdventureModalVisible && <RestartAdventureModal />}
       {replayGameModalVisible && <ReplayGameModal />}
+      {minimumScreenSizeModalVisible && <MinimumScreenSize/>}
       <Footer />
     </main>
   )

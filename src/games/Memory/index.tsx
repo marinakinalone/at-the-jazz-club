@@ -55,7 +55,7 @@ const MemoryGame = ({ handleWin }: { handleWin: () => void }) => {
     playSound(`memory_${soundIndex}`)
   }
 
-  const { reward } = useReward('rewardId', 'confetti', {
+  const { reward } = useReward('rewardMemory', 'confetti', {
     decay: 0.98,
     elementCount: 500,
     startVelocity: 30,
@@ -147,7 +147,7 @@ const MemoryGame = ({ handleWin }: { handleWin: () => void }) => {
           )
         })}
       </div>
-      <div className={styles.rewardContainer} id="rewardId" />
+      <div className={styles.rewardContainer} id="rewardMemory" />
     </>
   )
 }

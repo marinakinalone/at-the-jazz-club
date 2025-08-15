@@ -3,6 +3,7 @@ import { CURRENT_SCENE, IS_IN_THE_CLUB } from '@/constants/scenes'
 import scenes from '@/data/scenes'
 import { GameName, GAMES } from '@/types/games'
 import { SceneName } from '@/types/scenes'
+import { isMobileDevice, isTooSmall } from '@/utils/screenSpecs'
 
 const { RIGHT_SEQUENCE, MEMORY } = GAMES
 
@@ -13,11 +14,13 @@ interface IStoreState {
   playedGames: {
     [key in GameName]: boolean
   }
+  supportedScreenFormat: boolean | undefined
 
   setCurrentScene: (sceneName: SceneName) => void
   setHasEnteredTheClub: (value: boolean) => void
   playGame: (gameName: GameName | false) => void
   setPlayedGames: (gameName: GameName, value?: boolean) => void
+  setSupportedScreenFormat: () => void
 }
 
 const useMainStore = create<IStoreState>((set) => ({
@@ -28,6 +31,7 @@ const useMainStore = create<IStoreState>((set) => ({
     [RIGHT_SEQUENCE]: false,
     [MEMORY]: false,
   },
+  supportedScreenFormat: true,
 
   setCurrentScene: (sceneName) => {
     if (typeof window !== 'undefined') {
@@ -56,6 +60,15 @@ const useMainStore = create<IStoreState>((set) => ({
         [gameName]: value,
       },
     }))
+  },
+  setSupportedScreenFormat: () => {
+    if (typeof window === 'undefined' || typeof navigator === 'undefined') {
+      set({ supportedScreenFormat: undefined })
+      return
+    }
+
+    const isSupported = !isTooSmall() || isMobileDevice()
+    set({ supportedScreenFormat: isSupported })
   },
 }))
 

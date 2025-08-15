@@ -22,7 +22,7 @@ const useModalStore = create<ModalStoreState>((set) => ({
   replayGameModal: { ...defaultModalState },
   soundPermissionModal: { ...defaultModalState },
   endCreditsModal: { ...defaultModalState }, // TODO implement
-  minimumScreenSizeModal: { ...defaultModalState }, // TODO implement
+  minimumScreenSizeModal: { ...defaultModalState },
   sceneTransitionModal: { ...defaultModalState }, // TODO implement
 
   openModal: (modalKey, game) => {

@@ -12,6 +12,9 @@ export const Modals = {
   CREDITS: 'creditsModal',
   REPLAY_GAME: 'replayGameModal',
   SOUND_PERMISSION: 'soundPermissionModal',
+  MINIMUM_SCREEN_SIZE: 'minimumScreenSizeModal',
+  END_CREDITS: 'endCreditsModal',
+  SCENE_TRANSITION: 'sceneTransitionModal'
 } as const
 
 export type ModalKeys = (typeof Modals)[keyof typeof Modals]

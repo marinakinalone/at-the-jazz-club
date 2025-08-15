@@ -5,6 +5,7 @@ import RecordText from '../RecordText'
 import styles from './Scene.module.css'
 import Caption from '@/components/Caption'
 import { FINAL_SCENE } from '@/constants/scenes'
+import jazzColors from '@/data/jazzColors'
 import scenes from '@/data/scenes'
 import useMainStore from '@/stores/mainStore'
 import useModalStore from '@/stores/modalStore'
@@ -12,7 +13,6 @@ import { GameName } from '@/types/games'
 import { Modals } from '@/types/modals'
 import { IInteractiveArea, SceneName } from '@/types/scenes'
 import { sleep } from '@/utils/sleep'
-import jazzColors from '@/data/jazzColors'
 
 const getSceneCaption = (sceneName: SceneName) => {
   const scene = scenes.find((scene) => scene.name === sceneName)
@@ -54,7 +54,7 @@ const Scene = () => {
     }
   }
 
-  const { reward } = useReward('rewardMemory', 'balloons', {
+  const { reward } = useReward('rewardFinal', 'balloons', {
     lifetime: 22000,
     decay: 1,
     elementCount: 62, // 62 ans 🎉
@@ -109,7 +109,7 @@ const Scene = () => {
       <section className={styles.captionContainer}>
         <Caption message={captionMessage} />
       </section>
-      <div id="rewardMemory" />
+      <div id="rewardFinal" />
     </>
   )
 }
