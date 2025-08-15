@@ -44,24 +44,26 @@ export default function Home() {
   )
   const replayGameModalVisible = useModalStore((state) => state.replayGameModal.isVisible)
   const soundPermissionModalVisible = useModalStore((state) => state.soundPermissionModal.isVisible)
-    const minimumScreenSizeModalVisible = useModalStore((state) => state.minimumScreenSizeModal.isVisible)
+  const minimumScreenSizeModalVisible = useModalStore(
+    (state) => state.minimumScreenSizeModal.isVisible,
+  )
   const openModal = useModalStore((state) => state.openModal)
-    const closeModal = useModalStore((state) => state.closeModal)
+  const closeModal = useModalStore((state) => state.closeModal)
 
   useEffect(() => {
     const handleResize = () => {
       setSupportedScreenFormat()
     }
-    
+
     // Check initial screen size
     setSupportedScreenFormat()
-    
+
     window.addEventListener('resize', handleResize)
 
     return () => {
       window.removeEventListener('resize', handleResize)
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
@@ -74,11 +76,23 @@ export default function Home() {
 
   useEffect(() => {
     // Only open sound permission modal when screen is supported, app is hydrated, and it hasn't been requested yet
-    if (supportedScreenFormat === true && isHydrated && !soundPermissionRequested && !minimumScreenSizeModalVisible) {
+    if (
+      supportedScreenFormat === true &&
+      isHydrated &&
+      !soundPermissionRequested &&
+      !minimumScreenSizeModalVisible
+    ) {
       openModal(Modals.SOUND_PERMISSION)
       setSoundPermissionRequested(true)
     }
-  }, [supportedScreenFormat, isHydrated, soundPermissionRequested, minimumScreenSizeModalVisible, openModal, setSoundPermissionRequested])
+  }, [
+    supportedScreenFormat,
+    isHydrated,
+    soundPermissionRequested,
+    minimumScreenSizeModalVisible,
+    openModal,
+    setSoundPermissionRequested,
+  ])
 
   useEffect(() => {
     const loadAllSounds = async () => {
@@ -147,7 +161,7 @@ export default function Home() {
     finalMusicUnlocked,
     stopSound,
     currentGame,
-    isLoaded
+    isLoaded,
   ])
 
   if (!isHydrated) {
@@ -166,7 +180,7 @@ export default function Home() {
       {currentGame && <Game gameName={currentGame} />}
       {restartAdventureModalVisible && <RestartAdventureModal />}
       {replayGameModalVisible && <ReplayGameModal />}
-      {minimumScreenSizeModalVisible && <MinimumScreenSize/>}
+      {minimumScreenSizeModalVisible && <MinimumScreenSize />}
       <Footer />
     </main>
   )

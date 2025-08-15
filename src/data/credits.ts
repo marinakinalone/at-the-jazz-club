@@ -1,0 +1,16 @@
+export const credits = [
+  'Mei Mei The Bunny - Instrumental',
+  'Stacey Kent - Bewitched, Bothered and Bewildered',
+  'Stacey Kent - Bonita',
+  'Stacey Kent - Easy to remember',
+  'Stacey Kent - If I had you',
+  "Stacey Kent - I've got a crush on you",
+  'Stacey Kent - Mais uma vez',
+  'Stacey Kent - More than you know',
+  'Stacey Kent - Never let me go',
+  'Stacey Kent - Ooh-shoo-be-doo-bee',
+  'Stacey Kent - Polka dots & moonbeams',
+  'Stacey Kent - Thou swell',
+  'Stacey Kent - Under a blanket of blue',
+  'Stacey Kent - Zing! Went the strings of my heart',
+]
