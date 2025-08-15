@@ -33,7 +33,7 @@ export interface IInteractiveArea {
   description: string
   navigateTo?: SceneName
   openGame?: GameName
-  effect: Effect
+  effect?: Effect
 }
 
 export interface IScene {
