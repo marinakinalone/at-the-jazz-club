@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 import styles from './page.module.css'
 import Footer from '@/components/Footer'
 import Scene from '@/components/Scene'
+import { BACKGROUND_MUSIC } from '@/constants/music'
 import { CURRENT_SCENE, IS_IN_THE_CLUB } from '@/constants/scenes'
 import scenes from '@/data/scenes'
 import Game from '@/games'
@@ -141,11 +142,11 @@ export default function Home() {
 
     if (currentScene === SCENES.RECORD_PLAYER && !finalMusicUnlocked) {
       setFinalMusicUnlocked(true)
-      backgroundMusic = 'global_final'
+      backgroundMusic = BACKGROUND_MUSIC.final
     } else if (finalMusicUnlocked) {
-      backgroundMusic = 'global_final'
+      backgroundMusic = BACKGROUND_MUSIC.final
     } else {
-      backgroundMusic = 'global_background'
+      backgroundMusic = BACKGROUND_MUSIC.regular
     }
 
     if (lastMusicRef.current && lastMusicRef.current !== backgroundMusic) {

@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { ALL_SOUNDS } from '@/constants/music'
-import { BACKGROUND_MUSIC_KEYS } from '@/constants/scenes'
+import { BACKGROUND_MUSIC_KEYS } from '@/constants/music'
 import { SoundsUrlSchema } from '@/data/sounds'
 import { fadeVolume } from '@/utils/fadeVolume'
 
@@ -39,7 +39,7 @@ const useSoundStore = create<SoundState>((set, get) => ({
         const audio = new Audio()
         audio.src = url
         audio.preload = 'auto'
-        if (key === 'global_background' || key === 'global_final') {
+        if (BACKGROUND_MUSIC_KEYS.includes(key)) {
           audio.loop = true
         }
 
@@ -85,7 +85,7 @@ const useSoundStore = create<SoundState>((set, get) => ({
       if (isBackgroundMusic) {
         fadeVolume(sound, 0, 1, 2000)
       }
-      if (soundKey === 'global_background' || soundKey === 'global_final') {
+      if (BACKGROUND_MUSIC_KEYS.includes(soundKey)) {
         set({ currentlyPlaying: { soundKey, timeWhenStopped: 0 } })
       }
     }

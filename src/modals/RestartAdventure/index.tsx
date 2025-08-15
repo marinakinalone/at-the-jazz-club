@@ -1,6 +1,6 @@
 import React from 'react'
 import ConfirmationModal from '../shared/ConfirmationModal'
-import { ALL_SOUNDS } from '@/constants/music'
+import { ALL_SOUNDS, BACKGROUND_MUSIC } from '@/constants/music'
 import scenes from '@/data/scenes'
 import useMainStore from '@/stores/mainStore'
 import useModalStore from '@/stores/modalStore'
@@ -34,7 +34,7 @@ const RestartAdventure = () => {
     setPlayedGames(RIGHT_SEQUENCE, false)
     setPlayedGames(MEMORY, false)
 
-    playSound('global_background')
+    playSound(BACKGROUND_MUSIC.regular)
   }
 
   return (
