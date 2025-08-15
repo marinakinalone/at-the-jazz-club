@@ -1,18 +1,14 @@
 import React from 'react'
+import styles from './MinimumScreenSize.module.css'
 import Message from '@/components/Message'
-import ModalContainer from '@/components/ModalContainer'
 import SubHeader from '@/components/SubHeader'
-import { AnimationDuration, AnimationName } from '@/types/modals'
 
 const MinimumScreenSize = () => {
   return (
-    <ModalContainer
-      animationDuration={AnimationDuration.IMMEDIATE}
-      animationName={AnimationName.PUFF_IN}
-    >
-      <SubHeader title="taille ou format d'écran non pris en charge" />
-      <Message content="description" />
-    </ModalContainer>
+    <div className={styles.modalContainer}>
+      <SubHeader title="format d'écran non pris en charge" />
+      <Message content="Ouvrez Le Club de Jazz sur un écran plus grand (tablette ou ordinateur - 820 x 760)" />
+    </div>
   )
 }
 
