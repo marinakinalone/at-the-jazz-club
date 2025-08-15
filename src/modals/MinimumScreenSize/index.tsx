@@ -7,7 +7,7 @@ const MinimumScreenSize = () => {
   return (
     <div className={styles.modalContainer}>
       <SubHeader title="format d'écran non pris en charge" />
-      <Message content="Ouvrez Le Club de Jazz sur un écran plus grand (tablette ou ordinateur - 820 x 760)" />
+      <Message content="Ouvre Le Club de Jazz sur un écran plus grand (tablette ou ordinateur - 820 x 760)" />
     </div>
   )
 }

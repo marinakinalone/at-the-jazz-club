@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-const Caption = ({ message }: { message: string }) => {
+const Caption = ({ message, interval = 25 }: { message: string; interval?: number }) => {
   const [currentPosition, setCurrentPosition] = useState(0)
   const items = message.split('')
 
@@ -13,19 +13,19 @@ const Caption = ({ message }: { message: string }) => {
 
     const intervalId = setInterval(() => {
       setCurrentPosition((prevPosition) => prevPosition + 1)
-    }, 25)
+    }, interval)
 
     return () => {
       clearInterval(intervalId)
     }
-  }, [currentPosition, items])
+  }, [currentPosition, interval, items])
 
   const animatedMessage = items.slice(0, currentPosition).join('')
 
   return (
-    <div>
+    <>
       <p>{animatedMessage}</p>
-    </div>
+    </>
   )
 }
 

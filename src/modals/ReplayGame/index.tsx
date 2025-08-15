@@ -22,9 +22,7 @@ const ReplayGame = () => {
   return (
     <ConfirmationModal
       title={'Une nouvelle partie ?'}
-      message={
-        'Vous avez déjà joué à ce jeu. Êtes-vous sûr.e de vouloir recommencer une nouvelle partie ?'
-      }
+      message={'Tu as déjà joué à ce jeu. Es-tu sûr.e de vouloir recommencer une nouvelle partie ?'}
       primaryButtonLabel={'Rejouer'}
       handlePrimaryButtonClick={handleReplay}
       secondaryButtonLabel={'Revenir au club'}

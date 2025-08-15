@@ -39,7 +39,7 @@ const RestartAdventure = () => {
 
   return (
     <ConfirmationModal
-      title="Voulez-vous vraiment redémarrer l'aventure ?"
+      title="Veux-tu vraiment redémarrer l'aventure ?"
       message="Attention: cette action est irréversible et tous les progrès accomplis jusqu'ici seront supprimés."
       secondaryButtonLabel="Redémarrer"
       primaryButtonLabel="Annuler"

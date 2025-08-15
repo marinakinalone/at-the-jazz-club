@@ -18,9 +18,9 @@ const SoundPermission = () => {
 
   return (
     <ConfirmationModal
-      title={'Voulez-vous activer le son ?'}
+      title={'Souhaites-tu activer le son ?'}
       message={
-        'Vous pouvez activer ou désactiver le son à tout moment en bas de la page. Pour une expérience optimale, nous vous recommandons de l’activer.'
+        'Tu peux activer ou désactiver le son à tout moment en bas de la page. Pour une expérience optimale, nous te recommandons de l’activer.'
       }
       primaryButtonLabel={'Oui'}
       handlePrimaryButtonClick={handleAllowSound}

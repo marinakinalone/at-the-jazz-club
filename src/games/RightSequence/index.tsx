@@ -3,7 +3,9 @@ import Image from 'next/image'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useReward } from 'react-rewards'
 import styles from './RightSequence.module.css'
+import Caption from '@/components/Caption'
 import jazzColors from '@/data/jazzColors'
+import useMainStore from '@/stores/mainStore'
 import useSoundStore from '@/stores/soundStore'
 import { sleep } from '@/utils/sleep'
 
@@ -12,10 +14,17 @@ const winningSequence = [7, 4, 2, 4, 5, 8, 9, 8, 4, 1, 0, 1, 7, 4, 2, 4, 5, 8, 6
 const RightSequenceGame = ({ handleWin }: { handleWin: () => void }) => {
   const [currentInput, setCurrentInput] = useState<number[]>([])
   const [allCorrect, setAllCorrect] = useState<boolean>(false)
+  const [displayWinningMessage, setDisplayWinningMessage] = useState<boolean>(false)
   const abortControllerRef = useRef<AbortController | null>(null)
+
+  const hasAlreadyPlayed = useMainStore((state) => state.playedGames.RIGHT_SEQUENCE)
 
   const playSound = useSoundStore((state) => state.playSound)
   const stopSound = useSoundStore((state) => state.stopSound)
+
+  const winningMessage = hasAlreadyPlayed
+    ? '✨ 🎺 🎷 ✨ '
+    : "✨ 🎺 Tu vas pouvoir entrer dans le club de jazz. Une surprise t'attend à l'intérieur ! Sauras-tu résoudre la prochaine énigme ? 🎷 ✨"
 
   const { reward } = useReward('rewardRightSequence', 'confetti', {
     lifetime: 22000,
@@ -58,11 +67,14 @@ const RightSequenceGame = ({ handleWin }: { handleWin: () => void }) => {
         reward()
         playSound('rightSequence_dreamer')
         setAllCorrect(true)
+        await sleep(2000, signal)
+        setDisplayWinningMessage(true)
 
-        await sleep(22000, signal)
+        await sleep(20000, signal)
 
         if (!signal.aborted) {
           handleWin()
+          setDisplayWinningMessage(false)
         }
       } catch {
         stopSound('rightSequence_dreamer')
@@ -101,6 +113,12 @@ const RightSequenceGame = ({ handleWin }: { handleWin: () => void }) => {
         </AnimatePresence>
       </div>
       <div className={styles.rewardContainer} id="rewardRightSequence" />
+      {displayWinningMessage && (
+        <div className={styles.winMessageContainer}>
+          <h1>Félicitations !</h1>
+          <Caption message={winningMessage} interval={75} />
+        </div>
+      )}
       <motion.div
         className={styles.buttonContainer}
         initial={{ opacity: 1 }}
@@ -123,7 +141,6 @@ const RightSequenceGame = ({ handleWin }: { handleWin: () => void }) => {
             />
           </motion.button>
         ))}
-        {/* <button onClick={handleWin}>click to unlock scene RightSequenceGame</button> */}
       </motion.div>
     </>
   )

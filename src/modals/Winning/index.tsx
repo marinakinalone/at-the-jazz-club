@@ -19,7 +19,7 @@ const Winning = ({ handleClose }: { handleClose: () => void }) => {
 
   const message = hasAlreadyPlayedGame
     ? 'Encore une partie de gagnée !'
-    : 'Vous avez débloqué une nouvelle scène, bravo !'
+    : 'Tu as débloqué une nouvelle scène, bravo !'
 
   return (
     <ModalContainer
