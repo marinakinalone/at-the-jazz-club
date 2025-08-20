@@ -9,7 +9,8 @@ import useMainStore from '@/stores/mainStore'
 import useSoundStore from '@/stores/soundStore'
 import { sleep } from '@/utils/sleep'
 
-const winningSequence = [7, 4, 2, 4, 5, 8, 9, 8, 4, 1, 0, 1, 7, 4, 2, 4, 5, 8, 6, 4, 1, 0, 1, 3]
+const winningSequence = [7, 4, 2, 4, 5, 8, 9, 8, 4, 1, 0, 1]
+const pianoKeys = [0, 1, 2, 4, 5, 7, 8, 9]
 
 const RightSequenceGame = ({ handleWin }: { handleWin: () => void }) => {
   const [currentInput, setCurrentInput] = useState<number[]>([])
@@ -46,18 +47,18 @@ const RightSequenceGame = ({ handleWin }: { handleWin: () => void }) => {
     return cleanup // Cleanup on unmount
   }, [cleanup])
 
-  const handleButtonClick = async (index: number) => {
+  const handleButtonClick = async (key: number) => {
     // wrong input case
-    if (index !== winningSequence[currentInput.length]) {
+    if (key !== winningSequence[currentInput.length]) {
       setCurrentInput([])
       return
     }
 
-    playSound(`rightSequence_note_${index}`)
+    playSound(`rightSequence_note_${key}`)
 
     // win case
     if (currentInput.length === winningSequence.length - 1) {
-      setCurrentInput((prev) => [...prev, index])
+      setCurrentInput((prev) => [...prev, key])
       await sleep(500)
 
       abortControllerRef.current = new AbortController()
@@ -81,7 +82,7 @@ const RightSequenceGame = ({ handleWin }: { handleWin: () => void }) => {
       }
       return
     }
-    setCurrentInput((prev) => [...prev, index])
+    setCurrentInput((prev) => [...prev, key])
   }
 
   return (
@@ -124,17 +125,17 @@ const RightSequenceGame = ({ handleWin }: { handleWin: () => void }) => {
         initial={{ opacity: 1 }}
         animate={{ opacity: allCorrect ? 0 : 1, transition: { duration: 2, ease: 'easeIn' } }}
       >
-        {Array.from({ length: 10 }).map((_, index) => (
+        {pianoKeys.map((key, index) => (
           <motion.button
             key={index}
             className={styles.musicNoteButton}
-            onClick={() => handleButtonClick(index)}
+            onClick={() => handleButtonClick(key)}
             whileHover={{ scale: 1.1, rotate: 5 }}
             whileTap={{ scale: 0.9, rotate: -5 }}
             transition={{ type: 'spring', stiffness: 300, damping: 15 }}
           >
             <Image
-              src={`/games/rightSequence/musicNote_${index}.png`}
+              src={`/games/rightSequence/musicNote_${key}.png`}
               alt={`Button ${index}`}
               width={100}
               height={100}

@@ -3,7 +3,7 @@ import { CURRENT_SCENE, IS_IN_THE_CLUB } from '@/constants/scenes'
 import scenes from '@/data/scenes'
 import { GameName, GAMES } from '@/types/games'
 import { SceneName } from '@/types/scenes'
-import { isMobileDevice, isTooSmall } from '@/utils/screenSpecs'
+import { isMobileOrTabletDevice, isTooSmall } from '@/utils/screenSpecs'
 
 const { RIGHT_SEQUENCE, MEMORY } = GAMES
 
@@ -67,7 +67,7 @@ const useMainStore = create<IStoreState>((set) => ({
       return
     }
 
-    const isSupported = !isTooSmall() || !isMobileDevice()
+    const isSupported = !isTooSmall() || !isMobileOrTabletDevice()
     set({ supportedScreenFormat: isSupported })
   },
 }))

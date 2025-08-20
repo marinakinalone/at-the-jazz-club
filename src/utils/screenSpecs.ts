@@ -4,9 +4,9 @@ const createParser = () => {
   return new UAParser(navigator.userAgent)
 }
 
-export const isMobileDevice = () => {
+export const isMobileOrTabletDevice = () => {
   const parser = createParser()
-  return parser.getDevice().type === 'mobile'
+  return parser.getDevice().type === 'mobile' || parser.getDevice().type === 'tablet'
 }
 
 export const isTooSmall = () => {
